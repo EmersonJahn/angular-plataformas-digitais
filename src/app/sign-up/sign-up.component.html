@@ -1,1 +1,21 @@
-<p>sign-up works!</p>
+
+<h1 class="mb-0" mat-dialog-title>Login</h1>
+
+<div mat-dialog-content>
+
+    <label class="mt-1">E-mail:</label>
+    <input type="text" [(ngModel)]="email">
+
+    <label class="mt-1">Senha:</label>
+    <input type="text" [(ngModel)]="password">
+    <small class="text-primary" (click)="openForgotPasswordDialog()">Esqueceu sua senha?</small>
+
+</div>
+
+<div class="mt-2" mat-dialog-actions>
+    <button class="btn btn-danger mr-2" mat-button (click)="cancel()">Cancelar</button> <!-- //TODO usar um "X" ???-->
+    <button class="btn btn-primary" mat-button (click)="login()" cdkFocusInitial>Salvar</button>
+    <!-- <button class="btn btn-primary" mat-button [mat-dialog-close]="data" cdkFocusInitial>Salvar</button> -->
+</div>
+
+<small>Não possui conta?</small> <small class="text-primary ml-1">Registre-se</small>
