@@ -18,6 +18,7 @@ import { ApprovalAnswersComponent } from './problems/approval-answers/approval-a
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectRegistrationComponent } from './projects/project-registration/project-registration.component';
 import { ProjectVisualizationComponent } from './projects/project-visualization/project-visualization.component';
+import { ApprovalProjectMembersComponent } from './projects/approval-project-members/approval-project-members.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ProjectVisualizationComponent } from './projects/project-visualization/
     ProjectsComponent,
     ProjectRegistrationComponent,
     ProjectVisualizationComponent,
+    ApprovalProjectMembersComponent,
   ],
   imports: [
     BrowserModule,
