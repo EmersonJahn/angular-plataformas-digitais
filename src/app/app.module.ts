@@ -8,26 +8,26 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { DialogLoginComponent } from './dialogs/dialog-login/dialog-login.component';
-import { ForgotPasswordComponent } from './dialogs/forgot-password/forgot-password.component';
-import { ProblemRegistrationComponent } from './problem-registration/problem-registration.component';
-import { ProjectRegistrationComponent } from './project-registration/project-registration.component';
 import { DialogForgotPasswordComponent } from './dialogs/dialog-forgot-password/dialog-forgot-password.component';
-import { ProblemVisualizationComponent } from './problem-visualization/problem-visualization.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { ProblemsComponent } from './problems/problems.component';
+import { ProblemVisualizationComponent } from './problems/problem-visualization/problem-visualization.component';
+import { ProblemRegistrationComponent } from './problems/problem-registration/problem-registration.component';
+import { ProjectRegistrationComponent } from './project-registration/project-registration.component';
 import { ProjectVisualizationComponent } from './project-visualization/project-visualization.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignUpComponent,
     DialogLoginComponent,
-    ForgotPasswordComponent,
-    ProblemRegistrationComponent,
-    ProjectRegistrationComponent,
     DialogForgotPasswordComponent,
+    SignUpComponent,
+    ProblemsComponent,
+    ProblemRegistrationComponent,
     ProblemVisualizationComponent,
-    ProjectVisualizationComponent
+    ProjectRegistrationComponent,
+    ProjectVisualizationComponent,
   ],
   imports: [
     BrowserModule,
