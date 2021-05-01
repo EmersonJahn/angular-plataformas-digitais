@@ -14,6 +14,8 @@ import { ForgotPasswordComponent } from './dialogs/forgot-password/forgot-passwo
 import { ProblemRegistrationComponent } from './problem-registration/problem-registration.component';
 import { ProjectRegistrationComponent } from './project-registration/project-registration.component';
 import { DialogForgotPasswordComponent } from './dialogs/dialog-forgot-password/dialog-forgot-password.component';
+import { ProblemVisualizationComponent } from './problem-visualization/problem-visualization.component';
+import { ProjectVisualizationComponent } from './project-visualization/project-visualization.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { DialogForgotPasswordComponent } from './dialogs/dialog-forgot-password/
     ForgotPasswordComponent,
     ProblemRegistrationComponent,
     ProjectRegistrationComponent,
-    DialogForgotPasswordComponent
+    DialogForgotPasswordComponent,
+    ProblemVisualizationComponent,
+    ProjectVisualizationComponent
   ],
   imports: [
     BrowserModule,

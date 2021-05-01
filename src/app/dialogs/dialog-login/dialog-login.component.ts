@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Component({
   selector: 'app-dialog-login',
   templateUrl: './dialog-login.component.html',
