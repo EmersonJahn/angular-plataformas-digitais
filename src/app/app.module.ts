@@ -14,8 +14,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ProblemsComponent } from './problems/problems.component';
 import { ProblemVisualizationComponent } from './problems/problem-visualization/problem-visualization.component';
 import { ProblemRegistrationComponent } from './problems/problem-registration/problem-registration.component';
-import { ProjectRegistrationComponent } from './project-registration/project-registration.component';
-import { ProjectVisualizationComponent } from './project-visualization/project-visualization.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectRegistrationComponent } from './projects/project-registration/project-registration.component';
+import { ProjectVisualizationComponent } from './projects/project-visualization/project-visualization.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ProjectVisualizationComponent } from './project-visualization/project-v
     ProblemsComponent,
     ProblemRegistrationComponent,
     ProblemVisualizationComponent,
+    ProjectsComponent,
     ProjectRegistrationComponent,
     ProjectVisualizationComponent,
   ],
