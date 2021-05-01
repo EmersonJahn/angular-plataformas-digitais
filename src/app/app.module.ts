@@ -10,12 +10,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { DialogLoginComponent } from './dialogs/dialog-login/dialog-login.component';
+import { ForgotPasswordComponent } from './dialogs/forgot-password/forgot-password.component';
+import { ProblemRegistrationComponent } from './problem-registration/problem-registration.component';
+import { ProjectRegistrationComponent } from './project-registration/project-registration.component';
+import { DialogForgotPasswordComponent } from './dialogs/dialog-forgot-password/dialog-forgot-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
-    DialogLoginComponent
+    DialogLoginComponent,
+    ForgotPasswordComponent,
+    ProblemRegistrationComponent,
+    ProjectRegistrationComponent,
+    DialogForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
