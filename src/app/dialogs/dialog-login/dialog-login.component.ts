@@ -12,22 +12,27 @@ export class DialogLoginComponent implements OnInit {
   email    = "";
   password = "";
 
-  constructor(public dialogRef: MatDialogRef<DialogLoginComponent>, private toastr: ToastrService) { }
+  constructor(private dialogRef: MatDialogRef<DialogLoginComponent>, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
-    public openForgotPasswordDialog() {
+  public openForgotPasswordDialog() {
     // TODO abrir dialog esqueceu senha
     this.dialogRef.close();
   }
 
   public login() {
     if (this.email == "eajahn@ucs.br" && this.password == "senha") { // TODO mudar para validar no banco de dados
+      localStorage.setItem("userId", "1")
+      localStorage.setItem("profilePhoto", "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png")
+      this.toastr.success("Login realizado com sucesso");
       this.dialogRef.close();
+      return true;
     } else {
-      this.toastr.error("E-mail ou senha inválido.");
-          }
+        this.toastr.error("E-mail ou senha inválido.");
+        return false;
+    }
   }
 
   public cancel() {

@@ -3,8 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 import { ToastrModule } from 'ngx-toastr';
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,9 +46,13 @@ import { ApprovalProjectMembersComponent } from './projects/approval-project-mem
     MatDialogModule,
     ToastrModule.forRoot({
       timeOut: 5000,
-      positionClass: 'toast-center-center',
+      positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
+    ShowHidePasswordModule,
+    FormsModule,
+    MatIconModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
