@@ -6,6 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
@@ -43,16 +44,16 @@ import { ApprovalProjectMembersComponent } from './projects/approval-project-mem
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
+    MatIconModule,
+    MatInputModule,
     MatDialogModule,
+    BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
     ShowHidePasswordModule,
-    FormsModule,
-    MatIconModule,
-    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
