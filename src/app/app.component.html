@@ -45,10 +45,9 @@
             </div>
         </div>
 
-        <div class="teste" *ngIf="openOptions">
-            <p class="cursor-pointer dropdown-item mb-0" routerLink="/projects" routerLinkActive="ative">Alterar cadastro</p>
+        <div class="open-profile-options" *ngIf="openOptions">
+            <p class="cursor-pointer dropdown-item mb-0" routerLink="/sign-up" routerLinkActive="ative">Alterar cadastro</p>
             <p class="cursor-pointer dropdown-item mb-0" (click)="logout()">Sair</p>
-            <!-- <p>Alterar cadastro</p> -->
         </div>
 
     </nav>

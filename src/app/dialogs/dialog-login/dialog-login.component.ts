@@ -25,7 +25,7 @@ export class DialogLoginComponent implements OnInit {
   public login() {
     if (this.email == "eajahn@ucs.br" && this.password == "senha") { // TODO mudar para validar no banco de dados
       localStorage.setItem("userId", "1")
-      localStorage.setItem("profilePhoto", "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png")
+      localStorage.setItem("profilePhoto", "https://avatars.githubusercontent.com/u/68763696?v=4")
       this.toastr.success("Login realizado com sucesso");
       this.dialogRef.close();
       return true;
@@ -35,7 +35,11 @@ export class DialogLoginComponent implements OnInit {
     }
   }
 
-  public cancel() {
+  // public cancel() {
+  //   this.dialogRef.close();
+  // }
+
+  public signUp() {
     this.dialogRef.close();
   }
 

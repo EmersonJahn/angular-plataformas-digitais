@@ -5,7 +5,7 @@
 .div-profile-photo img {
     height: 40px;
     border-radius: 50%;
-    transform: translateY(-3px);
+    /* transform: translateY(-3px); */
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
 }
 
@@ -17,7 +17,7 @@
     font-weight: bold;
 }
 
-.teste {
+.open-profile-options {
     position: absolute;
     top: 100%;
     right: 0;
@@ -33,4 +33,8 @@
     border-radius: 6px;
     /* box-shadow: var(--color-dropdown-shadow); */
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+}
+
+.password-visibility {
+    cursor: pointer;
 }
