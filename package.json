@@ -27,6 +27,7 @@
     "angular-material": "^1.2.2",
     "bootstrap": "^4.6.0",
     "ngx-bootstrap": "^6.2.0",
+    "ngx-mask": "^11.1.5",
     "ngx-show-hide-password": "^2.3.0",
     "ngx-toastr": "^13.2.1",
     "rxjs": "~6.6.0",

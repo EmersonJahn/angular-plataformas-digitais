@@ -13,7 +13,7 @@ import { ProjectVisualizationComponent } from './projects/project-visualization/
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: 'signup', component: SignUpComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'problems', component: ProblemsComponent },
   { path: 'problems/aproval-answers', component: ApprovalAnswersComponent },
   { path: 'problems/registration', component: ProblemRegistrationComponent },
