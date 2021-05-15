@@ -10,6 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,6 +57,7 @@ import { ApprovalProjectMembersComponent } from './projects/approval-project-mem
     }),
     ShowHidePasswordModule,
     NgxMaskModule.forRoot(),
+    NgMultiSelectDropDownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
