@@ -22,11 +22,11 @@ export class SignUpComponent implements OnInit {
   public passwordConfirm = "";
 
   // public validPersonType     = true;
-  public validName           = true;
-  public validCpfCnpj        = true;
-  public validEmail          = true;
-  public validPassword       = true;
-  public validPasswordConfim = true;
+  public isValidName           = true;
+  public isValidCpfCnpj        = true;
+  public isValidEmail          = true;
+  public isValidPassword       = true;
+  public isValidPasswordConfim = true;
 
   constructor(private toastr: ToastrService) { }
 
@@ -37,44 +37,44 @@ export class SignUpComponent implements OnInit {
   }
 
   public signUp() {
-    if (this.name.length > 0) {
-      this.validName = true;
+    if (this.name.trim().length > 0) {
+      this.isValidName = true;
     } else {
-      this.validName = false;
+      this.isValidName = false;
     }
 
-    if (this.cpf.length > 0 || this.cnpj.length > 0) {
-      this.validCpfCnpj = true;
+    if (this.cpf.trim().length > 0 || this.cnpj.trim().length > 0) {
+      this.isValidCpfCnpj = true;
     } else {
-      this.validCpfCnpj = false;
+      this.isValidCpfCnpj = false;
     }
 
-    if (this.email.length > 0) {
-      this.validEmail = true;
+    if (this.email.trim().length > 0) {
+      this.isValidEmail = true;
     } else {
-      this.validEmail = false;
+      this.isValidEmail = false;
     }
 
-    if (this.password.length > 0) {
-      this.validPassword = true;
+    if (this.password.trim().length > 0) {
+      this.isValidPassword = true;
     } else {
-      this.validPassword = false;
+      this.isValidPassword = false;
     }
 
-    if (this.passwordConfirm.length > 0) {
-      this.validPasswordConfim = true;
+    if (this.passwordConfirm.trim().length > 0) {
+      this.isValidPasswordConfim = true;
     } else {
-      this.validPasswordConfim = false;
+      this.isValidPasswordConfim = false;
     }
 
-    if (!this.validName || !this.validCpfCnpj || !this.validEmail || !this.validPassword || !this.validPasswordConfim) {
+    if (!this.isValidName || !this.isValidCpfCnpj || !this.isValidEmail || !this.isValidPassword || !this.isValidPasswordConfim) {
       this.toastr.error("Todos os campos devem ser preenchidos.");
       return;
     }
 
     if (this.password.trim() != this.passwordConfirm.trim()) {
-      this.validPassword       = false;
-      this.validPasswordConfim = false;
+      this.isValidPassword       = false;
+      this.isValidPasswordConfim = false;
       this.toastr.error("Senhas não coincidem.")
       return;
     }

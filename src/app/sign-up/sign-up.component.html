@@ -38,7 +38,7 @@
                     <div class="col-12">
                         <label class="m-0" for="name"><span *ngIf="personType==1">Nome</span><span *ngIf="personType==2">Razão Social</span></label>
                         <div class="input-group">
-                            <input class="form-control text-uppercase" [ngClass]="{'is-invalid': !validName}" type="text" [(ngModel)]="name">
+                            <input class="form-control text-uppercase" [ngClass]="{'is-invalid': !isValidName}" type="text" [(ngModel)]="name">
                         </div>
                     </div>
                 </div>
@@ -48,8 +48,8 @@
                         <label *ngIf="personType==1" for="cpf" class="m-0">CPF</label>
                         <label *ngIf="personType==2" for="cnpj" class="m-0">CNPJ</label>
                         <div class="input-group">
-                            <input class="form-control" [ngClass]="{'is-invalid': !validCpfCnpj}" *ngIf="personType==1" id="cpf" type="text" [(ngModel)]="cpf" mask="000.000.000-00">
-                            <input class="form-control" [ngClass]="{'is-invalid': !validCpfCnpj}" *ngIf="personType==2" id="cnpj" type="text" [(ngModel)]="cnpj" mask="00.000.000/0000-00">
+                            <input class="form-control" [ngClass]="{'is-invalid': !isValidCpfCnpj}" *ngIf="personType==1" id="cpf" type="text" [(ngModel)]="cpf" mask="000.000.000-00">
+                            <input class="form-control" [ngClass]="{'is-invalid': !isValidCpfCnpj}" *ngIf="personType==2" id="cnpj" type="text" [(ngModel)]="cnpj" mask="00.000.000/0000-00">
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                     <div class="col-12">
                         <label for="email" class="m-0">E-mail</label>
                         <div class="input-group">
-                            <input class="form-control text-lowercase" [ngClass]="{'is-invalid': !validEmail}" id="email" type="email" [(ngModel)]="email">
+                            <input class="form-control text-lowercase" [ngClass]="{'is-invalid': !isValidEmail}" id="email" type="email" [(ngModel)]="email">
                             <!-- <div class="input-group-prepend">
                                 <div class="input-group-text">@</div>
                             </div> -->
@@ -70,7 +70,7 @@
                     <div class="col-12">
                         <label for="password" class="m-0">Senha</label>
                         <div class="input-group">
-                            <input class="form-control m-0" [ngClass]="{'is-invalid': !validPassword}" id="password" type="password" [(ngModel)]="password" matInput showHideInput>
+                            <input class="form-control m-0" [ngClass]="{'is-invalid': !isValidPassword}" id="password" type="password" [(ngModel)]="password" matInput showHideInput>
                             <div class="input-group-prepend password-visibility">
                                 <i class="material-icons input-group-text" matSuffix showHideTrigger="password" [showHideStatus]="{ materialIcon: true, id: 'password' }"></i>
                             </div>
@@ -82,7 +82,7 @@
                     <div class="col-12">
                         <label for="password-confirm" class="m-0">Confirmar Senha</label>
                         <div class="input-group">
-                            <input class="form-control m-0" [ngClass]="{'is-invalid': !validPasswordConfim}" id="password-confirm" type="password" [(ngModel)]="passwordConfirm" matInput showHideInput>
+                            <input class="form-control m-0" [ngClass]="{'is-invalid': !isValidPasswordConfim}" id="password-confirm" type="password" [(ngModel)]="passwordConfirm" matInput showHideInput>
                             <div class="input-group-prepend password-visibility">
                                 <i class="material-icons input-group-text" matSuffix showHideTrigger="password-confirm" [showHideStatus]="{ materialIcon: true, id: 'password-confirm' }"></i>
                             </div>
