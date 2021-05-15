@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { AppService } from 'src/app/app.service';
+import { Category } from 'src/app/classes/Category';
 
 @Component({
   selector: 'app-problem-registration',
@@ -7,9 +10,66 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProblemRegistrationComponent implements OnInit {
 
-  constructor() { }
+  public title       = "";
+  public description = "";
+  public category: any;
+  
+  public categories: Category[] = [];
+
+  public isValidTitle       = true;
+  public isValidDescription = true;
+  public isValidCategory    = true;
+
+  public dropdownSettings = {};
+
+  constructor(private appService: AppService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.setDropdownSettings();
+    this.getCategories();
+  }
+
+  public problemRegister() {   
+    if (this.title.trim().length > 0) {
+      this.isValidTitle = true;
+    } else {
+      this.isValidTitle = false;
+    }
+
+    if (this.description.trim().length > 0) {
+      this.isValidDescription = true;
+    } else {
+      this.isValidDescription = false;
+    }
+
+    if (this.category && this.category[0].id > 0) {
+      this.isValidCategory = true;
+    } else {
+      this.isValidCategory = false;
+    }
+
+    if (!this.isValidTitle || !this.isValidDescription || !this.isValidCategory) {
+      this.toastr.error("Todos os campos devem ser preenchidos.");
+      return;
+    }
+
+    // TODO salvar no banco de dados.
+
+  }
+
+  private setDropdownSettings() {
+    this.dropdownSettings = {
+      singleSelection: true,
+      idField: 'id',
+      textField: 'description',
+      allowSearchFilter: true,
+      searchPlaceholderText: 'BUSCAR',
+      noDataAvailablePlaceholderText: "ERRO AO CARREGAR AS CATEGORIAS",
+    };
+  }
+
+  private getCategories() {
+    this.categories = this.appService.getCategories();
   }
 
 }

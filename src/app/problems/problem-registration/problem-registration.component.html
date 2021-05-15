@@ -1,1 +1,45 @@
-<p>problem-registration works!</p>
+<div class="container">
+
+    <div class="row mt-4 mb-2 text-center">
+        <div class="col-12">
+            <h4 class="mb-0">NOVO PROBLEMA</h4>
+            <small class="text-danger">*Todos os campos devem ser preenchidos.</small>
+        </div>
+    </div>
+
+    <div class="row my-2">
+        <div class="col-12">
+            <label class="mb-0" for="title">Título</label>
+            <input class="form-control" [ngClass]="{'is-invalid': !isValidTitle}" type="text" id="title" [(ngModel)]="title">
+        </div>
+    </div>
+
+    <div class="row my-2">
+        <div class="col-12">
+            <label class="mb-0" for="description">Descrição</label>
+            <textarea class="form-control" [ngClass]="{'is-invalid': !isValidDescription}" id="description" rows="5" [(ngModel)]="description"></textarea>
+        </div>
+    </div>
+
+    <div class="my-2">
+        <div class="form-group select-block">
+            <label class="mb-0" for="category">Categoria</label>
+            <ng-multiselect-dropdown 
+            [ngClass]="{'is-invalid': !isValidCategory}"
+            name="category"
+            [placeholder]="'Selecione'"
+            [settings]="dropdownSettings"
+            [data]="categories"
+            [(ngModel)] ="category"
+            >
+        </ng-multiselect-dropdown>
+    </div>
+
+    <div class="row my-2 justify-content-center">
+        <div class="col-6 col-md-5 col-lg-4 col-xl-3 text-center">
+            <button class="btn btn-primary btn-block" (click)="problemRegister()">Confirmar</button>
+        </div>
+    </div>
+
+
+</div>
