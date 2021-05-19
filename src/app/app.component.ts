@@ -30,6 +30,7 @@ export class AppComponent {
     localStorage.clear();
     this.userId       = localStorage.getItem("userId");
     this.profilePhoto = localStorage.getItem("profilePhoto");
+    window.location.reload();
   }
 
 }

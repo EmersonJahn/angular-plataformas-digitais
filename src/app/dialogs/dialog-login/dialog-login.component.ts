@@ -26,6 +26,7 @@ export class DialogLoginComponent implements OnInit {
     if (this.email == "eajahn@ucs.br" && this.password == "senha") { // TODO mudar para validar no banco de dados
       localStorage.setItem("userId", "1")
       localStorage.setItem("profilePhoto", "https://avatars.githubusercontent.com/u/68763696?v=4")
+      window.location.reload();
       this.toastr.success("Login realizado com sucesso");
       this.dialogRef.close();
       return true;

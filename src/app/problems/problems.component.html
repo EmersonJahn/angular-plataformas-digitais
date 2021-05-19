@@ -33,7 +33,8 @@
     
     <div class="row text-right justify-content-end">
         <div class="col-8 col-md-3 col-xl-2">
-            <a class="nav-link text-dark new-problem" routerLink="./registration" routerLinkActive="ative"> + Novo problema</a>
+            <span class="text-dark new-problem" (click)="openNewProblem()">+ Novo problema</span>
+            <!-- <a class="nav-link text-dark new-problem" routerLink="./registration" routerLinkActive="ative"> + Novo problema</a> -->
         </div>
     </div>
 
@@ -45,7 +46,8 @@
        
         <div class="col-12 col-md-8" *ngFor="let p of problems">
 
-            <div class="card-problem bg-light border my-2 px-2" routerLink="./visualization" routerLinkActive="ative" (click)="selectProblem(p)">
+            <!-- routerLink="./visualization" routerLinkActive="ative"  -->
+            <div class="card-problem bg-light border my-2 px-2" (click)="selectProblem(p)">
                 <div class="title-problem my-1">
                     {{p.title}}
                 </div>

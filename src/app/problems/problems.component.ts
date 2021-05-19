@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
 import { Category } from '../classes/Category';
 import { Problem } from '../classes/Problem';
+import { DialogLoginComponent } from '../dialogs/dialog-login/dialog-login.component';
 
 @Component({
   selector: 'app-problems',
@@ -11,13 +15,14 @@ import { Problem } from '../classes/Problem';
 })
 export class ProblemsComponent implements OnInit {
 
+  public userId = localStorage.getItem("userId");
   public category: any; 
   public categories: Category[] = [];
   public problems: Problem[]    = [];
 
   // public dropdownSettings = {};
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private dialog: MatDialog, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     // this.setDropdownSettings();
@@ -38,8 +43,42 @@ export class ProblemsComponent implements OnInit {
     // TODO buscar no banco
   }
 
+  public openNewProblem() {
+    if (!this.userId) {
+      this.toastr.info("Para continuar você deve realizar o login.");
+
+      const dialogRef = this.dialog.open(DialogLoginComponent, {width: '350px'})
+      dialogRef.afterClosed().subscribe(result => {
+        this.userId = localStorage.getItem("userId");
+        this.router.navigateByUrl('problems/registration');
+      })
+
+    } else {
+      this.router.navigateByUrl('problems/registration');
+    }
+  }
+
   public selectProblem(problem: Problem) {
+    if (!this.userId) {
+      this.toastr.info("Para continuar você deve realizar o login.");
+
+      const dialogRef = this.dialog.open(DialogLoginComponent, {width: '350px'})
+      dialogRef.afterClosed().subscribe(result => {
+        this.userId = localStorage.getItem("userId");
+        this.openSelectedProblem(problem);
+        // localStorage.setItem("selectedProblemId", problem.id.toString());
+      })
+
+    } else {
+      this.openSelectedProblem(problem);
+      // localStorage.setItem("selectedProblemId", problem.id.toString());
+    }
+
+  }
+
+  private openSelectedProblem(problem: Problem) {
     localStorage.setItem("selectedProblemId", problem.id.toString());
+    this.router.navigateByUrl('problems/visualization');
   }
 
   // private setDropdownSettings() {
