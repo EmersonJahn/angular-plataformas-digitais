@@ -1,3 +1,68 @@
-<p>problems works!</p>
+<div class="container-fluid">
 
-<a class="nav-link" routerLink="./registration" routerLinkActive="ative">Novo problema</a>
+    <div class="row px-2 my-2">
+
+        <div class="col-12 col-md-5">
+            <label class="mb-0" for="search-by">Buscar por</label>
+            <input class="form-control" type="text" name="search-by">
+        </div>
+    
+        <div class="col-12 col-md-5">
+            <!-- <div class="form-group select-block">
+                <label class="mb-0" for="category">Categoria</label>
+                <ng-multiselect-dropdown 
+                [ngClass]="{'is-invalid': !isValidCategory}"
+                name="category"
+                [placeholder]="'Selecione'"
+                [settings]="dropdownSettings"
+                [data]="categories"
+                [(ngModel)] ="category"
+                >
+            </ng-multiselect-dropdown> -->
+            <label class="mb-0" for="category">Categoria</label>
+            <select class="form-control" name="category" id="category" [(ngModel)]="category">
+                <option *ngFor="let c of categories" [ngValue]="c">{{c.description}}</option>
+            </select>
+        </div>
+    
+        <div class="col-12 col-md-2 mt-4">
+            <button class="btn btn-primary btn-block" (click)="getProblems()">Buscar</button>
+        </div>
+    
+    </div>
+    
+    <div class="row text-right justify-content-end">
+        <div class="col-8 col-md-3 col-xl-2">
+            <a class="nav-link text-dark new-problem" routerLink="./registration" routerLinkActive="ative"> + Novo problema</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
+
+        <div *ngIf="problems.length == 0" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
+            Nenhum problema encontrado para os filtros selecionados.
+        </div>
+       
+        <div class="col-12 col-md-8" *ngFor="let p of problems">
+
+            <div class="card-problem bg-light border my-2 px-2" routerLink="./visualization" routerLinkActive="ative" (click)="selectProblem(p)">
+                <div class="title-problem my-1">
+                    {{p.title}}
+                </div>
+
+                <div class="description-problem my-1">
+                    {{p.description}}
+                </div>
+
+                <div class="number-answers-problem text-primary my-1">
+                    Respostas: {{p.category_id}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+

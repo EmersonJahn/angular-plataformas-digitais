@@ -1,0 +1,31 @@
+.new-problem {
+    text-decoration: underline;
+}
+
+.new-problem:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.card-problem {
+    cursor: pointer;
+}
+
+.card-problem:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);    
+}
+
+.title-problem {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.description-problem {
+    font-size: .9rem;
+    color: rgb(97, 95, 95);
+}
+
+.number-answers-problem {
+    font-size: 0.8rem;
+}
