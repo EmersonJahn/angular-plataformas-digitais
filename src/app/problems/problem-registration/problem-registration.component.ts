@@ -20,12 +20,12 @@ export class ProblemRegistrationComponent implements OnInit {
   public isValidDescription = true;
   public isValidCategory    = true;
 
-  public dropdownSettings = {};
+  // public dropdownSettings = {};
 
   constructor(private appService: AppService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.setDropdownSettings();
+    // this.setDropdownSettings();
     this.getCategories();
   }
 
@@ -42,7 +42,7 @@ export class ProblemRegistrationComponent implements OnInit {
       this.isValidDescription = false;
     }
 
-    if (this.category && this.category[0].id > 0) {
+    if (this.category && this.category.id > 0) {
       this.isValidCategory = true;
     } else {
       this.isValidCategory = false;
@@ -57,16 +57,16 @@ export class ProblemRegistrationComponent implements OnInit {
 
   }
 
-  private setDropdownSettings() {
-    this.dropdownSettings = {
-      singleSelection: true,
-      idField: 'id',
-      textField: 'description',
-      allowSearchFilter: true,
-      searchPlaceholderText: 'BUSCAR',
-      noDataAvailablePlaceholderText: "ERRO AO CARREGAR AS CATEGORIAS",
-    };
-  }
+  // private setDropdownSettings() {
+  //   this.dropdownSettings = {
+  //     singleSelection: true,
+  //     idField: 'id',
+  //     textField: 'description',
+  //     allowSearchFilter: true,
+  //     searchPlaceholderText: 'BUSCAR',
+  //     noDataAvailablePlaceholderText: "ERRO AO CARREGAR AS CATEGORIAS",
+  //   };
+  // }
 
   private getCategories() {
     this.categories = this.appService.getCategories();

@@ -8,7 +8,10 @@
 
             <div class="row my-2 text-center">
                 <div class="col-12">
-                    <h4 class="mb-0">REGISTRE-SE</h4>
+                    <h4 class="mb-0">
+                        <span *ngIf="!userId">REGISTRE-SE</span>
+                        <span *ngIf="userId">ALTERAR CADASTRO</span>
+                    </h4>
                     <small class="text-danger">*Todos os campos devem ser preenchidos.</small>
                 </div>
             </div>
