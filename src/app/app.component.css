@@ -38,3 +38,18 @@
 .password-visibility {
     cursor: pointer;
 }
+
+.card {
+    background-color: #e8e8e8;
+    border-radius: 5%;
+}
+
+.title-problem {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.description-problem {
+    font-size: .9rem;
+    color: rgb(97, 95, 95);
+}

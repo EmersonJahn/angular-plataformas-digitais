@@ -4,7 +4,7 @@
 
         <div class="col-12 col-md-5">
             <label class="mb-0" for="search-by">Buscar por</label>
-            <input class="form-control" type="text" name="search-by">
+            <input class="form-control" type="text" name="search-by" [(ngModel)]="searchBy">
         </div>
     
         <div class="col-12 col-md-5">
@@ -38,29 +38,32 @@
         </div>
     </div>
 
-    <div class="row justify-content-center mt-3">
-
-        <div *ngIf="problems.length == 0" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
-            Nenhum problema encontrado para os filtros selecionados.
-        </div>
-       
-        <div class="col-12 col-md-8" *ngFor="let p of problems">
-
-            <!-- routerLink="./visualization" routerLinkActive="ative"  -->
-            <div class="card-problem bg-light border my-2 px-2" (click)="selectProblem(p)">
-                <div class="title-problem my-1">
-                    {{p.title}}
-                </div>
-
-                <div class="description-problem my-1">
-                    {{p.description}}
-                </div>
-
-                <div class="number-answers-problem text-primary my-1">
-                    Respostas: {{p.category_id}}
-                </div>
+    <div class="container">
+        <div class="row justify-content-center mt-3">
+    
+            <div *ngIf="problems.length == 0" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
+                Nenhum problema encontrado para os filtros selecionados.
             </div>
-
+           
+            <div class="col-12" *ngFor="let problem of problems">
+    
+                <!-- routerLink="./visualization" routerLinkActive="ative"  -->
+                <div class="card card-problem border my-2 px-2" (click)="selectProblem(problem)">
+                    <div class="title-problem my-1">
+                        {{problem.title}}
+                    </div>
+    
+                    <div class="description-problem my-1">
+                        {{problem.description}}
+                    </div>
+    
+                    <div class="number-answers-problem text-primary my-1">
+                        Respostas: {{problem.number_answers}}
+                    </div>
+                </div>
+    
+            </div>
+    
         </div>
     </div>
 

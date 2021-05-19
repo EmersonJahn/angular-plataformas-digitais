@@ -10,13 +10,16 @@ import { DialogLoginComponent } from '../dialogs/dialog-login/dialog-login.compo
 @Component({
   selector: 'app-problems',
   templateUrl: './problems.component.html',
-  styleUrls: ['./problems.component.css'],
+  styleUrls: ['./problems.component.css', '../app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class ProblemsComponent implements OnInit {
 
   public userId = localStorage.getItem("userId");
-  public category: any; 
+
+  public searchBy = "";
+  public category = 0; 
+
   public categories: Category[] = [];
   public problems: Problem[]    = [];
 

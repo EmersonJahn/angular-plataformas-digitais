@@ -25,6 +25,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ProjectRegistrationComponent } from './projects/project-registration/project-registration.component';
 import { ProjectVisualizationComponent } from './projects/project-visualization/project-visualization.component';
 import { ApprovalProjectMembersComponent } from './projects/approval-project-members/approval-project-members.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ApprovalProjectMembersComponent } from './projects/approval-project-mem
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
     MatIconModule,
     MatInputModule,
     MatDialogModule,
