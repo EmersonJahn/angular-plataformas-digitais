@@ -16,6 +16,10 @@
                 <div class="description-problem my-1">
                     {{problem.description}}
                 </div>
+
+                <div class="number-answers-problem text-primary my-2">
+                    Respostas: {{problem.number_answers}}
+                </div>
             </div>
         </div>
     </div>
@@ -23,7 +27,7 @@
     <div class="row my-2 justify-content-end">
         <div class="col-12 col-md-10" *ngFor="let answer of answers">
 
-            <div class="card border my-2 px-2">
+            <div class="card card-answer border my-2 px-2">
 
                 <div class="d-flex">
                     <span class="text-primary" *ngFor="let person of persons">

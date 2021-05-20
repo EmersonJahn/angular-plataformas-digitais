@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'problems', component: ProblemsComponent },
   { path: 'problems/aproval-answers', component: ApprovalAnswersComponent },
   { path: 'problems/registration', component: ProblemRegistrationComponent },
-  { path: 'problems/visualization', component: ProblemVisualizationComponent },
+  { path: 'problems/visualization/:id', component: ProblemVisualizationComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'projects/approval-members', component: ApprovalProjectMembersComponent },
   { path: 'projects/registration', component: ProjectRegistrationComponent },

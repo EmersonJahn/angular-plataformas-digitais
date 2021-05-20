@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { Answer } from 'src/app/classes/Answer';
 import { Person } from 'src/app/classes/Person';
 import { Problem } from 'src/app/classes/Problem';
@@ -13,15 +15,17 @@ export class ProblemVisualizationComponent implements OnInit {
 
   public faCheck = faCheck;
 
-  public selectedProblemId = Number(localStorage.getItem("selectedProblemId"));
+  // public selectedProblemId = Number(localStorage.getItem("selectedProblemId"));
+  public selectedProblemId = 0;
 
   public problem: any;
   public answers: Answer[] = [];
   public persons: Person[] = [];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.selectedProblemId = Number(this.route.snapshot.paramMap.get('id'));
     this.getProblem();
   }
 

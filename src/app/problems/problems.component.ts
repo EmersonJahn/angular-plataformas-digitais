@@ -69,19 +69,17 @@ export class ProblemsComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         this.userId = localStorage.getItem("userId");
         this.openSelectedProblem(problem);
-        // localStorage.setItem("selectedProblemId", problem.id.toString());
       })
 
     } else {
       this.openSelectedProblem(problem);
-      // localStorage.setItem("selectedProblemId", problem.id.toString());
     }
 
   }
 
   private openSelectedProblem(problem: Problem) {
-    localStorage.setItem("selectedProblemId", problem.id.toString());
-    this.router.navigateByUrl('problems/visualization');
+    // localStorage.setItem("selectedProblemId", problem.id.toString());
+    this.router.navigateByUrl('problems/visualization/' + problem.id);
   }
 
   // private setDropdownSettings() {
