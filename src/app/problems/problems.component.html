@@ -48,7 +48,7 @@
             <div class="col-12" *ngFor="let problem of problems">
     
                 <!-- routerLink="./visualization" routerLinkActive="ative"  -->
-                <div class="card card-problem border my-2 px-2" (click)="selectProblem(problem)">
+                <div class="card-problem cursor-pointer jump-hover border my-2 px-2" (click)="selectProblem(problem)">
                     <div class="title-problem my-1">
                         {{problem.title}}
                     </div>

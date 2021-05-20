@@ -9,7 +9,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-problem-visualization',
   templateUrl: './problem-visualization.component.html',
-  styleUrls: ['./problem-visualization.component.css', '../../app.component.css']
+  styleUrls: ['./problem-visualization.component.css', '../../app.component.css', '../problems.component.css']
 })
 export class ProblemVisualizationComponent implements OnInit {
 
