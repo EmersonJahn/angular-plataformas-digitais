@@ -68,7 +68,9 @@ export class ProblemsComponent implements OnInit {
       const dialogRef = this.dialog.open(DialogLoginComponent, {width: '350px'})
       dialogRef.afterClosed().subscribe(result => {
         this.userId = localStorage.getItem("userId");
-        this.openSelectedProblem(problem);
+        if (this.userId) {
+          this.openSelectedProblem(problem);
+        }
       })
 
     } else {

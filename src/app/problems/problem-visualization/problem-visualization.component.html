@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div class="row mt-5 mb-2">
+    <div class="row mt-3 mt-md-5 mb-2">
         <div class="col-12">
             <div class="card-title-visualization border px-2">
                 <div class="title-problem my-1">
@@ -22,6 +22,35 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row text-right justify-content-end">
+        <div class="col-8 col-md-3 col-xl-2">
+            <span class="text-dark new-problem"  (click)="answerOpened = !answerOpened">Responder</span>
+        </div>
+    </div>
+
+    <div *ngIf="answerOpened" class="mb-2">
+        <div class="row justify-content-end">
+            <div class="col-12 col-md-10">
+                <textarea class="form-control" name="add-answer" id="add-answer" rows="4" [disabled]="disableAddAnswer" placeholder="Digite aqui a sua resposta" [(ngModel)]="addAnswer"></textarea>
+                <small *ngIf="!disableAddAnswer" class="text-danger">*Mínimo 20 caracteres</small>
+            </div>
+        </div>  
+
+        <div *ngIf="!disableAddAnswer" class="row justify-content-end">
+            <div class="col-12 col-md-10 text-center">
+                <button class="btn btn-sm btn-primary" [disabled]="addAnswer.trim().length < 20" (click)="sendToReview()">
+                    Enviar para análise
+                </button>
+            </div>
+        </div>
+
+        <!-- <div class="row justify-content-end">
+            <div class="col-12 col-md-10">
+                <span>Aguardando aprovação...</span>
+            </div>
+        </div> -->
     </div>
 
     <div class="row my-2 justify-content-end">

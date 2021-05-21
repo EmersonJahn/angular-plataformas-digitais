@@ -5,6 +5,7 @@ import { Answer } from 'src/app/classes/Answer';
 import { Person } from 'src/app/classes/Person';
 import { Problem } from 'src/app/classes/Problem';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-problem-visualization',
@@ -17,12 +18,16 @@ export class ProblemVisualizationComponent implements OnInit {
 
   // public selectedProblemId = Number(localStorage.getItem("selectedProblemId"));
   public selectedProblemId = 0;
+  public answerOpened = false;
+
+  public addAnswer = "";
+  public disableAddAnswer = false;
 
   public problem: any;
   public answers: Answer[] = [];
   public persons: Person[] = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.selectedProblemId = Number(this.route.snapshot.paramMap.get('id'));
@@ -57,6 +62,13 @@ export class ProblemVisualizationComponent implements OnInit {
       const person2 = new Person(2, 1, "Ana Valentina", "88888888888", "", "valentina@gmail.com", "654321", "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png");
       this.persons.push(person2);
     }
+  }
+
+  public sendToReview() {
+
+    // TODO new PendingAnswer e gravar no banco
+    this.toastr.success("Agradeçemos a contribuição.", "Resposta enviada para análise.")
+    this.disableAddAnswer = true;
   }
 
 }

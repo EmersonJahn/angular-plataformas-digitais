@@ -12,7 +12,7 @@ import { ProjectRegistrationComponent } from './projects/project-registration/pr
 import { ProjectVisualizationComponent } from './projects/project-visualization/project-visualization.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: '/problems', pathMatch: 'full' },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'problems', component: ProblemsComponent },
   { path: 'problems/aproval-answers', component: ApprovalAnswersComponent },
