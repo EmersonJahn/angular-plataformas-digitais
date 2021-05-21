@@ -29,7 +29,7 @@ export class ProblemRegistrationComponent implements OnInit {
     this.getCategories();
   }
 
-  public problemRegister() {   
+  public problemRegistration() {   
     if (this.title.trim().length > 0) {
       this.isValidTitle = true;
     } else {
@@ -54,6 +54,7 @@ export class ProblemRegistrationComponent implements OnInit {
     }
 
     // TODO salvar no banco de dados.
+    this.toastr.success("Problema criado com sucesso!");
 
   }
 

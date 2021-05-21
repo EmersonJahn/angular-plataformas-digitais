@@ -110,7 +110,7 @@
             <div class="row justify-content-center">
                 <label for="file-input" class="profile-photo" title="Alterar foto de perfil">
                     <img src="{{profilePhoto}}" *ngIf="userId" alt="Foto de perfil"> 
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" *ngIf="!userId" alt="Foto de perfil"> 
+                    <img src="../../assets/images/user-icon.png" *ngIf="!userId" alt="Foto de perfil"> 
                 </label>
                 <div>
                     <input id="file-input" type="file" [(ngModel)]="newProfilePhoto" (change)="onFileChanged($event)" style="display: none;"/>
