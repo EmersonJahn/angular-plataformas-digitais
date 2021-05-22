@@ -47,40 +47,16 @@ export class ProblemsComponent implements OnInit {
   }
 
   public openNewProblem() {
-    if (!this.userId) {
-      this.toastr.info("Para continuar você deve realizar o login.");
-
-      const dialogRef = this.dialog.open(DialogLoginComponent, {width: '350px'})
-      dialogRef.afterClosed().subscribe(result => {
-        this.userId = localStorage.getItem("userId");
-        this.router.navigateByUrl('problems/registration');
-      })
-
-    } else {
-      this.router.navigateByUrl('problems/registration');
+    if (!this.appService.validLogin()) {
+      return;
     }
+    this.router.navigateByUrl('problems/registration');
   }
 
   public selectProblem(problem: Problem) {
-    if (!this.userId) {
-      this.toastr.info("Para continuar você deve realizar o login.");
-
-      const dialogRef = this.dialog.open(DialogLoginComponent, {width: '350px'})
-      dialogRef.afterClosed().subscribe(result => {
-        this.userId = localStorage.getItem("userId");
-        if (this.userId) {
-          this.openSelectedProblem(problem);
-        }
-      })
-
-    } else {
-      this.openSelectedProblem(problem);
+    if (!this.appService.validLogin()) {
+      return;
     }
-
-  }
-
-  private openSelectedProblem(problem: Problem) {
-    // localStorage.setItem("selectedProblemId", problem.id.toString());
     this.router.navigateByUrl('problems/visualization/' + problem.id);
   }
 
