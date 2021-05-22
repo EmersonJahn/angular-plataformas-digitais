@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
 import { Category } from '../classes/Category';
 import { Problem } from '../classes/Problem';
-import { DialogLoginComponent } from '../dialogs/dialog-login/dialog-login.component';
 
 @Component({
   selector: 'app-problems',

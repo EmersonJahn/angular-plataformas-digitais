@@ -113,7 +113,7 @@
                     <img src="assets/images/user-icon.png" *ngIf="!userId" alt="Foto de perfil"> 
                 </label>
                 <div>
-                    <input id="file-input" type="file" [(ngModel)]="newProfilePhoto" (change)="onFileChanged($event)" style="display: none;"/>
+                    <input id="file-input" type="file" accept="image/*" [(ngModel)]="newProfilePhoto" (change)="onFileChanged($event)" style="display: none;"/>
                 </div>
             </div>
         </div>

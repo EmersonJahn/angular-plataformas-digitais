@@ -30,6 +30,10 @@ export class ProblemRegistrationComponent implements OnInit {
   }
 
   public problemRegistration() {   
+    if (!this.appService.validLogin()) {
+      return;
+    } 
+    
     if (this.title.trim().length > 0) {
       this.isValidTitle = true;
     } else {
