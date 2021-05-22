@@ -1,1 +1,55 @@
-<p>projects works!</p>
+<div class="container-fluid">
+
+    <div class="row px-2 my-2">
+
+        <div class="col-12 col-md-5">
+            <label class="mb-0" for="search-by">Buscar por</label>
+            <input class="form-control" type="text" name="search-by" [(ngModel)]="searchBy">
+        </div>
+    
+        <div class="col-12 col-md-5">
+            <label class="mb-0" for="category">Categoria</label>
+            <select class="form-control" name="category" id="category" [(ngModel)]="category">
+                <option *ngFor="let c of categories" [ngValue]="c">{{c.description}}</option>
+            </select>
+        </div>
+    
+        <div class="col-12 col-md-2 mt-4">
+            <button class="btn btn-primary btn-block" (click)="getProjects()">Buscar</button>
+        </div>
+    
+    </div>
+
+    <div class="row text-right justify-content-end mr-1">
+        <div class="col-8 col-md-3 col-xl-2">
+            <span class="text-dark new-project" (click)="openNewProject()">+ Novo projeto</span>
+        </div>
+    </div>
+
+    <div class="row my-2">
+
+        <div *ngIf="projects.length == 0" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
+            Nenhum projeto encontrado para os filtros selecionados.
+        </div>
+
+        <!-- col-12 col-sm-6 col-lg-4 col-xl-3 -->
+        <div class="p-2" *ngFor="let project of projects">
+
+            <div class="card-project cursor-pointer jump-hover border text-center justify-content-center">
+                <div>
+                    <!-- <img src="{{project.project_image}}" alt="Imagem do projeto"> -->
+                    <img src="https://www.w3schools.com/w3css/img_lights.jpg" alt="Imagem do projeto">
+                    <!-- <span>
+                        {{project.description}}
+                    </span> -->
+                </div>
+                <div class="teste">
+                    {{project.description}}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

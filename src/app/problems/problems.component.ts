@@ -24,7 +24,7 @@ export class ProblemsComponent implements OnInit {
 
   // public dropdownSettings = {};
 
-  constructor(private appService: AppService, private dialog: MatDialog, private toastr: ToastrService, private router: Router) { }
+  constructor(private appService: AppService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     // this.setDropdownSettings();
