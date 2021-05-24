@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dialog-forgot-password',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogForgotPasswordComponent implements OnInit {
 
-  constructor() { }
+  email = "";
+
+  constructor(private dialogRef: MatDialogRef<DialogForgotPasswordComponent>, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+  }
+
+  public forgotpw() {
+    if (this.email == "eajahn@ucs.br"){
+      this.toastr.success("E-mail para redefinir a senha foi enviado");
+      this.dialogRef.close();
+    } else {
+      this.toastr.error("E-mail inválido")
+    }
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { DialogForgotPasswordComponent } from '../dialog-forgot-password/dialog-forgot-password.component';
 
 @Component({
   selector: 'app-dialog-login',
@@ -12,14 +13,13 @@ export class DialogLoginComponent implements OnInit {
   email    = "";
   password = "";
 
-  constructor(private dialogRef: MatDialogRef<DialogLoginComponent>, private toastr: ToastrService) { }
+  constructor(private dialogRef: MatDialogRef<DialogLoginComponent>, private dialog: MatDialog, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
   public openForgotPasswordDialog() {
-    // TODO abrir dialog esqueceu senha
-    this.dialogRef.close();
+    const dialogRef = this.dialog.open(DialogForgotPasswordComponent, {width: '350px'})
   }
 
   public login() {
