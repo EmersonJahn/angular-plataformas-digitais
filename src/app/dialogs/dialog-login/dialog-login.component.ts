@@ -19,6 +19,7 @@ export class DialogLoginComponent implements OnInit {
   }
 
   public openForgotPasswordDialog() {
+    this.dialogRef.close();
     const dialogRef = this.dialog.open(DialogForgotPasswordComponent, {width: '350px'})
   }
 
