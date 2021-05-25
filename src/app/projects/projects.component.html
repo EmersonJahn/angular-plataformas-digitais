@@ -35,16 +35,13 @@
         <!-- col-12 col-sm-6 col-lg-4 col-xl-3 -->
         <div class="p-2" *ngFor="let project of projects">
 
-            <div class="card-project cursor-pointer jump-hover border text-center justify-content-center">
-                <div>
-                    <!-- <img src="{{project.project_image}}" alt="Imagem do projeto"> -->
-                    <img src="https://www.w3schools.com/w3css/img_lights.jpg" alt="Imagem do projeto">
-                    <!-- <span>
-                        {{project.description}}
-                    </span> -->
+            <div class="card-project cursor-pointer jump-hover border m-1">
+                <div class="card-project-image">
+                    <img src="{{project.project_image}}" alt="Imagem do projeto">
                 </div>
-                <div class="teste">
-                    {{project.description}}
+                <div class="card-project-body text-light">
+                    <p class="card-project-text">{{project.title}}</p>
+                    <p class="card-project-description">{{project.description.substr(0,200)}} <!-- //TODO definir tamanho da descricao no back-end --></p>
                 </div>
             </div>
 
