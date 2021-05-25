@@ -47,7 +47,6 @@ export class ProjectsComponent implements OnInit {
     if (!this.appService.validLogin()) {
       return;
     }
-    console.log("aqui");
     this.router.navigateByUrl('projects/visualization/' + project.id);
   }
 
