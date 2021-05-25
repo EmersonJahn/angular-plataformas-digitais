@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project-visualization',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectVisualizationComponent implements OnInit {
 
-  constructor() { }
+  public selectedProjectId = 0;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
 }

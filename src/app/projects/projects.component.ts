@@ -28,8 +28,8 @@ export class ProjectsComponent implements OnInit {
 
   public getProjects() {
     this.projects = [];
-    for (let index = 0; index < 6; index++) {
-      const project = new Project(index, "Projeto - " + index, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis exercitationem velit earum voluptates nobis, nam aut voluptatibus. Tempore pariatur repellat sit ipsam, ducimus est nemo obcaecati vel voluptatem aspernatur. Iusto!", "assets/images/project-icon.png"); 
+    for (let index = 1; index < 7; index++) {
+      const project = new Project(index, index, "Projeto - " + index, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis exercitationem velit earum voluptates nobis, nam aut voluptatibus. Tempore pariatur repellat sit ipsam, ducimus est nemo obcaecati vel voluptatem aspernatur. Iusto!", "assets/images/project-icon.png"); 
       this.projects.push(project);
     }
     // TODO validar filtros
@@ -41,6 +41,14 @@ export class ProjectsComponent implements OnInit {
       return;
     }
     this.router.navigateByUrl('projects/registration');
+  }
+
+  public selectProject(project: Project) {
+    if (!this.appService.validLogin()) {
+      return;
+    }
+    console.log("aqui");
+    this.router.navigateByUrl('projects/visualization/' + project.id);
   }
 
   private getCategories() {

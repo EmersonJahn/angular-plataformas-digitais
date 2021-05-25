@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'projects', component: ProjectsComponent },
   { path: 'projects/approval-members', component: ApprovalProjectMembersComponent },
   { path: 'projects/registration', component: ProjectRegistrationComponent },
-  { path: 'projects/visualization', component: ProjectVisualizationComponent },
+  { path: 'projects/visualization/:id', component: ProjectVisualizationComponent },
 ];
 
 @NgModule({

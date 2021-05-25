@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div class="row my-2">
+    <div class="row my-2 justify-content-center justify-content-md-start">
 
         <div *ngIf="projects.length == 0" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
             Nenhum projeto encontrado para os filtros selecionados.
@@ -35,13 +35,13 @@
         <!-- col-12 col-sm-6 col-lg-4 col-xl-3 -->
         <div class="p-2" *ngFor="let project of projects">
 
-            <div class="card-project cursor-pointer jump-hover border m-1">
+            <div class="card-project cursor-pointer jump-hover border" (click)="selectProject(project)">
                 <div class="card-project-image">
                     <img src="{{project.project_image}}" alt="Imagem do projeto">
                 </div>
                 <div class="card-project-body text-light">
-                    <p class="card-project-text">{{project.title}}</p>
-                    <p class="card-project-description">{{project.description.substr(0,200)}} <!-- //TODO definir tamanho da descricao no back-end --></p>
+                    <p class="card-project-text mt-0 mb-2">{{project.title}}</p>
+                    <p class="card-project-description">{{ project.description.length > 120 ? project.description.substr(0,120) + ' ...' : project.description}} <!-- //TODO definir tamanho da descricao no back-end --></p>
                 </div>
             </div>
 
