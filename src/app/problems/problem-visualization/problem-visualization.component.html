@@ -4,21 +4,22 @@
         <div class="col-12">
             <div class="card-title-visualization border px-2">
                 <div class="title-problem my-1">
-                    {{problem.title}}
+                    {{problem!.title}}
                 </div>
-                <span class="text-primary mb-2" *ngFor="let person of persons">
-                    <div *ngIf="person.id == problem.person_id">
-                        <img class="profile-photo" src="{{person.profile_photo}}" alt="">
-                        <span>{{person.name}}</span>
+                <!-- <span class="text-primary mb-2" *ngFor="let person of persons"> -->
+                    <!-- <div *ngIf="person.id == problem!.person_id"> -->
+                    <div class="text-primary mb-2">
+                        <img class="profile-photo" src="{{problemPerson!.profile_photo}}" alt="">
+                        <span>{{problemPerson!.name}}</span>
                     </div>
-                </span>
+                <!-- </span> -->
 
                 <div class="description-problem my-1">
-                    {{problem.description}}
+                    {{problem!.description}}
                 </div>
 
                 <div class="number-answers-problem text-primary my-2">
-                    Respostas: {{problem.number_answers}}
+                    Respostas: {{problem!.number_answers}}
                 </div>
             </div>
         </div>
@@ -59,10 +60,10 @@
             <div class="card-problem border my-2 px-2">
 
                 <div class="d-flex">
-                    <span class="text-primary" *ngFor="let person of persons">
-                        <div class="" *ngIf="person.id == answer.person_id"> 
-                            <img class="profile-photo" src="{{person.profile_photo}}" alt="">
-                            <span>{{person.name}}</span>
+                    <span class="text-primary" *ngFor="let answersPerson of answersPersons">
+                        <div class="" *ngIf="answersPerson.id == answer.person_id"> 
+                            <img class="profile-photo" src="{{answersPerson.profile_photo}}" alt="">
+                            <span>{{answersPerson.name}}</span>
                         </div>
                     </span>
                     <div class="ml-3 pt-2" *ngIf="answer.right_answer">

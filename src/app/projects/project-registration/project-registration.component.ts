@@ -18,7 +18,7 @@ export class ProjectRegistrationComponent implements OnInit {
 
   public title       = "";
   public description = "";
-  public category: any;
+  public category?: Category;
   
   public categories: Category[] = [];
 
