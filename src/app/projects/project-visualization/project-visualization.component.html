@@ -6,7 +6,7 @@
             <div class="row text-center">
                 <div class="col-12">
                     <label for="file-input" class="project-photo" title="Alterar foto do projeto">
-                        <!-- <img src="{{project.project_image}}" alt="Foto do projeto">  -->
+                        <img src="{{project!.project_image}}" alt="Foto do projeto"> 
                     </label>
                     <!-- <div>
                         <input id="file-input" type="file" accept="image/*" [(ngModel)]="newProfilePhoto" (change)="onFileChanged($event)" style="display: none;"/>
@@ -16,7 +16,8 @@
 
             <div class="row justify-content-center">
                 <div class="col-12">
-                    foto + nome do criador do projeto
+                    <span>{{project!.project_image}}</span>
+                    <!-- <span>{{project!.}}</span> -->
                 </div>
             </div>
         </div>
