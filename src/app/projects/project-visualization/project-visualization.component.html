@@ -3,27 +3,49 @@
     <div class="row mt-4">
         
         <div class="col-12 col-md-4">
+
             <div class="row text-center">
                 <div class="col-12">
-                    <label for="file-input" class="project-photo" title="Alterar foto do projeto">
-                        <img src="{{project!.project_image}}" alt="Foto do projeto"> 
-                    </label>
-                    <!-- <div>
-                        <input id="file-input" type="file" accept="image/*" [(ngModel)]="newProfilePhoto" (change)="onFileChanged($event)" style="display: none;"/>
-                    </div> -->
+                    <img src="{{project!.project_image}}" alt="Foto do projeto" class="project-photo"> 
                 </div>
             </div>
 
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <span>{{project!.project_image}}</span>
-                    <!-- <span>{{project!.}}</span> -->
-                </div>
+            <div class="row text-center mt-2">
+                <span class="col-12" *ngFor="let projectMember of projectMembers">
+                    <div *ngIf="projectMember.project_owner">
+                        <img src="assets/images/user-icon.png" alt="Foto de perfil" class="profile-photo"> <!--// TODO colocar a foto de perfil do dono do projeto-->
+                        <span>Criado por Enzo Gabriel</span> <!--// TODO colocar o nome do dono do projeto-->
+                    </div>
+                </span>
             </div>
+
         </div>
 
-        <div class="col-12 col-md-8">
-            nome projeto
+        <div class="col-12 col-md-8 px-5">
+            
+            <div class="row my-2">
+                <div class="col-12">
+                    <label class="mb-0" for="title">Título</label>
+                    <input class="form-control" type="text" id="title" [(ngModel)]="project!.title">
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-12">
+                    <label class="mb-0" for="description">Descrição</label>
+                    <textarea class="form-control" id="description" rows="5" [(ngModel)]="project!.description"></textarea>
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-12">
+                    <label class="mb-0" for="category">Categoria</label>
+                    <select class="form-control" name="category" id="category" [(ngModel)]="project!.category_id">
+                        <option *ngFor="let c of categories" [ngValue]="c.id">{{c.description}}</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
 
     </div>
