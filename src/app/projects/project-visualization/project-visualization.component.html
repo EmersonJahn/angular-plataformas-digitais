@@ -1,18 +1,24 @@
 <div class="container-fluid">
 
-    <div class="row mt-4">
+    <div class="row mt-4 px-3">
         
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 col-lg-3">
 
             <div class="row text-center">
                 <div class="col-12">
-                    <img src="{{project!.project_image}}" alt="Foto do projeto" class="project-photo"> 
+                    <label for="file-input" [ngClass]="{'cursor-pointer': isProjectOwner}" title="Alterar foto do projeto">
+                        <img src="{{project!.project_image}}" alt="Foto do projeto" class="project-photo"> 
+                    </label>
+                    <div *ngIf="isProjectOwner">
+                        <input id="file-input" type="file" accept="image/*" [(ngModel)]="newProfilePhoto" (change)="onFileChanged($event)" style="display: none;"/>
+                    </div>
                 </div>
             </div>
 
             <div class="row text-center mt-2">
-                <span class="col-12" *ngFor="let projectMember of projectMembers">
-                    <div *ngIf="projectMember.project_owner">
+                <!-- *ngFor="let projectMember of projectMembers" -->
+                <span class="col-12">
+                    <div>
                         <img src="assets/images/user-icon.png" alt="Foto de perfil" class="profile-photo"> <!--// TODO colocar a foto de perfil do dono do projeto-->
                         <span>Criado por Enzo Gabriel</span> <!--// TODO colocar o nome do dono do projeto-->
                     </div>
@@ -21,33 +27,55 @@
 
         </div>
 
-        <div class="col-12 col-md-8 px-5">
+        <div class="col-12 col-md-8 col-lg-9">
             
             <div class="row my-2">
                 <div class="col-12">
                     <label class="mb-0" for="title">Título</label>
-                    <input class="form-control" type="text" id="title" [(ngModel)]="project!.title">
+                    <input class="form-control" type="text" id="title" [(ngModel)]="project!.title" [disabled]="!isProjectOwner">
                 </div>
             </div>
 
             <div class="row my-2">
                 <div class="col-12">
                     <label class="mb-0" for="description">Descrição</label>
-                    <textarea class="form-control" id="description" rows="5" [(ngModel)]="project!.description"></textarea>
+                    <textarea class="form-control" id="description" rows="5" [(ngModel)]="project!.description" [disabled]="!isProjectOwner"></textarea>
                 </div>
             </div>
 
             <div class="row my-2">
                 <div class="col-12">
                     <label class="mb-0" for="category">Categoria</label>
-                    <select class="form-control" name="category" id="category" [(ngModel)]="project!.category_id">
+                    <select class="form-control" name="category" id="category" [(ngModel)]="project!.category_id" [disabled]="!isProjectOwner">
                         <option *ngFor="let c of categories" [ngValue]="c.id">{{c.description}}</option>
                     </select>
                 </div>
             </div>
 
+            <div class="row my-2">
+                <div class="col-12">
+                    <label class="mb-0" for="members">Membros</label>
+                    <table class="table border" [ngClass]="{'bg-disabled': !isProjectOwner}">
+                        <tr *ngFor="let projectMember of projectMembers">
+                            <td class="py-1 w-100">Nome do membro - {{projectMember.person_id}}</td>
+                            <td class="py-1" *ngIf="isProjectOwner">
+                                <button class="btn btn-danger btn-sm cursor-pointer" title="Remover integrante" (click)="deleteProjectMember(projectMember)">
+                                    <fa-icon class="text-light" [icon]="faTrashAlt"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
+    </div>
+
+    <div *ngIf="isProjectOwner" class="row my-4 px-3 justify-content-center">
+        <div class="col-6 col-md-5 col-lg-4 col-xl-3 text-center">
+            <button class="btn btn-primary btn-block" title="Salvar alterações" (click)="updateProject()">Salvar</button>
+        </div>
     </div>
 
 </div>

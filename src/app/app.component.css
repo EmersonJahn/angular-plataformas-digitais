@@ -43,3 +43,8 @@
 .password-visibility {
     cursor: pointer;
 }
+
+.bg-disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+}

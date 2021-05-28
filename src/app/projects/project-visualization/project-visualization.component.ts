@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
 import { Category } from 'src/app/classes/Category';
 import { Project } from 'src/app/classes/Project';
 import { ProjectMember } from './../../classes/ProjectMember';
@@ -9,11 +11,16 @@ import { ProjectMember } from './../../classes/ProjectMember';
 @Component({
   selector: 'app-project-visualization',
   templateUrl: './project-visualization.component.html',
-  styleUrls: ['./project-visualization.component.css']
+  styleUrls: ['./project-visualization.component.css', '../../app.component.css']
 })
 export class ProjectVisualizationComponent implements OnInit {
 
+  public faTrashAlt = faTrashAlt;
+
   public selectedProjectId = 0;
+  public userId = Number(localStorage.getItem("userId"));
+
+  public newProfilePhoto: File|null = null;
   
   // public title       = "";
   // public description = "";
@@ -23,12 +30,21 @@ export class ProjectVisualizationComponent implements OnInit {
   public projectMembers: ProjectMember[] = [];
   public categories: Category[] = [];
 
+  public isProjectOwner = false;
+
   constructor(private appService: AppService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
     console.log("aqui: " + this.selectedProjectId);
     this.getProject();
+    this.defineIsProjectOwner();
+  }
+
+  private defineIsProjectOwner() {
+    if (this.userId == this.selectedProjectId) { // TODO criar função que valide de verdade
+      this.isProjectOwner = true;
+    }
   }
 
   private getProject() {
@@ -46,6 +62,24 @@ export class ProjectVisualizationComponent implements OnInit {
     this.projectMembers.push(projectMember);
     this.projectMembers.push(projectMember2);
     this.projectMembers.push(projectMember3);
+  }
+
+  public deleteProjectMember(projectMember: ProjectMember) {
+    // TODO deletar do array de membros
+  }
+
+  public updateProject() {
+    // TODO salvar informacoes no banco
+    // TODO salvar tbm novo array de membros (caso algum tenha sido deletado)
+  }
+
+  public onFileChanged(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.newProfilePhoto = input.files[0];
+      console.log(this.newProfilePhoto);
+      // this.updateProfilePhoto(); // TODO salvar foto fisicamente em algum lugar 
+    }    
   }
 
   private getCategories() {
