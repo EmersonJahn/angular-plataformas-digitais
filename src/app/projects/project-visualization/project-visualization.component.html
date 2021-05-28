@@ -59,7 +59,7 @@
                         <tr *ngFor="let projectMember of projectMembers">
                             <td class="py-1 w-100">Nome do membro - {{projectMember.person_id}}</td>
                             <td class="py-1" *ngIf="isProjectOwner">
-                                <button class="btn btn-danger btn-sm cursor-pointer" title="Remover integrante" (click)="deleteProjectMember(projectMember)">
+                                <button class="btn btn-danger btn-sm cursor-pointer" title="Remover integrante" (click)="removeProjectMember(projectMember.person_id)">
                                     <fa-icon class="text-light" [icon]="faTrashAlt"></fa-icon>
                                 </button>
                             </td>
@@ -68,13 +68,37 @@
                 </div>
             </div>
 
+            <span *ngIf="!isProjectOwner && !isProjectMember">
+                <div  class="row text-right justify-content-end">
+                    <div class="col-12 col-md-7 col-lg-5 col-xl-4">
+                        <span class="text-dark ask-to-join" (click)="askToJoinOpened = !askToJoinOpened">Pedir para participar do projeto</span>
+                    </div>
+                </div>
+    
+                <span *ngIf="askToJoinOpened">
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <label class="mb-0" for="member-presentation">Apresentação</label>
+                            <textarea class="form-control" id="member-presentation" rows="5" [(ngModel)]="memberPresentation" [disabled]="askToJoinDisabled"></textarea>
+                            <small *ngIf="!askToJoinDisabled" class="text-danger m-0">*Mínimo 20 caracteres</small>
+                        </div>
+                    </div>
+                    <div *ngIf="!askToJoinDisabled" class="row mb-2 justify-content-center">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                            <button *ngIf="!isProjectOwner && !isProjectMember" class="btn btn-primary btn-block" [disabled]="memberPresentation.trim().length < 20" title="Pedir para participar do projeto" (click)="addProjectMember(userId)">Enviar solicitação</button>
+                        </div>
+                    </div>
+                </span>
+            </span>
+
         </div>
 
     </div>
 
-    <div *ngIf="isProjectOwner" class="row my-4 px-3 justify-content-center">
-        <div class="col-6 col-md-5 col-lg-4 col-xl-3 text-center">
-            <button class="btn btn-primary btn-block" title="Salvar alterações" (click)="updateProject()">Salvar</button>
+    <div class="row mt-0 mb-4 px-3 justify-content-center">
+        <div class="col-12 col-md-5 col-lg-4 col-xl-3 text-center">
+            <button *ngIf="isProjectOwner" class="btn btn-primary btn-block" title="Salvar alterações" (click)="updateProject()">Salvar alterações</button>
+            <button *ngIf="!isProjectOwner && isProjectMember" class="btn btn-primary btn-block" title="Sair do projeto" (click)="removeProjectMember(userId)">Sair do projeto</button>
         </div>
     </div>
 

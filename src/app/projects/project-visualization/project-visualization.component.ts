@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 import { Category } from 'src/app/classes/Category';
 import { Project } from 'src/app/classes/Project';
@@ -22,6 +23,7 @@ export class ProjectVisualizationComponent implements OnInit {
 
   public newProfilePhoto: File|null = null;
   
+  public memberPresentation = "";
   // public title       = "";
   // public description = "";
   // public category?: Category;
@@ -30,28 +32,25 @@ export class ProjectVisualizationComponent implements OnInit {
   public projectMembers: ProjectMember[] = [];
   public categories: Category[] = [];
 
-  public isProjectOwner = false;
+  public isProjectOwner    = false;
+  public isProjectMember   = false;
+  public askToJoinOpened   = false;
+  public askToJoinDisabled = false;
 
-  constructor(private appService: AppService, private route: ActivatedRoute) { }
+  constructor(private appService: AppService, private route: ActivatedRoute, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
     console.log("aqui: " + this.selectedProjectId);
-    this.getProject();
+    this.getCategories();
     this.defineIsProjectOwner();
+    this.defineIsProjectMember();
+    this.getProject();
   }
-
-  private defineIsProjectOwner() {
-    if (this.userId == this.selectedProjectId) { // TODO criar função que valide de verdade
-      this.isProjectOwner = true;
-    }
-  }
-
   private getProject() {
     // TODO buscar no banco
     this.project = new Project(this.selectedProjectId, this.selectedProjectId, "Projeto - " + this.selectedProjectId, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex, dolore, nesciunt nihil magnam esse vitae explicabo similique earum praesentium iure excepturi commodi itaque quia in accusamus natus dolorem quam debitis.", "assets/images/project-icon.png");
     this.getProjectMembers();
-    this.getCategories();
   }
 
   private getProjectMembers() {
@@ -64,13 +63,19 @@ export class ProjectVisualizationComponent implements OnInit {
     this.projectMembers.push(projectMember3);
   }
 
-  public deleteProjectMember(projectMember: ProjectMember) {
-    // TODO deletar do array de membros
-  }
-
   public updateProject() {
     // TODO salvar informacoes no banco
     // TODO salvar tbm novo array de membros (caso algum tenha sido deletado)
+  }
+
+  public removeProjectMember(personId: any) {
+    // TODO deletar do array de membros
+  }
+
+  public addProjectMember(personId: any) {
+    // TODO add na lista de aprovações pendentes (new PendingProjectMember)
+    this.toastr.success("Solicitação para participar do projeto enviada com sucesso!");
+    this.askToJoinDisabled = true;
   }
 
   public onFileChanged(event: Event) {
@@ -80,6 +85,18 @@ export class ProjectVisualizationComponent implements OnInit {
       console.log(this.newProfilePhoto);
       // this.updateProfilePhoto(); // TODO salvar foto fisicamente em algum lugar 
     }    
+  }
+  
+  private defineIsProjectOwner() {
+    if (this.userId == this.selectedProjectId) { // TODO criar função que valide de verdade
+      this.isProjectOwner = true;
+    }
+  }
+
+  private defineIsProjectMember() {
+    if (this.userId + 1 == this.selectedProjectId) { // TODO criar função que valide de verdade
+      this.isProjectMember = true;
+    }
   }
 
   private getCategories() {

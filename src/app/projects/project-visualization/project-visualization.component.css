@@ -10,3 +10,12 @@
     width: 50px;
     border-radius: 50%;
 }
+
+.ask-to-join {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.ask-to-join:hover {
+    font-weight: bold;
+}
