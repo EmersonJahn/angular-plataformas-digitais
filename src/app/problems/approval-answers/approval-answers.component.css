@@ -1,0 +1,8 @@
+.profile-photo {
+    height: 50px;
+    border-radius: 50%;
+}
+
+.accept-response-icons button {
+    min-width: 42px;
+}

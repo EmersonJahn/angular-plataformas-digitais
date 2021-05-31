@@ -1,1 +1,39 @@
-<p>approval-answers works!</p>
+<div class="container mt-2">
+
+    <div class="row my-2" *ngFor="let pendingAnswer of pendingAnswers">
+        <div class="col-12 p-0">
+
+            <mat-accordion>
+                <mat-expansion-panel class="card-problem">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="title-problem">
+                            <span>Título problema - {{pendingAnswer.problem_id}}</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row my-1">
+                        <div class="col-12">
+                            <img class="profile-photo" src="assets/images/user-icon.png" alt="Foto de perfil">
+                            <span class="text-primary">Nome pessoa - {{pendingAnswer.answer_id}}</span>
+                        </div>
+                    </div>
+                    <div class="row my-1 description-problem">
+                        <div class="col-12">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt neque corporis a veniam doloremque odio, repellendus, officia, velit accusantium expedita dignissimos commodi nam debitis dolorem harum. Adipisci cum amet aliquam. - {{pendingAnswer.answer_id}}
+                        </div>
+                    </div>
+                    <div class="row mt-3 pr-2">
+                        <div class="col-12 text-right accept-response-icons">
+                            <button class="btn btn-danger mr-1">
+                                <fa-icon class="text-light" [icon]="faTimes"></fa-icon>
+                            </button>
+                            <button class="btn btn-success">
+                                <fa-icon class="text-light" [icon]="faCheck"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+
+</div>
