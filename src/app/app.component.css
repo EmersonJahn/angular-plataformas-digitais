@@ -1,3 +1,22 @@
+.app-nav {
+    background-color: #2543b0;
+}
+
+.btn-login {
+    border: 1;
+    border-color: white;
+    color: white;
+    /* border-color: #da3540;
+    color: #da3540; */
+}
+
+.btn-login:hover {
+    background-color: white;
+    color: #2543b0;
+    /* background-color: #da3540;
+    color: white; */
+}
+
 .div-profile-photo {
     cursor: pointer;
 }

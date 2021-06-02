@@ -1,6 +1,6 @@
 <header>
 
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-primary">
 
         <div class="d-flex">
             <ul class="navbar-nav mr-2 mr-md-5">
@@ -38,7 +38,7 @@
 
 
         <div>
-            <button *ngIf="!userId" class="btn btn-primary" (click)="login()">Login</button>
+            <button *ngIf="!userId" class="btn btn-login" (click)="login()">Login</button>
             <div *ngIf="userId" class="div-profile-photo" (click)="openOptions=!openOptions">
                 <img src="{{profilePhoto}}" alt="Foto de perfil"> 
                 <mat-icon class="text-light" aria-hidden="false" aria-label="Seta para baixo">arrow_drop_down</mat-icon>
@@ -54,5 +54,10 @@
 
 </header>
 
-
 <router-outlet></router-outlet>
+
+<footer class="text-light bg-dark">
+    <img src="assets/images/logo-ucs.png" alt="Logo UCS">
+    <img src="assets/images/logo-fucs.png" alt="Logo FUCS">
+    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, veniam nisi. Nihil debitis perspiciatis nulla perferendis voluptates molestias facere mollitia provident! Accusantium sequi fuga perspiciatis debitis corporis molestias quas deleniti? -->
+</footer>
