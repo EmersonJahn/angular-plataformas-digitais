@@ -67,3 +67,19 @@
     background-color: #e9ecef;
     opacity: 1;
 }
+
+footer img {
+    height: 200px;
+}
+
+@media screen and (max-width: 991px) {
+
+    footer img {
+        height: 100px;
+    }
+
+}
+
+
+
+

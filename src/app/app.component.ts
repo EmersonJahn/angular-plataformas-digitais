@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AppService } from './app.service';
 import { DialogLoginComponent } from './dialogs/dialog-login/dialog-login.component';
 
 @Component({
@@ -17,7 +18,16 @@ export class AppComponent {
 
   openOptions = false;
 
-  constructor(private dialog: MatDialog) { }
+  clientHeight: Number;
+
+  constructor(private dialog: MatDialog, private appService: AppService) { 
+    if (window.innerWidth > 991) {
+      this.clientHeight = window.innerHeight - 24 - 56 - 232;      
+      // this.clientHeight = Number(this.clientHeight) - Number(this.clientHeight) * 0.2;      
+    } else {
+      this.clientHeight = window.innerHeight - 24 - 56 - 132;      
+    }
+  }
 
   public login() {
     const dialogRef = this.dialog.open(DialogLoginComponent, {width: '350px'})
