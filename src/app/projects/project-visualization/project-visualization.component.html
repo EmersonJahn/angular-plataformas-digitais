@@ -54,7 +54,12 @@
 
             <div class="row my-2">
                 <div class="col-12">
-                    <label class="mb-0" for="members">Integrantes</label>
+                    <div class="d-flex justify-content-between">
+                        <label class="my-auto" for="members">Integrantes</label>
+                        <button *ngIf="isProjectOwner" class="btn btn-primary mr-1 mb-1" mat-raised-button matBadge="{{pendingMembersCount}}" matBadgeColor="accent" title="Solicitações para participar" (click)="openApprovalMembers()">
+                            <fa-icon [icon]="faUserPlus"></fa-icon>
+                        </button>
+                    </div>
                     <table class="table border" [ngClass]="{'bg-disabled': !isProjectOwner}">
                         <tr *ngFor="let projectMember of projectMembers">
                             <td class="py-1 w-100">Nome do integrante - {{projectMember.person_id}}</td>

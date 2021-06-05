@@ -11,7 +11,7 @@ import { DialogLoginComponent } from './dialogs/dialog-login/dialog-login.compon
 export class AppComponent {
   title = 'plataformas-digitais';
 
-  clicked = "problems";
+  actived = "problems";
 
   userId       = localStorage.getItem("userId");
   profilePhoto = localStorage.getItem("profilePhoto");

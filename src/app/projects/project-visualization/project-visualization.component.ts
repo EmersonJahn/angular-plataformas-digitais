@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
 import { Category } from 'src/app/classes/Category';
@@ -17,6 +17,7 @@ import { ProjectMember } from './../../classes/ProjectMember';
 export class ProjectVisualizationComponent implements OnInit {
 
   public faTrashAlt = faTrashAlt;
+  public faUserPlus = faUserPlus;
 
   public selectedProjectId = 0;
   public userId = Number(localStorage.getItem("userId"));
@@ -24,10 +25,8 @@ export class ProjectVisualizationComponent implements OnInit {
   public newProfilePhoto: File|null = null;
   
   public memberPresentation = "";
-  // public title       = "";
-  // public description = "";
-  // public category?: Category;
   public project?: Project;
+  public pendingMembersCount = 3; // TODO buscar valor correto
 
   public projectMembers: ProjectMember[] = [];
   public categories: Category[] = [];
@@ -37,7 +36,7 @@ export class ProjectVisualizationComponent implements OnInit {
   public askToJoinOpened   = false;
   public askToJoinDisabled = false;
 
-  constructor(private appService: AppService, private route: ActivatedRoute, private toastr: ToastrService) { }
+  constructor(private appService: AppService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
@@ -46,6 +45,7 @@ export class ProjectVisualizationComponent implements OnInit {
     this.defineIsProjectMember();
     this.getProject();
   }
+  
   private getProject() {
     // TODO buscar no banco
     this.project = new Project(this.selectedProjectId, this.selectedProjectId, "Projeto - " + this.selectedProjectId, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex, dolore, nesciunt nihil magnam esse vitae explicabo similique earum praesentium iure excepturi commodi itaque quia in accusamus natus dolorem quam debitis.", "assets/images/project-icon.png");
@@ -84,6 +84,10 @@ export class ProjectVisualizationComponent implements OnInit {
       console.log(this.newProfilePhoto);
       // this.updateProfilePhoto(); // TODO salvar foto fisicamente em algum lugar 
     }    
+  }
+
+  public openApprovalMembers() {
+    this.router.navigateByUrl('projects/approval-members/' + this.selectedProjectId);
   }
   
   private defineIsProjectOwner() {
