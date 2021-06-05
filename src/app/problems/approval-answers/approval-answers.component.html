@@ -1,5 +1,11 @@
 <div class="container mt-2">
 
+    <div class="row mt-4">
+        <div *ngIf="pendingAnswers.length == 0" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
+            Não há respostas para aprovar.
+        </div>
+    </div>
+
     <div class="row my-2" *ngFor="let pendingAnswer of pendingAnswers">
         <div class="col-12 p-0">
 
@@ -25,7 +31,7 @@
                         <!-- <div class="col-7 col-sm-9 pl-sm-5 pr-0">
                             <input class="form-control" type="text" id="reason-rejection" placeholder="Motivo rejeição">
                         </div> -->
-                        <div class="col-12 approval-answers-icons text-right">
+                        <div class="col-12 approval-icons text-right">
                             <button class="btn btn-reject mr-1" title="Rejeitar resposta" (click)="approvalAnswer(pendingAnswer, false)">
                                 <fa-icon [icon]="faTimes"></fa-icon>
                             </button>

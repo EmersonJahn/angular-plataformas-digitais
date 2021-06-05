@@ -41,7 +41,6 @@ export class ProjectVisualizationComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log("aqui: " + this.selectedProjectId);
     this.getCategories();
     this.defineIsProjectOwner();
     this.defineIsProjectMember();

@@ -7,7 +7,7 @@ import { PendingAnswer } from './../../classes/PendingAnswer';
 @Component({
   selector: 'app-approval-answers',
   templateUrl: './approval-answers.component.html',
-  styleUrls: ['./approval-answers.component.css', '../problems.component.css']
+  styleUrls: ['./approval-answers.component.css', '../problems.component.css', '../../app.component.css']
 })
 export class ApprovalAnswersComponent implements OnInit {
 

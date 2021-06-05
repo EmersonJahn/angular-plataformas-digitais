@@ -54,10 +54,10 @@
 
             <div class="row my-2">
                 <div class="col-12">
-                    <label class="mb-0" for="members">Membros</label>
+                    <label class="mb-0" for="members">Integrantes</label>
                     <table class="table border" [ngClass]="{'bg-disabled': !isProjectOwner}">
                         <tr *ngFor="let projectMember of projectMembers">
-                            <td class="py-1 w-100">Nome do membro - {{projectMember.person_id}}</td>
+                            <td class="py-1 w-100">Nome do integrante - {{projectMember.person_id}}</td>
                             <td class="py-1" *ngIf="isProjectOwner">
                                 <button class="btn btn-danger btn-sm cursor-pointer" title="Remover integrante" (click)="removeProjectMember(projectMember.person_id)">
                                     <fa-icon class="text-light" [icon]="faTrashAlt"></fa-icon>

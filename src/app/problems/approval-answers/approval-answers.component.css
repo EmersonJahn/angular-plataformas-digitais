@@ -2,27 +2,3 @@
     height: 50px;
     border-radius: 50%;
 }
-
-.approval-answers-icons button {
-    min-width: 42px;
-}
-
-.btn-reject {
-    border-color: #da3540;
-    color: #da3540;
-}
-
-.btn-reject:hover {
-    background-color: #da3540;
-    color: white;
-}
-
-.btn-approve {
-    border-color: green;
-    color: green;
-}
-
-.btn-approve:hover {
-    background-color: green;
-    color: white;
-}

@@ -1,0 +1,13 @@
+.profile-photo {
+    height: 50px;
+    border-radius: 50%;
+}
+
+mat-expansion-panel {
+    background-color: #e8e8e8;
+}
+
+.presentation {
+    font-size: .9rem;
+    color: rgb(97, 95, 95);
+}
