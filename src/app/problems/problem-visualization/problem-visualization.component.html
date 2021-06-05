@@ -3,7 +3,7 @@
     <div class="row mt-3 mt-md-5 mb-2">
         <div class="col-12">
             <div class="card-title-visualization border px-2">
-                <div class="title-problem my-1">
+                <div class="problem-title my-1">
                     {{problem!.title}}
                 </div>
                 <!-- <span class="text-primary mb-2" *ngFor="let person of persons"> -->
@@ -14,7 +14,7 @@
                     </div>
                 <!-- </span> -->
 
-                <div class="description-problem my-1">
+                <div class="problem-description my-1">
                     {{problem!.description}}
                 </div>
 
@@ -57,7 +57,7 @@
     <div class="row my-2 justify-content-end">
         <div class="col-12 col-md-10" *ngFor="let answer of answers">
 
-            <div class="card-problem border my-2 px-2">
+            <div class="problem-card border my-2 px-2">
 
                 <div class="d-flex">
                     <span class="text-primary" *ngFor="let answersPerson of answersPersons">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="description-problem my-1">
+                <div class="problem-description my-1">
                     {{answer.answer}}
                 </div>
 

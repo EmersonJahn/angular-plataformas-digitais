@@ -4,30 +4,33 @@
         <div class="col-12 p-0">
 
             <mat-accordion>
-                <mat-expansion-panel class="card-problem">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title class="title-problem">
+                <mat-expansion-panel class="problem-card">
+                    <mat-expansion-panel-header class="py-0">
+                        <mat-panel-title class="problem-title">
                             <span>Título problema - {{pendingAnswer.problem_id}}</span>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div class="row my-1">
+                    <div class="row mb-1">
                         <div class="col-12">
                             <img class="profile-photo" src="assets/images/user-icon.png" alt="Foto de perfil">
                             <span class="text-primary">Nome pessoa - {{pendingAnswer.answer_id}}</span>
                         </div>
                     </div>
-                    <div class="row my-1 description-problem">
+                    <div class="row my-1 problem-description pl-2">
                         <div class="col-12">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt neque corporis a veniam doloremque odio, repellendus, officia, velit accusantium expedita dignissimos commodi nam debitis dolorem harum. Adipisci cum amet aliquam. - {{pendingAnswer.answer_id}}
                         </div>
                     </div>
-                    <div class="row mt-3 pr-2">
-                        <div class="col-12 text-right accept-response-icons">
-                            <button class="btn btn-danger mr-1">
-                                <fa-icon class="text-light" [icon]="faTimes"></fa-icon>
+                    <div class="row pr-3">
+                        <!-- <div class="col-7 col-sm-9 pl-sm-5 pr-0">
+                            <input class="form-control" type="text" id="reason-rejection" placeholder="Motivo rejeição">
+                        </div> -->
+                        <div class="col-12 approval-answers-icons text-right">
+                            <button class="btn btn-reject mr-1" title="Rejeitar resposta" (click)="approvalAnswer(pendingAnswer, false)">
+                                <fa-icon [icon]="faTimes"></fa-icon>
                             </button>
-                            <button class="btn btn-success">
-                                <fa-icon class="text-light" [icon]="faCheck"></fa-icon>
+                            <button class="btn btn-approve" title="Aprovar resposta" (click)="approvalAnswer(pendingAnswer, true)">
+                                <fa-icon [icon]="faCheck"></fa-icon>
                             </button>
                         </div>
                     </div>
