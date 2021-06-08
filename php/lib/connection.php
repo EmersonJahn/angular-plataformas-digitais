@@ -31,6 +31,58 @@ class Connection {
 	    return $conn;
     }
 
+    function connSelectToObject($sql) {
+		$result = pg_query($sql);
+		if (!$result) {
+			return null;
+		}
+
+		$res = pg_fetch_assoc($result);
+		$std = new \stdClass();
+
+		foreach ($res as $key => $value) {
+			$std->$key = $value;
+		}
+
+		return $std;
+	}
+
+	function connSelectToObjectList($sql, $table="") {
+		$list = [];
+
+		$result = pg_query($sql);
+		if (!$result) {
+			return null;
+		}
+
+		while ($row = pg_fetch_assoc($result)) {
+			$std = new \stdClass();
+
+			foreach ($row as $key => $value) {
+				$std->$key = $value;
+			}
+
+			$list[] = $std;
+		}
+
+		return $list;
+	} 
+
+	function connSelectToArrayList($sql) {
+		$list = [];
+
+		$result = pg_query($sql);
+		if (!$result) {
+			return null;
+		}
+
+		while ($row = pg_fetch_assoc($result)) {
+            $list[] = $row;
+		}
+
+		return $list;
+	} 
+
 }
 
 ?>
