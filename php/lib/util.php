@@ -1,5 +1,45 @@
 <?php
 
+function utilDefinesHeaders() {
+    header("Access-Control-Allow-Origin: *");
+    header('Access-Control-Allow-Headers: Content-Type, token');
+    header("Access-Control-Allow-Methods: POST, OPTIONS");
+    header('Content-Type: application/json');
+
+    if ($_SERVER['REQUEST_METHOD'] == "OPTIONS") {
+        header("HTTP/1.1 200 OK");
+        exit;
+    }
+}
+
+// function utilValidToken($token) {
+
+//     list($header, $payload, $signature) = explode(".", $token);
+
+//     $valid = hash_hmac('sha256', "$header.$payload", CHAVE, true);
+//     $valid = base64_encode($valid);
+
+//     if ($signature != $valid) {
+
+//         header('HTTP/1.0 401 Unauthorized');
+//         // http_response_code(401);
+
+//         if (!class_exists('Response')) {
+//             class Response{}
+//         }
+
+//         $response = new Response();
+//         $response->status  = '0';
+//         $response->message = 'Token inválido.';
+        
+//         echo json_encode($response);
+
+//         return false;
+//     }
+
+//     return true;
+// }
+
 function utilEchoDbConnectionError() {
 
     if (!class_exists('Response')) {
