@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/Sao_Paulo');
+
 ini_set("log_errors", 1);
 ini_set("error_log", "./php-error.log");
 
@@ -82,6 +84,13 @@ class Connection {
 
 		return $list;
 	} 
+
+	function getCategories() {
+		$sql = "SELECT * FROM categoria";
+		$result = pg_fetch_assoc(pg_query($sql));
+
+		var_dump($result);
+	}
 
 }
 
