@@ -19,21 +19,40 @@ export class AppService {
 
   constructor(private dialog: MatDialog, private toastr: ToastrService, private http: HttpClient) { }
 
-  public getCategories() {
-    const categories: Category[] = [];
-    // for (let index = 1; index < 4; index++) {
-    //   const category = new Category(index, "Categoria " + index)
-    //   categories.push(category);
-    // }
-    this.http.get<any>('../../php/services/GetCategories.php').subscribe(
-      sucess => {
-        console.log(sucess);
-      }, 
-      error => {
-        console.log(error);
-      }
-    )
-    return categories;
+  public getCategories(): Promise<Category[]> {
+    // console.log("1");
+    // let categories: Category[] = [];
+    // this.http.get<any>('http://10.2.1.2/emerson/faculdade/plataformas-digitais/php/services/GetCategories.php').subscribe(
+    //   sucess => {
+    //     console.log("2");
+    //     if (sucess['status'] == 1) {
+    //       categories = sucess['categories'];
+    //       console.log(categories);
+    //     }
+    //   }, 
+    //   error => {
+    //     this.toastr.error("Ocorreu um erro ao buscar as categorias");
+    //     console.log(error);
+    //   }
+    // )
+    // console.log("3");
+
+    // return categories;
+
+    return new Promise ((resolve, reject) => {
+      this.http.get<any>('http://10.2.1.2/emerson/faculdade/plataformas-digitais/php/services/GetCategories.php').subscribe(
+        sucess => {
+          if (sucess['status'] == 1) {
+            resolve(sucess['categories']);
+          }
+        }, 
+        error => {
+          this.toastr.error("Ocorreu um erro ao buscar as categorias");
+          console.log(error);
+        }
+      )
+    })
+
   }
 
   public validLogin(): boolean {

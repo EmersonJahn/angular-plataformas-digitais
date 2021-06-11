@@ -74,7 +74,9 @@ export class ProjectRegistrationComponent implements OnInit {
   }
 
   private getCategories() {
-    this.categories = this.appService.getCategories();
+    this.appService.getCategories().then(categories => {
+      this.categories = categories;
+    });
   }
 
 

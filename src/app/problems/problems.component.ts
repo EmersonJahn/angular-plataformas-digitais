@@ -27,7 +27,6 @@ export class ProblemsComponent implements OnInit {
   constructor(private appService: AppService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
-    // this.setDropdownSettings();
     this.getCategories();
     this.getProblems();
 
@@ -59,19 +58,10 @@ export class ProblemsComponent implements OnInit {
     this.router.navigateByUrl('problems/visualization/' + problem.id);
   }
 
-  // private setDropdownSettings() {
-  //   this.dropdownSettings = {
-  //     singleSelection: true,
-  //     idField: 'id',
-  //     textField: 'description',
-  //     allowSearchFilter: true,
-  //     searchPlaceholderText: 'BUSCAR',
-  //     noDataAvailablePlaceholderText: "ERRO AO CARREGAR AS CATEGORIAS",
-  //   };
-  // }
-
   private getCategories() {
-    this.categories = this.appService.getCategories();
+    this.appService.getCategories().then(categories => {
+      this.categories = categories;
+    });
   }
 
 }
