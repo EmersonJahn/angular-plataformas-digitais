@@ -3,9 +3,7 @@
 ini_set("log_errors", 1);
 ini_set("error_log", "./php-error.log");
 
-require('./util.php');
-
-$file = './db.ini';
+$file = realpath(dirname(__FILE__) . './db.ini');
 
 $config = parse_ini_file($file);
 

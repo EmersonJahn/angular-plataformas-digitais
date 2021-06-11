@@ -12,36 +12,33 @@ function utilDefinesHeaders() {
     }
 }
 
-// function utilValidToken($token) {
+function utilValidToken($token) {
+    list($header, $payload, $signature) = explode(".", $token);
 
-//     list($header, $payload, $signature) = explode(".", $token);
+    $valid = hash_hmac('sha256', "$header.$payload", CHAVE, true);
+    $valid = base64_encode($valid);
 
-//     $valid = hash_hmac('sha256', "$header.$payload", CHAVE, true);
-//     $valid = base64_encode($valid);
+    if ($signature != $valid) {
 
-//     if ($signature != $valid) {
+        header('HTTP/1.0 401 Unauthorized');
 
-//         header('HTTP/1.0 401 Unauthorized');
-//         // http_response_code(401);
+        if (!class_exists('Response')) {
+            class Response{}
+        }
 
-//         if (!class_exists('Response')) {
-//             class Response{}
-//         }
-
-//         $response = new Response();
-//         $response->status  = '0';
-//         $response->message = 'Token inválido.';
+        $response = new Response();
+        $response->status  = 0;
+        $response->message = 'Token inválido.';
         
-//         echo json_encode($response);
+        echo json_encode($response);
 
-//         return false;
-//     }
+        return false;
+    }
 
-//     return true;
-// }
+    return true;
+}
 
 function utilEchoDbConnectionError() {
-
     if (!class_exists('Response')) {
 		class Response{}
 	}
@@ -52,8 +49,22 @@ function utilEchoDbConnectionError() {
 	$response->status  = 0;
 	$response->message = 'Erro na conexão com o banco de dados.';
 
-	echo json_encode($response);
-    
+	echo json_encode($response); 
+}
+
+function utilEchoReponse($field = null, $value = null) {
+    if (!class_exists('Response')) {
+		class Response{}
+	}
+
+	$response = new Response();
+	$response->status  = 1;
+	$response->message = 'Busca realizada com sucesso.';
+    if ($field) {
+        $response->$field = $value;
+    }
+
+	echo json_encode($response); 
 }
 
 ?>

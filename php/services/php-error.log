@@ -1,0 +1,80 @@
+[10-Jun-2021 21:45:50 America/Sao_Paulo] PHP Warning:  require(./config.php): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:45:50 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required './config.php' (include_path='.;C:\php\pear') in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php:8
+Stack trace:
+#0 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php(9): require()
+#1 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:49:45 America/Sao_Paulo] PHP Warning:  Undefined array key "REQUEST_METHOD" in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\util.php on line 9
+[10-Jun-2021 21:51:17 America/Sao_Paulo] PHP Warning:  require(./config.php): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:51:17 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required './config.php' (include_path='.;C:\php\pear') in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php:8
+Stack trace:
+#0 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php(9): require()
+#1 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:52:25 America/Sao_Paulo] PHP Warning:  require(./util.php): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 6
+[10-Jun-2021 21:52:25 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required './util.php' (include_path='.;C:\php\pear') in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php:6
+Stack trace:
+#0 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php(10): require()
+#1 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 6
+[10-Jun-2021 21:53:54 America/Sao_Paulo] PHP Warning:  require(./config.php): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:53:54 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required './config.php' (include_path='.;C:\php\pear') in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php:8
+Stack trace:
+#0 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php(9): require()
+#1 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:54:34 America/Sao_Paulo] PHP Warning:  require(./config.php): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:54:34 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required './config.php' (include_path='.;C:\php\pear') in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php:8
+Stack trace:
+#0 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php(9): require()
+#1 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:54:39 America/Sao_Paulo] PHP Warning:  require(./config.php): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:54:39 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required './config.php' (include_path='.;C:\php\pear') in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php:8
+Stack trace:
+#0 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php(9): require()
+#1 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:54:54 America/Sao_Paulo] PHP Warning:  Undefined variable $config in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 9
+[10-Jun-2021 21:54:54 America/Sao_Paulo] PHP Warning:  Trying to access array offset on value of type null in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 9
+[10-Jun-2021 21:57:02 America/Sao_Paulo] PHP Warning:  Undefined variable $config in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 9
+[10-Jun-2021 21:57:02 America/Sao_Paulo] PHP Warning:  Trying to access array offset on value of type null in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 9
+[10-Jun-2021 21:57:30 America/Sao_Paulo] PHP Warning:  parse_ini_file(/php/lib/db.ini): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 9
+[10-Jun-2021 21:57:30 America/Sao_Paulo] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php:9) in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\util.php on line 49
+[10-Jun-2021 21:58:07 America/Sao_Paulo] PHP Warning:  parse_ini_file(/php/lib/db.ini): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 9
+[10-Jun-2021 21:58:07 America/Sao_Paulo] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php:9) in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\util.php on line 49
+[10-Jun-2021 21:59:31 America/Sao_Paulo] PHP Warning:  require(/php/lib/config.php): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 21:59:31 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required '/php/lib/config.php' (include_path='.;C:\php\pear') in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php:8
+Stack trace:
+#0 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php(9): require()
+#1 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 22:00:26 America/Sao_Paulo] PHP Warning:  include(/php/lib/config.php): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 22:00:26 America/Sao_Paulo] PHP Warning:  include(): Failed opening '/php/lib/config.php' for inclusion (include_path='.;C:\php\pear') in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 8
+[10-Jun-2021 22:02:45 America/Sao_Paulo] PHP Warning:  parse_ini_file(/php/lib/db.ini): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 8
+[10-Jun-2021 22:02:45 America/Sao_Paulo] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php:8) in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\util.php on line 49
+[10-Jun-2021 22:04:48 America/Sao_Paulo] PHP Warning:  parse_ini_file(/php/lib/db.ini): Failed to open stream: No such file or directory in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php on line 8
+[10-Jun-2021 22:04:48 America/Sao_Paulo] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\config.php:8) in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\util.php on line 49
+[10-Jun-2021 22:07:11 America/Sao_Paulo] PHP Parse error:  syntax error, unexpected token ";" in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 14
+[10-Jun-2021 22:09:43 America/Sao_Paulo] PHP Warning:  Undefined variable $conn in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php on line 26
+[10-Jun-2021 22:09:43 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function connGetCategories() on null in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php:26
+Stack trace:
+#0 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php on line 26
+[10-Jun-2021 22:09:47 America/Sao_Paulo] PHP Warning:  Undefined variable $conn in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php on line 26
+[10-Jun-2021 22:09:47 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function connGetCategories() on null in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php:26
+Stack trace:
+#0 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php on line 26
+[10-Jun-2021 22:12:07 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to undefined function connSelectToArrayList() in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php:90
+Stack trace:
+#0 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php(26): Connection->connGetCategories()
+#1 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 90
+[10-Jun-2021 22:13:19 America/Sao_Paulo] PHP Fatal error:  Uncaught TypeError: trim(): Argument #1 ($string) must be of type string, array given in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php:81
+Stack trace:
+#0 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php(81): trim(Array)
+#1 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php(90): Connection->connSelectToArrayList('SELECT * FROM c...')
+#2 C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\services\GetCategories.php(26): Connection->connGetCategories()
+#3 {main}
+  thrown in C:\Users\Emerson\projetos\github\angular\plataformas-digitais\php\lib\connection.php on line 81

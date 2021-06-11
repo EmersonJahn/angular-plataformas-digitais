@@ -5,8 +5,7 @@ date_default_timezone_set('America/Sao_Paulo');
 ini_set("log_errors", 1);
 ini_set("error_log", "./php-error.log");
 
-require('./config.php');
-require('./util.php');
+require(realpath(dirname(__FILE__) . './config.php'));
 
 class Connection {
 
@@ -85,11 +84,10 @@ class Connection {
 		return $list;
 	} 
 
-	function getCategories() {
+	function connGetCategories() {
 		$sql = "SELECT * FROM categoria";
-		$result = pg_fetch_assoc(pg_query($sql));
-
-		var_dump($result);
+		// $result = pg_fetch_assoc(pg_query($sql));
+		return $this->connSelectToArrayList($sql);
 	}
 
 }

@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { DialogLoginComponent } from './dialogs/dialog-login/dialog-login.component';
 
+import { HttpClient } from '@angular/common/http';
+
 import { Category } from './classes/Category';
 import { Person } from './classes/Person';
 
@@ -15,14 +17,22 @@ export class AppService {
 
   private person?: Person;
 
-  constructor(private dialog: MatDialog, private toastr: ToastrService) { }
+  constructor(private dialog: MatDialog, private toastr: ToastrService, private http: HttpClient) { }
 
   public getCategories() {
     const categories: Category[] = [];
-    for (let index = 1; index < 4; index++) {
-      const category = new Category(index, "Categoria " + index)
-      categories.push(category);
-    }
+    // for (let index = 1; index < 4; index++) {
+    //   const category = new Category(index, "Categoria " + index)
+    //   categories.push(category);
+    // }
+    this.http.get<any>('../../php/services/GetCategories.php').subscribe(
+      sucess => {
+        console.log(sucess);
+      }, 
+      error => {
+        console.log(error);
+      }
+    )
     return categories;
   }
 
