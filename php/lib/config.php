@@ -3,7 +3,8 @@
 ini_set("log_errors", 1);
 ini_set("error_log", "./php-error.log");
 
-$file = realpath(dirname(__FILE__) . './db.ini');
+// $file = realpath(dirname(__FILE__) . './db.ini');
+$file = __DIR__ . '/db.ini';
 
 $config = parse_ini_file($file);
 

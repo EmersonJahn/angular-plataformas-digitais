@@ -5,7 +5,9 @@ date_default_timezone_set('America/Sao_Paulo');
 ini_set("log_errors", 1);
 ini_set("error_log", "./php-error.log");
 
-require(realpath(dirname(__FILE__) . './config.php'));
+require(__DIR__ . '/config.php');
+
+// require(realpath(dirname(__FILE__) . './config.php'));
 
 class Connection {
 
