@@ -12,23 +12,18 @@ function utilDefinesHeaders() {
     }
 }
 
-function utilValidToken($token) {
-    list($header, $payload, $signature) = explode(".", $token);
-
-    $valid = hash_hmac('sha256', "$header.$payload", CHAVE, true);
-    $valid = base64_encode($valid);
-
-    if ($signature != $valid) {
-
-        header('HTTP/1.0 401 Unauthorized');
+function utilVerifyResquestNotNull($request) {
+    if (!$request) {
 
         if (!class_exists('Response')) {
             class Response{}
         }
+    
+        header('HTTP/1.0 400 Bad Request');
 
         $response = new Response();
         $response->status  = 0;
-        $response->message = 'Token inválido.';
+        $response->message = "Json mal formatado.";
         
         echo json_encode($response);
 
@@ -37,6 +32,33 @@ function utilValidToken($token) {
 
     return true;
 }
+
+
+// function utilValidToken($token) {
+//     list($header, $payload, $signature) = explode(".", $token);
+
+//     $valid = hash_hmac('sha256', "$header.$payload", CHAVE, true);
+//     $valid = base64_encode($valid);
+
+//     if ($signature != $valid) {
+
+//         header('HTTP/1.0 401 Unauthorized');
+
+//         if (!class_exists('Response')) {
+//             class Response{}
+//         }
+
+//         $response = new Response();
+//         $response->status  = 0;
+//         $response->message = 'Token inválido.';
+        
+//         echo json_encode($response);
+
+//         return false;
+//     }
+
+//     return true;
+// }
 
 function utilEchoDbConnectionError() {
     if (!class_exists('Response')) {
@@ -52,14 +74,14 @@ function utilEchoDbConnectionError() {
 	echo json_encode($response); 
 }
 
-function utilEchoReponse($field = null, $value = null) {
+function utilEchoReponse($status = null, $message = null, $field = null, $value = null) {
     if (!class_exists('Response')) {
 		class Response{}
 	}
 
 	$response = new Response();
-	$response->status  = 1;
-	$response->message = 'Busca realizada com sucesso.';
+	$response->status  = $status or $status == 0 ? $status  : 1;
+	$response->message = $message ? $message : 'Busca realizada com sucesso.';
     if ($field) {
         $response->$field = $value;
     }

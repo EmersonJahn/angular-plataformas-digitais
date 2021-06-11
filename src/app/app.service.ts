@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+
 import { ToastrService } from 'ngx-toastr';
 
 import { DialogLoginComponent } from './dialogs/dialog-login/dialog-login.component';
-
-import { HttpClient } from '@angular/common/http';
+import { GlobalConstants } from './common/global-constants';
 
 import { Category } from './classes/Category';
 import { Person } from './classes/Person';
@@ -16,6 +17,8 @@ import { Person } from './classes/Person';
 export class AppService {
 
   private person?: Person;
+
+  private servicesUrl = GlobalConstants.servicesUrl;
 
   constructor(private dialog: MatDialog, private toastr: ToastrService, private http: HttpClient) { }
 
@@ -40,14 +43,14 @@ export class AppService {
     // return categories;
 
     return new Promise ((resolve, reject) => {
-      this.http.get<any>('http://10.2.1.2/emerson/faculdade/plataformas-digitais/php/services/GetCategories.php').subscribe(
+      this.http.get<any>(this.servicesUrl + 'GetCategories.php').subscribe(
         sucess => {
           if (sucess['status'] == 1) {
             resolve(sucess['categories']);
           }
         }, 
         error => {
-          this.toastr.error("Ocorreu um erro ao buscar as categorias");
+          this.toastr.error("Ocorreu um erro desconhecido ao buscar as categorias");
           console.log(error);
         }
       )

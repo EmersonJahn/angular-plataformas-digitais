@@ -92,6 +92,36 @@ class Connection {
 		return $this->connSelectToArrayList($sql);
 	}
 
+	function connValidLogin($email, $password) {
+		$status   = 0;
+		$message  = "Ocorreu um erro desconhecido ao validar o login.";
+		$personId = 0;
+
+		$sql = "SELECT * FROM pessoa WHERE pessoa.email = '$email'";
+		$result = pg_fetch_assoc(pg_query($sql));
+		if ($result) {
+
+			if (trim($result['senha']) == $password) {
+				$status   = 1;
+				$message  = "Login realizado com sucesso!";
+				$personId = intval($result['id']);
+
+			} else {
+				$message = "Senha incorreta.";
+			}
+			
+		} else {
+			$message = "E-mail não cadastrado.";
+		}
+
+		return "$status|$message|$personId";
+	}
+
+	function connGetPersonById($personId) {
+		$sql = "SELECT * FROM pessoa WHERE pessoa.id =  $personId";
+		return $this->connSelectToObject($sql);
+	}
+
 }
 
 ?>

@@ -27,7 +27,7 @@
         </div>
 
         <div>
-            <button *ngIf="!userId" class="btn btn-login" (click)="login()">Login</button>
+            <button *ngIf="!userId" class="btn btn-login" (click)="login()">Entrar</button>
             <div *ngIf="userId" class="div-profile-photo" (click)="openOptions=!openOptions">
                 <img src="{{profilePhoto}}" alt="Foto de perfil"> 
                 <mat-icon class="text-light" aria-hidden="false" aria-label="Seta para baixo">arrow_drop_down</mat-icon>

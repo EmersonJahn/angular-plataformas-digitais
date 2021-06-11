@@ -1,0 +1,11 @@
+[11-Jun-2021 14:15:19 America/Sao_Paulo] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /var/www/html/emerson/faculdade/plataformas-digitais/php/lib/connection.php on line 112
+[11-Jun-2021 14:16:19 America/Sao_Paulo] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /var/www/html/emerson/faculdade/plataformas-digitais/php/lib/connection.php on line 112
+[11-Jun-2021 15:14:44 America/Sao_Paulo] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /var/www/html/emerson/faculdade/plataformas-digitais/php/lib/connection.php on line 117
+[11-Jun-2021 15:15:38 America/Sao_Paulo] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /var/www/html/emerson/faculdade/plataformas-digitais/php/lib/connection.php on line 117
+[11-Jun-2021 15:36:25 America/Sao_Paulo] PHP Catchable fatal error:  Object of class stdClass could not be converted to string in /var/www/html/emerson/faculdade/plataformas-digitais/php/lib/connection.php on line 117
+[11-Jun-2021 15:54:45 America/Sao_Paulo] PHP Notice:  Undefined index: email in /var/www/html/emerson/faculdade/plataformas-digitais/php/services/Login.php on line 31
+[11-Jun-2021 15:54:45 America/Sao_Paulo] PHP Notice:  Undefined index: password in /var/www/html/emerson/faculdade/plataformas-digitais/php/services/Login.php on line 32
+[11-Jun-2021 15:55:48 America/Sao_Paulo] PHP Notice:  Undefined index: email in /var/www/html/emerson/faculdade/plataformas-digitais/php/services/Login.php on line 31
+[11-Jun-2021 15:55:48 America/Sao_Paulo] PHP Notice:  Undefined index: password in /var/www/html/emerson/faculdade/plataformas-digitais/php/services/Login.php on line 32
+[11-Jun-2021 15:58:23 America/Sao_Paulo] PHP Notice:  Undefined index: email in /var/www/html/emerson/faculdade/plataformas-digitais/php/services/Login.php on line 27
+[11-Jun-2021 15:58:23 America/Sao_Paulo] PHP Notice:  Undefined index: password in /var/www/html/emerson/faculdade/plataformas-digitais/php/services/Login.php on line 28
