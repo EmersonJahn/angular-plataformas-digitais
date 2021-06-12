@@ -122,6 +122,20 @@ class Connection {
 		return $this->connSelectToObject($sql);
 	}
 
+	function connCreateProblem($problem) {
+		$personId        = $problem['person_id'];
+		$categoryId      = $problem['category_id'];
+		$title           = $problem['title'];
+		$description     = $problem['description'];
+		$problemStatusId = $problem['problem_status_id'];
+		$numberAnswers   = $problem['number_answers'];
+
+		$sql = "INSERT INTO problema (pessoa_id, categoria_id, titulo, descricao, status_problema_id, numero_respostas) 
+							VALUES ($personId, $categoryId, '$title', '$description', $problemStatusId, $numberAnswers)";
+
+		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
+	}
+
 }
 
 ?>
