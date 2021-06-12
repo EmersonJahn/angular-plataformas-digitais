@@ -16,7 +16,7 @@ export class GlobalConstants {
     if (url.toString() == 'http://webdesenv/' || url.toString() == 'http://10.2.1.2/') {
       return 'http://10.2.1.2/emerson/faculdade/plataformas-digitais/php/services/';
     }
-    return 'http://localhost/plataformas-digitais/php/services/';
+    return 'http://localhost/github/angular/plataformas-digitais/php/services/';
   }
   
 }

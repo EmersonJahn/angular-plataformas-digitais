@@ -24,11 +24,17 @@ $_POST     = json_decode($rest_json, true);
 //     exit;
 // }
 
+// $email    = "eajahn@ucs.br";
+// $password = "senha";
+
 $email    = trim($_POST["email"]);
 $password = trim($_POST["password"]);
 
 $connection = new Connection();
 list($status, $message, $personId) = explode("|", $connection->connValidLogin($email, $password));
+
+// echo "st: ". $status;
+// exit;
 
 $person = new stdClass();
 if ($status == 1 && $personId > 0) {
@@ -43,7 +49,7 @@ if ($status == 1 && $personId > 0) {
     $person->profile_photo  = trim($p->foto_perfil);
 }
 
-utilEchoReponse($status, $message, "person", $person);
+utilEchoReponse("person", $person, $status, $message);
 
 
 ?>

@@ -74,14 +74,14 @@ function utilEchoDbConnectionError() {
 	echo json_encode($response); 
 }
 
-function utilEchoReponse($status = null, $message = null, $field = null, $value = null) {
+function utilEchoReponse($field = null, $value = null, $status = 1, $message = "Busca realizada com sucesso!") {
     if (!class_exists('Response')) {
 		class Response{}
 	}
 
 	$response = new Response();
-	$response->status  = $status or $status == 0 ? $status  : 1;
-	$response->message = $message ? $message : 'Busca realizada com sucesso.';
+	$response->status  = $status;
+	$response->message = $message;
     if ($field) {
         $response->$field = $value;
     }
