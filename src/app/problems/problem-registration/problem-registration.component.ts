@@ -1,7 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { AppService } from 'src/app/app.service';
+
 import { Category } from 'src/app/classes/Category';
+import { Problem } from 'src/app/classes/Problem';
 
 @Component({
   selector: 'app-problem-registration',
@@ -9,6 +14,10 @@ import { Category } from 'src/app/classes/Category';
   styleUrls: ['./problem-registration.component.css']
 })
 export class ProblemRegistrationComponent implements OnInit {
+
+  private servicesUrl = GlobalConstants.servicesUrl;
+
+  public userId = Number(localStorage.getItem("userId"));
 
   public title       = "";
   public description = "";
@@ -19,13 +28,11 @@ export class ProblemRegistrationComponent implements OnInit {
   public isValidTitle       = true;
   public isValidDescription = true;
   public isValidCategory    = true;
+  public disabled           = false;
 
-  // public dropdownSettings = {};
-
-  constructor(private appService: AppService, private toastr: ToastrService) { }
+  constructor(private appService: AppService, private toastr: ToastrService, private http: HttpClient) { }
 
   ngOnInit(): void {
-    // this.setDropdownSettings();
     this.getCategories();
   }
 
@@ -57,21 +64,25 @@ export class ProblemRegistrationComponent implements OnInit {
       return;
     }
 
-    // TODO salvar no banco de dados.
-    this.toastr.success("Problema criado com sucesso!");
+    const categoryId = this.category ? this.category.id : 0;
+    const problem    = new Problem(0, this.userId, categoryId, this.title, this.description, 1, 0);
+
+    this.http.post<any>(this.servicesUrl + 'CreateProblem.php', {'problem': problem}).subscribe(
+      sucess => {
+        if (sucess["status"] == 1) {
+          this.toastr.success(sucess["message"]);     
+          this.disabled = true;     
+        } else {
+          this.toastr.error(sucess["message"]);          
+        }
+      }, 
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao tentar cadastrar o problema.");
+        console.log(error);
+      }
+    )
 
   }
-
-  // private setDropdownSettings() {
-  //   this.dropdownSettings = {
-  //     singleSelection: true,
-  //     idField: 'id',
-  //     textField: 'description',
-  //     allowSearchFilter: true,
-  //     searchPlaceholderText: 'BUSCAR',
-  //     noDataAvailablePlaceholderText: "ERRO AO CARREGAR AS CATEGORIAS",
-  //   };
-  // }
 
   private getCategories() {
     this.appService.getCategories().then(categories => {
