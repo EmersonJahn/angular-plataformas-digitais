@@ -16,8 +16,11 @@ export class DialogLoginComponent implements OnInit {
 
   private servicesUrl = GlobalConstants.servicesUrl;
 
-  email    = "";
-  password = "";
+  public email    = "";
+  public password = "";
+
+  public isValidEmail    = true;
+  public isValidPassword = true;
 
   constructor(private dialogRef: MatDialogRef<DialogLoginComponent>, private dialog: MatDialog, private toastr: ToastrService, private http: HttpClient) { }
 
@@ -42,6 +45,23 @@ export class DialogLoginComponent implements OnInit {
     //     this.toastr.error("E-mail ou senha inválido.");
     //     return false;
     // }
+
+    if (this.email.trim().length > 0) {
+      this.isValidEmail = true;
+    } else {
+      this.isValidEmail = false;
+    }
+
+    if (this.password.trim().length > 0) {
+      this.isValidPassword = true;
+    } else {
+      this.isValidPassword = false;
+    }
+
+    if (!this.isValidEmail || !this.isValidPassword) {
+      this.toastr.error("Todos os campos devem ser preenchidos.");
+      return;
+    }
 
     const body = {
       "email": this.email,

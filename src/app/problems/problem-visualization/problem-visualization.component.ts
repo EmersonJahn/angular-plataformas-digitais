@@ -41,12 +41,9 @@ export class ProblemVisualizationComponent implements OnInit {
 
     this.problem = new Problem(this.selectedProblemId, this.selectedProblemId, this.selectedProblemId, "Título problema - " + this.selectedProblemId, "Descrição problema - " + this.selectedProblemId + ": Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tenetur ratione vero laudantium quidem alias officiis recusandae! Error, assumenda soluta. Velit labore blanditiis necessitatibus voluptas, fugiat ex aspernatur vel architecto.", this.selectedProblemId, this.selectedProblemId);
 
-    // this.getPersonById(this.problem.person_id);
-    // const person = this.appService.getPersonById(this.problem.person_id);
-    // if (person) {
-    //   this.persons.push(person);
-    // }
-    this.problemPerson = this.appService.getPersonById(this.problem.person_id);
+    this.appService.getPersonById(this.problem.person_id).then(person => {
+      this.problemPerson = person;
+    })
     this.getAnswers();
   }
 
@@ -56,11 +53,9 @@ export class ProblemVisualizationComponent implements OnInit {
     const answer = new Answer(1, this.selectedProblemId, 2, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut voluptatum corporis itaque tempora adipisci accusantium pariatur quidem reprehenderit! Perferendis blanditiis cum asperiores accusantium necessitatibus earum voluptatibus, reiciendis voluptate veritatis nulla!", 2, false);
     this.answers.push(answer);
 
-    // this.getPersonById(answer.person_id);
-    const person = this.appService.getPersonById(answer.person_id);
-    if (person) {
+    this.appService.getPersonById(answer.person_id).then(person => {
       this.answersPersons.push(person);
-    }
+    })
   }
 
   // private getPersonById(personId: Number) {
@@ -77,10 +72,16 @@ export class ProblemVisualizationComponent implements OnInit {
   // }
 
   public sendToReview() {
-
     // TODO new PendingAnswer e gravar no banco
     this.toastr.success("Agradeçemos a contribuição.", "Resposta enviada para análise.")
     this.disableAddAnswer = true;
   }
+
+  // private getPersonById(personId: Number) {
+  //   this.appService.getPersonById(personId).then(person => {
+  //     return person;
+  //   })
+  //   return undefined;
+  // }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,13 +14,13 @@ export class SignUpComponent implements OnInit {
 
   public newProfilePhoto: File|null = null;
 
-  public personType      = 0;
-  public name            = "";
-  public cpf             = "";
-  public cnpj            = "";
-  public email           = "";
-  public password        = "";
-  public passwordConfirm = "";
+  public personType:Number = 0;
+  public name              = "";
+  public cpf               = "";
+  public cnpj              = "";
+  public email             = "";
+  public password          = "";
+  public passwordConfirm   = "";
 
   // public validPersonType     = true;
   public isValidName           = true;
@@ -28,12 +29,10 @@ export class SignUpComponent implements OnInit {
   public isValidPassword       = true;
   public isValidPasswordConfim = true;
 
-  constructor(private toastr: ToastrService) { }
+  constructor(private appService: AppService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if (this.userId) {
-      // TODO chamar função para buscar dados do usuário no banco
-    }
+    this.getPerson();
   }
 
   public signUp() {
@@ -89,6 +88,19 @@ export class SignUpComponent implements OnInit {
       this.newProfilePhoto = input.files[0];
       // this.updateProfilePhoto(); // TODO salvar foto fisicamente em algum lugar 
     }    
+  }
+
+  private getPerson() {
+    if (this.userId) {
+      this.appService.getPersonById(Number(this.userId)).then(person => {
+        // console.log(person);
+        this.personType = person['person_type_id'];
+        this.name       = person['name'];
+        this.cpf        = person['cpf'];
+        this.cnpj       = person['cnpj'];
+        this.email      = person['email'];
+      })
+    }
   }
   
 }

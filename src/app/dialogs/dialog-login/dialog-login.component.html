@@ -10,7 +10,7 @@
         <div class="col-12 mt-1 mx-0 px-0">
             <label for="email" class="m-0">E-mail</label>
             <div class="input-group">
-                <input class="form-control" id="email" type="email" [(ngModel)]="email">
+                <input class="form-control" [ngClass]="{'is-invalid': !isValidEmail}" id="email" type="email" [(ngModel)]="email">
                 <!-- <div class="input-group-prepend">
                     <div class="input-group-text">@</div>
                 </div> -->
@@ -20,7 +20,7 @@
         <div class="col-12 mt-1 mx-0 px-0">
             <label for="password" class="m-0">Senha</label>
             <div class="input-group">
-                <input class="form-control m-0" id="password" type="password" [(ngModel)]="password" matInput showHideInput>
+                <input class="form-control m-0" [ngClass]="{'is-invalid': !isValidPassword}" id="password" type="password" [(ngModel)]="password" matInput showHideInput>
                 <div class="input-group-prepend password-visibility">
                     <i class="material-icons input-group-text" matSuffix showHideTrigger="password" [showHideStatus]="{ materialIcon: true, id: 'password' }"></i>
                 </div>
