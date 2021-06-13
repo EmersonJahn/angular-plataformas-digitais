@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
+
+import { Person } from '../classes/Person';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,7 +12,7 @@ import { AppService } from '../app.service';
 })
 export class SignUpComponent implements OnInit {
 
-  public userId       = localStorage.getItem("userId");
+  public userId       = Number(localStorage.getItem("userId"));
   public profilePhoto = localStorage.getItem("profilePhoto");
 
   public newProfilePhoto: File|null = null;
@@ -29,7 +32,7 @@ export class SignUpComponent implements OnInit {
   public isValidPassword       = true;
   public isValidPasswordConfim = true;
 
-  constructor(private appService: AppService, private toastr: ToastrService) { }
+  constructor(private appService: AppService, private toastr: ToastrService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getPerson();
@@ -77,6 +80,12 @@ export class SignUpComponent implements OnInit {
       this.toastr.error("Senhas não coincidem.")
       return;
     }
+
+    const personId = this.userId ? Number(this.userId) : 0
+    // const personProfilePhoto = this.newProfilePhoto ? this.newProfilePhoto : this.profilePhoto ? this.profilePhoto : []
+
+    // TODO ver com o Donelli como armazenar a foto
+    // const person = new Person(personId, this.personType, this.name, this.cpf, this.cnpj, this.email, this.password, personProfilePhoto);
 
     // TODO salvar no banco de dados (todos os dados mais foto de perfil)
 

@@ -89,4 +89,46 @@ function utilEchoReponse($field = null, $value = null, $status = 1, $message = "
 	echo json_encode($response); 
 }
 
+function utilSendEmail($destination, $subject, $message, $title = "") {
+    // ini_set('SMTP', "smtp.gmail.com");
+    // ini_set('smtp_port', "80");
+    // ini_set('sendmail_from', "ucsinova@gmail.com");
+
+	$headers  = 'Content-Type: text/html; charset=utf-8'."\r\n";
+	$headers .= 'MIME-Version: 1.0' . "\r\n";
+	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $headers .= 'From: UCSiNOVA <ucsinova@gmail.com>';
+    
+    if (!(isset($title) && $title != "")) {
+        $title = $subject;
+    }
+
+    $body = "
+        <html>
+            <body>
+                <p>$title</p>
+                <br>
+                <table>
+                    $message
+                </table>
+            </body>
+        </html>
+    ";
+    
+	$emailSent = mail($destination, $subject, $body, $headers);
+
+    return $emailSent;
+}
+
+function utilGenerateRandomString($length = 15, $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+    $charactersLength = strlen($characters);
+    $randomString = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+
+    return $randomString;
+}
+
 ?>

@@ -136,6 +136,16 @@ class Connection {
 		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
 	}
 
+	function connValidPersonEmail($email) {
+		$sql = "SELECT * FROM pessoa WHERE pessoa.email = '$email'";
+		return pg_fetch_assoc(pg_query($sql)) ? true : false;
+	}
+
+	function connUpdatePersonPassword($password, $email) {
+		$sql = "UPDATE pessoa SET senha = '$password' WHERE pessoa.email = '$email'";
+		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
+	}
+
 }
 
 ?>

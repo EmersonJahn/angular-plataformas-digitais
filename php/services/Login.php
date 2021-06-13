@@ -33,9 +33,6 @@ $password = trim($_POST["password"]);
 $connection = new Connection();
 list($status, $message, $personId) = explode("|", $connection->connValidLogin($email, $password));
 
-// echo "st: ". $status;
-// exit;
-
 $person = new stdClass();
 if ($status == 1 && $personId > 0) {
     $p = $connection->connGetPersonById($personId);
