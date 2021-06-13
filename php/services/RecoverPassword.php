@@ -25,10 +25,11 @@ $status  = 0;
 
 if ($isValid) {
     $password  = utilGenerateRandomString();
-    $emailSent = utilSendEmail($email, "E-mail para recuperação de senha.", "Olá, sua senha provisória é: <b>$password</b>. <br> Aconselhamos trocá-la no primeiro acesso.");
+    // $emailSent = utilSendEmail($email, "E-mail para recuperação de senha.", "Olá, sua senha provisória é: <b>$password</b>. <br> Aconselhamos trocá-la no primeiro acesso.");
+    $emailSent = true; // TODO ver para mandar o e-mail
 
     if ($emailSent) {
-        $updated = $connection->connUpdatePersonPassword($password, $email);
+        // $updated = $connection->connUpdatePersonPassword($password, $email); // TODO descomentar
 
         if ($updated) {
             $status  = 1;

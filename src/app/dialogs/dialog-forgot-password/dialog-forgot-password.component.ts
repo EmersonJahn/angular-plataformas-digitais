@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { GlobalConstants } from 'src/app/common/global-constants';
+
 import { DialogLoginComponent } from '../dialog-login/dialog-login.component';
 
 @Component({
@@ -10,21 +13,32 @@ import { DialogLoginComponent } from '../dialog-login/dialog-login.component';
 })
 export class DialogForgotPasswordComponent implements OnInit {
 
-  email = "";
+  private servicesUrl = GlobalConstants.servicesUrl;
 
-  constructor(private dialogRef: MatDialogRef<DialogForgotPasswordComponent>, private dialog: MatDialog, private toastr: ToastrService) { }
+  public email = "";
+
+  constructor(private dialogRef: MatDialogRef<DialogForgotPasswordComponent>, private dialog: MatDialog, private toastr: ToastrService, private http: HttpClient) { }
 
   ngOnInit(): void {
   }
 
-  public forgotpw() {
-    if (this.email == "eajahn@ucs.br"){
-      this.toastr.success("E-mail para redefinir a senha foi enviado");
-      this.dialogRef.close();
-      this.dialog.open(DialogLoginComponent, {width: '350px'})
-    } else {
-      this.toastr.error("E-mail inválido")
-    }
+  public forgotPassword() {
+    this.http.post<any>(this.servicesUrl + 'RecoverPassword.php', {'email': this.email}).subscribe(
+      sucess => {
+        if (sucess['status'] == 1) {
+          this.toastr.success(sucess['message']);
+          this.dialogRef.close();
+          this.dialog.open(DialogLoginComponent, {width: '350px'});
+
+        } else {
+          this.toastr.error(sucess['message']);
+        }
+
+      }, 
+      error => {
+        console.log(error);
+      }
+    )
   }
 
 }
