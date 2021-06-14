@@ -149,13 +149,12 @@ class Connection {
 	function connCreateAnswer($answer) {
 		$problemId      = $answer['problem_id'];
 		$personId       = $answer['person_id'];
-		$answer         = $answer['answer'];
+		$response       = $answer['answer'];
 		$answerStatusId = $answer['answer_status_id'];
-		$rightAnswer    = $answer['right_answer'];
 
 		$answerId = 0;
 		$sql = "INSERT INTO resposta (problema_id, pessoa_id, resposta, status_resposta_id, resposta_correta) 
-							VALUES ($problemId, $personId, '$answer', $answerStatusId, '$rightAnswer') RETURNING id";
+							VALUES ($problemId, $personId, '$response', $answerStatusId, 'false') RETURNING id";
 
 		$result = pg_fetch_assoc(pg_query($sql));
 		if ($result) {

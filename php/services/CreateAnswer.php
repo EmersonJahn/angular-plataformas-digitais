@@ -33,4 +33,6 @@ if ($answerId > 0) {
     $message = "Ocorreu um erro desconhecido ao tentar gravar a resposta.";
 }
 
+utilEchoReponse(null, null, $status, $message);
+
 ?>
