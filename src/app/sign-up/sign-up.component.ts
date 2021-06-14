@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AppService } from '../app.service';
 
+import { AppService } from '../app.service';
 import { Person } from '../classes/Person';
 
 @Component({
