@@ -68,19 +68,6 @@ export class ProblemVisualizationComponent implements OnInit {
     })
   }
 
-  // private getPersonById(personId: Number) {
-  //   // TODO buscar pessoas do personId
-
-  //   if (personId == 1) {
-  //     const person = new Person(1, 1, "Enzo Gabriel", "99999999999", "", "enzo@gmail.com", "123456", "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png");
-  //     this.persons.push(person);
-  //   }
-  //   if (personId == 2) {
-  //     const person2 = new Person(2, 1, "Ana Valentina", "88888888888", "", "valentina@gmail.com", "654321", "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png");
-  //     this.persons.push(person2);
-  //   }
-  // }
-
   public sendToReview() {
     const answer = new Answer(0, this.selectedProblemId, this.userId, this.addAnswer, 1, false);
 
@@ -101,11 +88,5 @@ export class ProblemVisualizationComponent implements OnInit {
     )
   }
 
-  // private getPersonById(personId: Number) {
-  //   this.appService.getPersonById(personId).then(person => {
-  //     return person;
-  //   })
-  //   return undefined;
-  // }
 
 }

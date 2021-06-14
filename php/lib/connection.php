@@ -50,7 +50,7 @@ class Connection {
 		return $std;
 	}
 
-	function connSelectToObjectList($sql, $table="") {
+	function connSelectToObjectList($sql) {
 		$list = [];
 
 		$result = pg_query($sql);
@@ -167,6 +167,11 @@ class Connection {
 	function connCreatePendingAnswer($problemId, $answerId) {
 		$sql = "INSERT INTO resposta_aprovacao_pendente (problema_id, resposta_id) VALUES ($problemId, $answerId)";
 		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
+	}
+
+	function connGetAnswersByProblemId($problemId) {
+		$sql = "SELECT * FROM resposta WHERE resposta.problema_id = $problemId AND resposta.status_resposta_id = 2";
+		return $this->connSelectToObjectList($sql);
 	}
 
 }
