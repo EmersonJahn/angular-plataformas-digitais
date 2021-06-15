@@ -47,25 +47,56 @@ export class ProblemVisualizationComponent implements OnInit {
   }
 
   private getProblem() {
-    // TODO buscar problema do selectedProblemId
+    this.http.post<any>(this.servicesUrl + 'GetProblemById.php', {'problem_id': this.selectedProblemId}).subscribe(
+      sucess => {
+        if (sucess['status'] == 1) {
+          this.problem = sucess['problem'];
 
-    this.problem = new Problem(this.selectedProblemId, this.selectedProblemId, this.selectedProblemId, "Título problema - " + this.selectedProblemId, "Descrição problema - " + this.selectedProblemId + ": Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tenetur ratione vero laudantium quidem alias officiis recusandae! Error, assumenda soluta. Velit labore blanditiis necessitatibus voluptas, fugiat ex aspernatur vel architecto.", this.selectedProblemId, this.selectedProblemId);
+          if (this.problem) {
+            this.appService.getPersonById(this.problem.person_id).then(person => {
+              this.problemPerson = person;
+            })
 
-    this.appService.getPersonById(this.problem.person_id).then(person => {
-      this.problemPerson = person;
-    })
-    this.getAnswers();
+            this.getAnswers();
+          }
+
+        } else {
+          this.toastr.error(sucess['message']);
+        }
+
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar o problema.");
+        console.log(error);
+      }
+    )
   }
 
   private getAnswers() {
-    // TODO buscar respostas do selectedProblemId
+    this.answers = [];
 
-    const answer = new Answer(1, this.selectedProblemId, 2, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut voluptatum corporis itaque tempora adipisci accusantium pariatur quidem reprehenderit! Perferendis blanditiis cum asperiores accusantium necessitatibus earum voluptatibus, reiciendis voluptate veritatis nulla!", 2, false);
-    this.answers.push(answer);
+    this.http.post<any>(this.servicesUrl + 'GetAnswersByProblemId.php', {'problem_id': this.selectedProblemId}).subscribe(
+      sucess => {
+        if (sucess['status'] == 1) {
+          this.answers = sucess['answers'];
 
-    this.appService.getPersonById(answer.person_id).then(person => {
-      this.answersPersons.push(person);
-    })
+          for (let index = 0; index < this.answers.length; index++) {
+            this.appService.getPersonById(this.answers[index].person_id).then(person => {
+              this.answersPersons.push(person);
+            })      
+          }
+
+        } else {
+          this.toastr.error(sucess['message']);
+        }
+
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar as respostas.");
+        console.log(error);
+      }
+    )
+
   }
 
   public sendToReview() {
