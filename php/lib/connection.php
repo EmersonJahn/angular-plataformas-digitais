@@ -174,6 +174,12 @@ class Connection {
 		return $this->connSelectToObjectList($sql);
 	}
 
+	function connGetProblemById($problemId) {
+		// $sql = "SELECT problema.*, pessoa.nome pessoa_nome, pessoa.foto_perfil pessoa_foto_perfil FROM problema JOIN pessoa ON problema.pessoa_id = pessoa.id WHERE problema.id = $problemId";
+		$sql = "SELECT * FROM problema WHERE problema.id = $problemId";
+		return $this->connSelectToObject($sql);
+	}
+
 }
 
 ?>
