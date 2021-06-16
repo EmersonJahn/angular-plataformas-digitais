@@ -7,8 +7,6 @@ ini_set("error_log", "./php-error.log");
 
 require(__DIR__ . '/config.php');
 
-// require(realpath(dirname(__FILE__) . './config.php'));
-
 class Connection {
 
     private $connection;
@@ -88,8 +86,12 @@ class Connection {
 
 	function connGetCategories() {
 		$sql = "SELECT * FROM categoria";
-		// $result = pg_fetch_assoc(pg_query($sql));
 		return $this->connSelectToArrayList($sql);
+	}
+
+	function connGetCategoryById($categoryId) {
+		$sql = "SELECT * FROM categoria WHERE categoria.id = $categoryId";
+		return $this->connSelectToObject($sql);
 	}
 
 	function connValidLogin($email, $password) {
@@ -178,6 +180,20 @@ class Connection {
 		// $sql = "SELECT problema.*, pessoa.nome pessoa_nome, pessoa.foto_perfil pessoa_foto_perfil FROM problema JOIN pessoa ON problema.pessoa_id = pessoa.id WHERE problema.id = $problemId";
 		$sql = "SELECT * FROM problema WHERE problema.id = $problemId";
 		return $this->connSelectToObject($sql);
+	}
+
+	function connGetProblems($searchBy, $categoryId) {
+		$condition = "";
+		if (!empty($searchBy)) {
+			$condition .= " WHERE UPPER(problema.titulo) LIKE '%$searchBy%' ";
+		}
+		if ($categoryId > 0) {
+			$condition .= empty($condition) ? " WHERE " : " AND ";
+			$condition .= " problema.categoria_id = $categoryId";
+		}
+
+		$sql = "SELECT * FROM problema $condition";
+		return $this->connSelectToObjectList($sql);
 	}
 
 }
