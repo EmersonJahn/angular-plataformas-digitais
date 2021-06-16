@@ -7,7 +7,7 @@
             <div class="row text-center">
                 <div class="col-12">
                     <label for="file-input" [ngClass]="{'cursor-pointer': isProjectOwner}" title="Alterar foto do projeto">
-                        <img src="{{project!.project_image}}" alt="Foto do projeto" class="project-photo"> 
+                        <img src="{{project!.project_photo}}" alt="Foto do projeto" class="project-photo"> 
                     </label>
                     <div *ngIf="isProjectOwner">
                         <input id="file-input" type="file" accept="image/*" [(ngModel)]="newProfilePhoto" (change)="onFileChanged($event)" style="display: none;"/>

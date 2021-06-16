@@ -48,15 +48,15 @@ export class ProjectVisualizationComponent implements OnInit {
   
   private getProject() {
     // TODO buscar no banco
-    this.project = new Project(this.selectedProjectId, this.selectedProjectId, "Projeto - " + this.selectedProjectId, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex, dolore, nesciunt nihil magnam esse vitae explicabo similique earum praesentium iure excepturi commodi itaque quia in accusamus natus dolorem quam debitis.", "assets/images/project-icon.png");
+    this.project = new Project(this.selectedProjectId, this.userId, this.selectedProjectId, "Projeto - " + this.selectedProjectId, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex, dolore, nesciunt nihil magnam esse vitae explicabo similique earum praesentium iure excepturi commodi itaque quia in accusamus natus dolorem quam debitis.", "assets/images/project-icon.png");
     this.getProjectMembers();
   }
 
   private getProjectMembers() {
     // TODO buscar no banco
-    const projectMember  = new ProjectMember(this.selectedProjectId, 1, true);
-    const projectMember2 = new ProjectMember(this.selectedProjectId, 2, false);
-    const projectMember3 = new ProjectMember(this.selectedProjectId, 3, false);
+    const projectMember  = new ProjectMember(this.selectedProjectId, 1);
+    const projectMember2 = new ProjectMember(this.selectedProjectId, 2);
+    const projectMember3 = new ProjectMember(this.selectedProjectId, 3);
     this.projectMembers.push(projectMember);
     this.projectMembers.push(projectMember2);
     this.projectMembers.push(projectMember3);

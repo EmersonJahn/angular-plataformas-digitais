@@ -234,12 +234,13 @@ class Connection {
 	}
 
 	function connCreateProject($project) {
+		$personId     = intval($project['person_id']);
 		$categoryId   = intval($project['category_id']);
 		$title        = trim($project['title']);
 		$description  = trim($project['description']);
 		$projectPhoto = trim($project['project_photo']);
 
-		$sql = "INSERT INTO projeto (categoria_id, titulo, descricao, foto_projeto) VALUES ($categoryId, '$title', '$description', '$projectPhoto')";
+		$sql = "INSERT INTO projeto (pessoa_id, categoria_id, titulo, descricao, foto_projeto) VALUES ($personId, $categoryId, '$title', '$description', '$projectPhoto')";
 		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
 	}
 

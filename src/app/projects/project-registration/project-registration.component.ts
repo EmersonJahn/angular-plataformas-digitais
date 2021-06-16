@@ -16,7 +16,7 @@ export class ProjectRegistrationComponent implements OnInit {
 
   private servicesUrl = GlobalConstants.servicesUrl;
 
-  public userId = localStorage.getItem("userId");
+  public userId = Number(localStorage.getItem("userId"));
 
   public categories: Category[] = [];
 
@@ -64,7 +64,7 @@ export class ProjectRegistrationComponent implements OnInit {
     }
 
     const category = this.category ? this.category.id : 0;
-    const project  = new Project(0, category, this.title, this.description, this.projectPhoto);
+    const project  = new Project(0, this.userId, category, this.title, this.description, this.projectPhoto);
 
     this.http.post<any>(this.servicesUrl + 'CreateProject.php', {'project': project}).subscribe(
       sucess => {

@@ -29,9 +29,10 @@ export class ProjectsComponent implements OnInit {
   public getProjects() {
     this.projects = [];
     for (let index = 1; index < 7; index++) {
-      const project = new Project(index, index, "Projeto - " + index, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis exercitationem velit earum voluptates nobis, nam aut voluptatibus. Tempore pariatur repellat sit ipsam, ducimus est nemo obcaecati vel voluptatem aspernatur. Iusto!", "assets/images/project-icon.png"); 
+      const project = new Project(index, index, index, "Projeto - " + index, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis exercitationem velit earum voluptates nobis, nam aut voluptatibus. Tempore pariatur repellat sit ipsam, ducimus est nemo obcaecati vel voluptatem aspernatur. Iusto!", "assets/images/project-icon.png"); 
       this.projects.push(project);
     }
+    
     // TODO validar filtros
     // TODO buscar no banco
   }
