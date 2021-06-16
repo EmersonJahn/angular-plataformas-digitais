@@ -8,20 +8,9 @@
         </div>
     
         <div class="col-12 col-md-5">
-            <!-- <div class="form-group select-block">
-                <label class="mb-0" for="category">Categoria</label>
-                <ng-multiselect-dropdown 
-                [ngClass]="{'is-invalid': !isValidCategory}"
-                name="category"
-                [placeholder]="'Selecione'"
-                [settings]="dropdownSettings"
-                [data]="categories"
-                [(ngModel)] ="category"
-                >
-            </ng-multiselect-dropdown> -->
             <label class="mb-0" for="category">Categoria</label>
-            <select class="form-control" name="category" id="category" [(ngModel)]="category">
-                <option *ngFor="let c of categories" [ngValue]="c">{{c.description}}</option>
+            <select class="form-control" name="category" id="category" [(ngModel)]="categoryId">
+                <option *ngFor="let c of categories" [ngValue]="c.id">{{c.description}}</option>
             </select>
         </div>
     
@@ -55,6 +44,10 @@
     
                     <div class="problem-description my-1">
                         {{problem.description}}
+                    </div>
+
+                    <div class="problem-description my-1">
+                        <span class="font-weight-bold">Categoria: </span> {{getCategoryDescription(problem.category_id)}}
                     </div>
     
                     <div class="number-answers-problem text-primary my-1">
