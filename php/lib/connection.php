@@ -244,6 +244,20 @@ class Connection {
 		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
 	}
 
+	function connGetProjects($searchBy, $categoryId) {
+		$condition = "";
+		if (!empty($searchBy)) {
+			$condition .= " WHERE UPPER(projeto.titulo) LIKE '%$searchBy%' ";
+		}
+		if ($categoryId > 0) {
+			$condition .= empty($condition) ? " WHERE " : " AND ";
+			$condition .= " projeto.categoria_id = $categoryId";
+		}
+
+		$sql = "SELECT * FROM projeto $condition";
+		return $this->connSelectToObjectList($sql);
+	}
+
 }
 
 ?>

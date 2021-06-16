@@ -153,4 +153,18 @@ function utilFormatProblem($problem) {
     return $problem;
 }
 
+function utilFormatProject($project) {
+    $p = $project;
+
+    $project = new stdClass();
+    $project->id            = intval($p->id);
+    $project->person_id     = intval($p->pessoa_id);
+    $project->category_id   = intval($p->categoria_id);
+    $project->title         = trim($p->titulo);
+    $project->description   = trim($p->descricao);
+    $project->project_photo = trim($p->foto_projeto);
+
+    return $project;
+}
+
 ?>
