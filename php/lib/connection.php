@@ -211,6 +211,10 @@ class Connection {
 			$result = pg_fetch_assoc(pg_query($sql));
 
 			if ($result) {
+				if (empty($password)) {
+					$password = $result['senha'];
+				}
+
 				$sql2 = "UPDATE pessoa SET 
 							tipo_pessoa_id = $personTypeId,
 							nome           = '$name'      ,

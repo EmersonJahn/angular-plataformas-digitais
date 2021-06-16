@@ -32,7 +32,7 @@ export class ProblemsComponent implements OnInit {
     this.getCategories();
     this.getProblems();
 
-    localStorage.setItem("selectedProblemId", "0");
+    // localStorage.setItem("selectedProblemId", "0");
   }
 
   public getProblems() {

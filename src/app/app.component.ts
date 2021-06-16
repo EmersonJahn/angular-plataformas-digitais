@@ -32,7 +32,6 @@ export class AppComponent {
 
   public login() {
     const dialogRef = this.dialog.open(DialogLoginComponent, {width: '350px'})
-    
     dialogRef.afterClosed().subscribe(result => {
       this.userId       = localStorage.getItem("userId");
       this.profilePhoto = localStorage.getItem("profilePhoto");
