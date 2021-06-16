@@ -20,19 +20,7 @@ $connection = new Connection();
 $problem    = $connection->connGetProblemById($problemId); 
 
 if ($problem->id > 0) {  
-    $p = $problem;
-
-    $problem = new stdClass();
-    $problem->id                   = intval($p->id);
-    $problem->person_id            = intval($p->pessoa_id);
-    $problem->category_id          = intval($p->categoria_id);
-    $problem->title                = trim($p->titulo);
-    $problem->description          = trim($p->descricao);
-    $problem->status_problem_id    = intval($p->status_problema_id);
-    $problem->number_answers       = intval($p->numero_respostas);
-    // $problem->person_name          = trim($p->pessoa_nome);
-    // $problem->person_profile_photo = trim($p->pessoa_foto_perfil);
-
+    $problem = utilFormatProblem($problem);
 }
 
 utilEchoReponse('problem', $problem);

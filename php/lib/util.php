@@ -131,4 +131,26 @@ function utilGenerateRandomString($length = 15, $characters = '0123456789abcdefg
     return $randomString;
 }
 
+function utilFormatProblem($problem) {
+    // $c = $connection->connGetCategoryById(intval($problem->categoria_id));
+    // $category = new stdClass();
+    // if ($c) {
+    //     $category->id          = intval($c->id);
+    //     $category->description = trim($c->descricao);
+    // }
+
+    $p = $problem;
+
+    $problem = new stdClass();
+    $problem->id                   = intval($p->id);
+    $problem->person_id            = intval($p->pessoa_id);
+    $problem->category_id          = intval($p->categoria_id);
+    $problem->title                = trim($p->titulo);
+    $problem->description          = trim($p->descricao);
+    $problem->status_problem_id    = intval($p->status_problema_id);
+    $problem->number_answers       = intval($p->numero_respostas);
+
+    return $problem;
+}
+
 ?>
