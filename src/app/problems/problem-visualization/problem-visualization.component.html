@@ -10,7 +10,7 @@
                     <!-- <div *ngIf="person.id == problem!.person_id"> -->
                     <div class="text-primary mb-2">
                         <img class="profile-photo" src="{{problemPerson!.profile_photo}}" alt="Foto de perfil">
-                        <span>{{problemPerson!.name}}</span>
+                        <span class="ml-2">{{problemPerson!.name}}</span>
                     </div>
                 <!-- </span> -->
 
@@ -62,8 +62,8 @@
                 <div class="d-flex">
                     <span class="text-primary" *ngFor="let answersPerson of answersPersons">
                         <div *ngIf="answersPerson.id == answer.person_id"> 
-                            <img class="profile-photo" src="{{answersPerson.profile_photo}}" alt="Foto de perfil">
-                            <span>{{answersPerson.name}}</span>
+                            <img class="profile-photo my-1" src="{{answersPerson.profile_photo}}" alt="Foto de perfil">
+                            <span class="ml-2">{{answersPerson.name}}</span>
                         </div>
                     </span>
                     <div class="ml-3 pt-2" *ngIf="answer.right_answer">

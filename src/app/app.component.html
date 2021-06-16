@@ -22,11 +22,11 @@
             </ul>
         </div>
 
-        <div class="d-none d-md-block text-light mt-2">
+        <div class="d-none d-md-block text-light">
             <h2>UCSiNOVA</h2>
         </div>
 
-        <div class="mt-3">
+        <div>
             <button *ngIf="!userId" class="btn btn-login" (click)="login()">Entrar</button>
             <div *ngIf="userId" class="div-profile-photo" (click)="openOptions=!openOptions">
                 <img src="{{profilePhoto}}" alt="Foto de perfil"> 
