@@ -125,12 +125,12 @@ class Connection {
 	}
 
 	function connCreateProblem($problem) {
-		$personId        = $problem['person_id'];
-		$categoryId      = $problem['category_id'];
-		$title           = $problem['title'];
-		$description     = $problem['description'];
-		$problemStatusId = $problem['problem_status_id'];
-		$numberAnswers   = $problem['number_answers'];
+		$personId        = intval($problem['person_id']);
+		$categoryId      = intval($problem['category_id']);
+		$title           = trim($problem['title']);
+		$description     = trim($problem['description']);
+		$problemStatusId = intval($problem['problem_status_id']);
+		$numberAnswers   = intval($problem['number_answers']);
 
 		$sql = "INSERT INTO problema (pessoa_id, categoria_id, titulo, descricao, status_problema_id, numero_respostas) 
 							VALUES ($personId, $categoryId, '$title', '$description', $problemStatusId, $numberAnswers)";
@@ -149,10 +149,10 @@ class Connection {
 	}
 
 	function connCreateAnswer($answer) {
-		$problemId      = $answer['problem_id'];
-		$personId       = $answer['person_id'];
-		$response       = $answer['answer'];
-		$answerStatusId = $answer['answer_status_id'];
+		$problemId      = intval($answer['problem_id']);
+		$personId       = intval($answer['person_id']);
+		$response       = trim($answer['answer']);
+		$answerStatusId = intval($answer['answer_status_id']);
 
 		$answerId = 0;
 		$sql = "INSERT INTO resposta (problema_id, pessoa_id, resposta, status_resposta_id, resposta_correta) 
@@ -194,6 +194,39 @@ class Connection {
 
 		$sql = "SELECT * FROM problema $condition";
 		return $this->connSelectToObjectList($sql);
+	}
+
+	function connSavePerson($person) {
+		$personId     = intval($person['id']);
+		$personTypeId = intval($person['person_type_id']);
+		$name         = trim($person['name']);
+		$cpf          = $personTypeId == 1 ? trim($person['cpf'])  : "";
+		$cnpj         = $personTypeId == 2 ? trim($person['cnpj']) : "";
+		$email        = trim($person['email']);
+		$password     = trim($person['password']);
+		$profilePhoto = trim($person['profile_photo']);
+
+		if ($personId > 0) {
+			$sql = "SELECT * FROM pessoa WHERE pessoa.id = $personId";
+			$result = pg_fetch_assoc(pg_query($sql));
+
+			if ($result) {
+				$sql2 = "UPDATE pessoa SET 
+							tipo_pessoa_id = $personTypeId,
+							nome           = '$name'      ,
+							cpf            = '$cpf'       , 
+							cnpj           = '$cnpj'      , 
+							email          = '$email'     , 
+							senha          = '$password'  , 
+							foto_perfil    = '$profilePhoto'
+						 WHERE pessoa.id = $personId";
+
+				return pg_affected_rows(pg_query($sql2)) > 0 ? true : false;
+			}
+		}
+
+		$sql = "INSERT INTO pessoa (tipo_pessoa_id, nome, cpf, cnpj, email, senha, foto_perfil) VALUES ($personTypeId, '$name', '$cpf', '$cnpj', '$email', '$password', '$profilePhoto')";
+		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
 	}
 
 }
