@@ -9,8 +9,8 @@
     
         <div class="col-12 col-md-5">
             <label class="mb-0" for="category">Categoria</label>
-            <select class="form-control" name="category" id="category" [(ngModel)]="category">
-                <option *ngFor="let c of categories" [ngValue]="c">{{c.description}}</option>
+            <select class="form-control" name="category" id="category" [(ngModel)]="categoryId">
+                <option *ngFor="let c of categories" [ngValue]="c.id">{{c.description}}</option>
             </select>
         </div>
     
@@ -41,7 +41,7 @@
                 </div>
                 <div class="card-project-body text-light">
                     <p class="card-project-text mt-0 mb-2">{{project.title}}</p>
-                    <p class="card-project-description">{{ project.description.length > 120 ? project.description.substr(0,120) + ' ...' : project.description}} <!-- //TODO definir tamanho da descricao no back-end --></p>
+                    <p class="card-project-description">{{ project.description.length > 135 ? project.description.substr(0,135) + '...' : project.description}}</p>
                 </div>
             </div>
 

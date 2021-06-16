@@ -1,5 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
+import { GlobalConstants } from '../common/global-constants';
 import { AppService } from '../app.service';
 import { Category } from '../classes/Category';
 import { Project } from '../classes/Project';
@@ -11,15 +15,17 @@ import { Project } from '../classes/Project';
 })
 export class ProjectsComponent implements OnInit {
 
+  private servicesUrl = GlobalConstants.servicesUrl;
+  
   public userId = localStorage.getItem("userId");
 
-  public searchBy = "";
-  public category = 0; 
+  public searchBy   = "";
+  public categoryId = 0; 
 
   public categories: Category[] = [];
   public projects: Project[] = [];
 
-  constructor(private appService: AppService, private router: Router) { }
+  constructor(private appService: AppService, private router: Router, private toastr: ToastrService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -28,13 +34,26 @@ export class ProjectsComponent implements OnInit {
 
   public getProjects() {
     this.projects = [];
-    for (let index = 1; index < 7; index++) {
-      const project = new Project(index, index, index, "Projeto - " + index, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis exercitationem velit earum voluptates nobis, nam aut voluptatibus. Tempore pariatur repellat sit ipsam, ducimus est nemo obcaecati vel voluptatem aspernatur. Iusto!", "assets/images/project-icon.png"); 
-      this.projects.push(project);
+
+    const body = {
+      "search_by": this.searchBy.trim(),
+      "category_id": this.categoryId
     }
     
-    // TODO validar filtros
-    // TODO buscar no banco
+    this.http.post<any>(this.servicesUrl + 'GetProjects.php', body).subscribe(
+      sucess => {
+        console.log(sucess);
+        if (sucess['status'] == 1) {
+          this.projects = sucess['projects'];  
+        } else {
+          this.toastr.error(sucess['message']);
+        }
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar os projetos.");
+        console.log(error);
+      }
+    )
   }
 
   public openNewProject() {
@@ -54,6 +73,7 @@ export class ProjectsComponent implements OnInit {
   private getCategories() {
     this.appService.getCategories().then(categories => {
       this.categories = categories;
+      this.categories.push(new Category(0, "Todas"));
     });
   }
 

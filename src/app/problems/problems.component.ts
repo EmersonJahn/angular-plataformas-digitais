@@ -52,7 +52,7 @@ export class ProblemsComponent implements OnInit {
         }
       },
       error => {
-        this.toastr.error("Ocorreu um erro desconhecido ao buscar os problemas");
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar os problemas.");
         console.log(error);
       }
     )
