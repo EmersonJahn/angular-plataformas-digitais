@@ -258,6 +258,11 @@ class Connection {
 		return $this->connSelectToObjectList($sql);
 	}
 
+	function connGetProjectById($projectId) {
+		$sql = "SELECT * FROM projeto WHERE projeto.id = $projectId";
+		return $this->connSelectToObject($sql);
+	}
+
 }
 
 ?>
