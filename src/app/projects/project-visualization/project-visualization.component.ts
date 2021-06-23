@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
 
 import { faTrashAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
+import { GlobalConstants } from 'src/app/common/global-constants';
+import { AppService } from 'src/app/app.service';
 import { Category } from 'src/app/classes/Category';
 import { Project } from 'src/app/classes/Project';
-import { ProjectMember } from './../../classes/ProjectMember';
+import { ProjectMember } from 'src/app/classes/ProjectMember';
 
 @Component({
   selector: 'app-project-visualization',
@@ -18,6 +20,8 @@ export class ProjectVisualizationComponent implements OnInit {
 
   public faTrashAlt = faTrashAlt;
   public faUserPlus = faUserPlus;
+
+  private servicesUrl = GlobalConstants.servicesUrl;
 
   public selectedProjectId = 0;
   public userId = Number(localStorage.getItem("userId"));
@@ -36,20 +40,42 @@ export class ProjectVisualizationComponent implements OnInit {
   public askToJoinOpened   = false;
   public askToJoinDisabled = false;
 
-  constructor(private appService: AppService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router) { }
+  constructor(private appService: AppService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
     this.getCategories();
+    this.getProject();
     this.defineIsProjectOwner();
     this.defineIsProjectMember();
-    this.getProject();
   }
   
   private getProject() {
-    // TODO buscar no banco
-    this.project = new Project(this.selectedProjectId, this.userId, this.selectedProjectId, "Projeto - " + this.selectedProjectId, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex, dolore, nesciunt nihil magnam esse vitae explicabo similique earum praesentium iure excepturi commodi itaque quia in accusamus natus dolorem quam debitis.", "assets/images/project-icon.png");
-    this.getProjectMembers();
+    this.http.post<any>(this.servicesUrl + 'GetProjectById.php', {'project_id': this.selectedProjectId}).subscribe(
+      sucess => {
+        if (sucess['status'] == 1) {
+          this.project = sucess['project'];
+
+          if (this.project) {
+            this.getProjectMembers();
+
+          //   this.appService.getPersonById(this.project.person_id).then(person => {
+          //     this.projectPerson = person;
+          //   })
+
+          //   // this.getAnswers();
+          }
+
+        } else {
+          this.toastr.error(sucess['message']);
+        }
+
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar os dados do projeto.");
+        console.log(error);
+      }
+    )
   }
 
   private getProjectMembers() {
@@ -79,10 +105,16 @@ export class ProjectVisualizationComponent implements OnInit {
 
   public onFileChanged(event: Event) {
     const input = event.target as HTMLInputElement;
+    let reader = new FileReader();
+
     if (input.files) {
-      this.newProfilePhoto = input.files[0];
-      console.log(this.newProfilePhoto);
-      // this.updateProfilePhoto(); // TODO salvar foto fisicamente em algum lugar 
+      reader.readAsDataURL(input.files[0]);
+      reader.onload = (event) => {
+        const photo = event.target!.result;
+        if (typeof photo == 'string') {
+          this.project!.project_photo = photo;
+        }
+      }
     }    
   }
 

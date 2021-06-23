@@ -10,7 +10,7 @@
                         <img src="{{project!.project_photo}}" alt="Foto do projeto" class="project-photo"> 
                     </label>
                     <div *ngIf="isProjectOwner">
-                        <input id="file-input" type="file" accept="image/*" [(ngModel)]="newProfilePhoto" (change)="onFileChanged($event)" style="display: none;"/>
+                        <input class="d-none" id="file-input" type="file" accept="image/*" (change)="onFileChanged($event)">
                     </div>
                 </div>
             </div>
