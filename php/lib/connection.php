@@ -125,8 +125,8 @@ class Connection {
 	}
 
 	function connCreateProblem($problem) {
-		$personId        = intval($problem['person_id']);
-		$categoryId      = intval($problem['category_id']);
+		$personId        = intval($problem['person']['id']);
+		$categoryId      = intval($problem['category']['id']);
 		$title           = trim($problem['title']);
 		$description     = trim($problem['description']);
 		$problemStatusId = intval($problem['problem_status_id']);
@@ -234,8 +234,8 @@ class Connection {
 	}
 
 	function connCreateProject($project) {
-		$personId     = intval($project['person_id']);
-		$categoryId   = intval($project['category_id']);
+		$personId     = intval($project['person']['id']);
+		$categoryId   = intval($project['category']['id']);
 		$title        = trim($project['title']);
 		$description  = trim($project['description']);
 		$projectPhoto = trim($project['project_photo']);

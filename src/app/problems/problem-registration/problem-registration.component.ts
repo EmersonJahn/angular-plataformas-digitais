@@ -7,6 +7,7 @@ import { AppService } from 'src/app/app.service';
 
 import { Category } from 'src/app/classes/Category';
 import { Problem } from 'src/app/classes/Problem';
+import { Person } from 'src/app/classes/Person';
 
 @Component({
   selector: 'app-problem-registration',
@@ -64,23 +65,26 @@ export class ProblemRegistrationComponent implements OnInit {
       return;
     }
 
-    const categoryId = this.category ? this.category.id : 0;
-    const problem    = new Problem(0, this.userId, categoryId, this.title, this.description, 1, 0);
+    // const categoryId = this.category ? this.category.id : 0;
+    if (this.category) {
+      const person     = new Person(this.userId);
+      const problem    = new Problem(0, person, this.category, this.title, this.description, 1, 0);
 
-    this.http.post<any>(this.servicesUrl + 'CreateProblem.php', {'problem': problem}).subscribe(
-      sucess => {
-        if (sucess["status"] == 1) {
-          this.toastr.success(sucess["message"]);     
-          this.disabled = true;     
-        } else {
-          this.toastr.error(sucess["message"]);          
+      this.http.post<any>(this.servicesUrl + 'CreateProblem.php', {'problem': problem}).subscribe(
+        sucess => {
+          if (sucess["status"] == 1) {
+            this.toastr.success(sucess["message"]);     
+            this.disabled = true;     
+          } else {
+            this.toastr.error(sucess["message"]);          
+          }
+        }, 
+        error => {
+          this.toastr.error("Ocorreu um erro desconhecido ao tentar cadastrar o problema.");
+          console.log(error);
         }
-      }, 
-      error => {
-        this.toastr.error("Ocorreu um erro desconhecido ao tentar cadastrar o problema.");
-        console.log(error);
-      }
-    )
+      )
+    }
 
   }
 

@@ -121,12 +121,12 @@ export class SignUpComponent implements OnInit {
   private getPerson() {
     if (this.userId) {
       this.appService.getPersonById(this.userId).then(person => {
-        this.personType   = person['person_type_id'];
-        this.name         = person['name'];
-        this.cpf          = person['cpf'];
-        this.cnpj         = person['cnpj'];
-        this.email        = person['email'];
-        this.profilePhoto = person['profile_photo'];
+        this.personType   = person['person_type_id']!;
+        this.name         = person['name']!;
+        this.cpf          = person['cpf']!;
+        this.cnpj         = person['cnpj']!;
+        this.email        = person['email']!;
+        this.profilePhoto = person['profile_photo']!;
       })
     }
   }

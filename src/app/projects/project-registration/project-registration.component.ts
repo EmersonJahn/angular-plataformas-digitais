@@ -6,6 +6,7 @@ import { AppService } from 'src/app/app.service';
 import { GlobalConstants } from 'src/app/common/global-constants';
 import { Category } from 'src/app/classes/Category';
 import { Project } from 'src/app/classes/Project';
+import { Person } from 'src/app/classes/Person';
 
 @Component({
   selector: 'app-project-registration',
@@ -63,22 +64,24 @@ export class ProjectRegistrationComponent implements OnInit {
       return;
     }
 
-    const category = this.category ? this.category.id : 0;
-    const project  = new Project(0, this.userId, category, this.title, this.description, this.projectPhoto);
-
-    this.http.post<any>(this.servicesUrl + 'CreateProject.php', {'project': project}).subscribe(
-      sucess => {
-        if (sucess['status'] == 1) {
-          this.toastr.success(sucess['message']);
-        } else {
-          this.toastr.success(sucess['message']);
+    if (this.category) {
+      const person   = new Person(this.userId);
+      const project  = new Project(0, person, this.category, this.title, this.description, this.projectPhoto);
+      
+      this.http.post<any>(this.servicesUrl + 'CreateProject.php', {'project': project}).subscribe(
+        sucess => {
+          if (sucess['status'] == 1) {
+            this.toastr.success(sucess['message']);
+          } else {
+            this.toastr.success(sucess['message']);
+          }
+        },
+        error => {
+          this.toastr.error("Ocorreu um erro desconhecido ao gravar o projeto.");
+          console.log(error);
         }
-      },
-      error => {
-        this.toastr.error("Ocorreu um erro desconhecido ao gravar o projeto.");
-        console.log(error);
-      }
-    )
+      )
+    }
 
   }
 
