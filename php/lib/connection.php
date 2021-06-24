@@ -149,8 +149,8 @@ class Connection {
 	}
 
 	function connCreateAnswer($answer) {
-		$problemId      = intval($answer['problem_id']);
-		$personId       = intval($answer['person_id']);
+		$problemId      = intval($answer['problem']['id']);
+		$personId       = intval($answer['person']['id']);
 		$response       = trim($answer['answer']);
 		$answerStatusId = intval($answer['answer_status_id']);
 
@@ -172,27 +172,32 @@ class Connection {
 	}
 
 	function connGetAnswersByProblemId($problemId) {
-		$sql = "SELECT * FROM resposta WHERE resposta.problema_id = $problemId AND resposta.status_resposta_id = 2";
+		$sql = "SELECT r.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil 
+				FROM resposta r JOIN pessoa pe ON r.pessoa_id = pe.id WHERE r.problema_id = $problemId AND r.status_resposta_id = 2";
+		// $sql = "SELECT * FROM resposta WHERE resposta.problema_id = $problemId AND resposta.status_resposta_id = 2";
 		return $this->connSelectToObjectList($sql);
 	}
 
 	function connGetProblemById($problemId) {
-		// $sql = "SELECT problema.*, pessoa.nome pessoa_nome, pessoa.foto_perfil pessoa_foto_perfil FROM problema JOIN pessoa ON problema.pessoa_id = pessoa.id WHERE problema.id = $problemId";
-		$sql = "SELECT * FROM problema WHERE problema.id = $problemId";
+		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
+				FROM problema pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id WHERE pr.id = $problemId";
+		// $sql = "SELECT * FROM problema WHERE problema.id = $problemId";
 		return $this->connSelectToObject($sql);
 	}
 
 	function connGetProblems($searchBy, $categoryId) {
 		$condition = "";
 		if (!empty($searchBy)) {
-			$condition .= " WHERE UPPER(problema.titulo) LIKE '%$searchBy%' ";
+			$condition .= " WHERE UPPER(pr.titulo) LIKE '%$searchBy%' ";
 		}
 		if ($categoryId > 0) {
 			$condition .= empty($condition) ? " WHERE " : " AND ";
-			$condition .= " problema.categoria_id = $categoryId";
+			$condition .= " pr.categoria_id = $categoryId";
 		}
 
-		$sql = "SELECT * FROM problema $condition";
+		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
+				FROM problema pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id $condition";
+		// $sql = "SELECT * FROM problema $condition";
 		return $this->connSelectToObjectList($sql);
 	}
 
@@ -247,19 +252,23 @@ class Connection {
 	function connGetProjects($searchBy, $categoryId) {
 		$condition = "";
 		if (!empty($searchBy)) {
-			$condition .= " WHERE UPPER(projeto.titulo) LIKE '%$searchBy%' ";
+			$condition .= " WHERE UPPER(pr.titulo) LIKE '%$searchBy%' ";
 		}
 		if ($categoryId > 0) {
 			$condition .= empty($condition) ? " WHERE " : " AND ";
-			$condition .= " projeto.categoria_id = $categoryId";
+			$condition .= " pr.categoria_id = $categoryId";
 		}
 
-		$sql = "SELECT * FROM projeto $condition";
+		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
+				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id $condition";
+		// $sql = "SELECT * FROM projeto $condition";
 		return $this->connSelectToObjectList($sql);
 	}
 
 	function connGetProjectById($projectId) {
-		$sql = "SELECT * FROM projeto WHERE projeto.id = $projectId";
+		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
+				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id WHERE pr.id = $projectId";
+		// $sql = "SELECT * FROM projeto WHERE projeto.id = $projectId";
 		return $this->connSelectToObject($sql);
 	}
 

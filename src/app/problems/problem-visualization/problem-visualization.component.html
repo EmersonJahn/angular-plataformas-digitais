@@ -6,13 +6,11 @@
                 <div class="problem-title my-1">
                     {{problem!.title}}
                 </div>
-                <!-- <span class="text-primary mb-2" *ngFor="let person of persons"> -->
-                    <!-- <div *ngIf="person.id == problem!.person_id"> -->
-                    <div class="text-primary mb-2">
-                        <img class="profile-photo" src="{{problemPerson!.profile_photo}}" alt="Foto de perfil">
-                        <span class="ml-2">{{problemPerson!.name}}</span>
-                    </div>
-                <!-- </span> -->
+
+                <div class="text-primary mb-2">
+                    <img class="profile-photo" src="{{problem!.person.profile_photo}}" alt="Foto de perfil">
+                    <span class="ml-2">{{problem!.person.name}}</span>
+                </div>
 
                 <div class="problem-description my-1 pl-2">
                     {{problem!.description}}
@@ -60,12 +58,11 @@
             <div class="problem-card border my-2 px-2">
 
                 <div class="d-flex">
-                    <span class="text-primary" *ngFor="let answersPerson of answersPersons">
-                        <div *ngIf="answersPerson.id == answer.person_id"> 
-                            <img class="profile-photo my-1" src="{{answersPerson.profile_photo}}" alt="Foto de perfil">
-                            <span class="ml-2">{{answersPerson.name}}</span>
-                        </div>
-                    </span>
+                    <div class="text-primary"> 
+                        <img class="profile-photo my-1" src="{{answer.person.profile_photo}}" alt="Foto de perfil">
+                        <span class="ml-2">{{answer.person.name}}</span>
+                    </div>
+                    
                     <div class="ml-3 pt-2" *ngIf="answer.right_answer">
                         <fa-icon class="text-success" [icon]="faCheck"></fa-icon>
                     </div>

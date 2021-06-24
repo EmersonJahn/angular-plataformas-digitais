@@ -29,7 +29,7 @@ $categories = [];
 foreach ($categs as $c) {
     $category = new \stdClass();
     $category->id          = intval($c["id"]);
-    $category->description = ucwords(strtolower(trim($c["descricao"])));
+    $category->description = trim($c["descricao"]);
     $categories[] = $category;
 }
 

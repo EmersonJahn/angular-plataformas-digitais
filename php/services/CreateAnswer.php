@@ -21,7 +21,7 @@ $answerId   = $connection->connCreateAnswer($answer);
 $status = 0;
 
 if ($answerId > 0) {
-    $isCreated = $connection->connCreatePendingAnswer($answer['problem_id'], $answerId);
+    $isCreated = $connection->connCreatePendingAnswer($answer['problem']['id'], $answerId);
     if ($isCreated) {
         $status  = 1;
         $message = "Resposta criada com sucesso!"; 

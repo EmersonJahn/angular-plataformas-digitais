@@ -132,19 +132,12 @@ function utilGenerateRandomString($length = 15, $characters = '0123456789abcdefg
 }
 
 function utilFormatProblem($problem) {
-    // $c = $connection->connGetCategoryById(intval($problem->categoria_id));
-    // $category = new stdClass();
-    // if ($c) {
-    //     $category->id          = intval($c->id);
-    //     $category->description = trim($c->descricao);
-    // }
-
-    $p = $problem;
-
+    $p = $problem;   
+    
     $problem = new stdClass();
     $problem->id                   = intval($p->id);
-    $problem->person_id            = intval($p->pessoa_id);
-    $problem->category_id          = intval($p->categoria_id);
+    $problem->person               = utilFormatJoinPerson($p);
+    $problem->category             = utilFormatJoinCategory($p);
     $problem->title                = trim($p->titulo);
     $problem->description          = trim($p->descricao);
     $problem->status_problem_id    = intval($p->status_problema_id);
@@ -158,13 +151,34 @@ function utilFormatProject($project) {
 
     $project = new stdClass();
     $project->id            = intval($p->id);
-    $project->person_id     = intval($p->pessoa_id);
-    $project->category_id   = intval($p->categoria_id);
+    $project->person        = utilFormatJoinPerson($p);
+    $project->category      = utilFormatJoinCategory($p);
     $project->title         = trim($p->titulo);
     $project->description   = trim($p->descricao);
     $project->project_photo = trim($p->foto_projeto);
 
     return $project;
+}
+
+function utilFormatJoinPerson($join) {
+    $person = new stdClass();
+    $person->id             = intval($join->pessoa_id);
+    $person->person_type_id = intval($join->tipo_pessoa_id);
+    $person->name           = trim($join->pessoa_nome);
+    $person->cpf            = trim($join->pessoa_cpf);
+    $person->cnpj           = trim($join->pessoa_cnpj);
+    $person->email          = trim($join->pessoa_email);
+    $person->profile_photo  = trim($join->pessoa_foto_perfil);
+
+    return $person;
+}
+
+function utilFormatJoinCategory($join) {
+    $category = new stdClass();
+    $category->id          = intval($join->categoria_id);
+    $category->description = trim($join->categoria_descricao);
+
+    return $category;
 }
 
 ?>

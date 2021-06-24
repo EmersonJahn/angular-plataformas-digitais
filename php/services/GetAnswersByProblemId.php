@@ -13,6 +13,7 @@ utilDefinesHeaders();
 $rest_json = file_get_contents("php://input");
 $_POST     = json_decode($rest_json, true);
 
+// $problemId = 1;
 $problemId = intval($_POST["problem_id"]);
 
 $connection = new Connection();
@@ -26,7 +27,7 @@ if (count($answers) > 0) {
         $answer = new stdClass();
         $answer->id               = intval($a->id);
         $answer->problem_id       = intval($a->problema_id);
-        $answer->person_id        = intval($a->pessoa_id);
+        $answer->person           = utilFormatJoinPerson($a);
         $answer->answer           = trim($a->resposta);
         $answer->answer_status_id = intval($a->status_resposta_id);
         $answer->right_answer     = $a->resposta_correta == "t" ? true : false;
