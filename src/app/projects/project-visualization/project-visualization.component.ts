@@ -58,12 +58,6 @@ export class ProjectVisualizationComponent implements OnInit {
 
           if (this.project) {
             this.getProjectMembers();
-
-          //   this.appService.getPersonById(this.project.person_id).then(person => {
-          //     this.projectPerson = person;
-          //   })
-
-          //   // this.getAnswers();
           }
 
         } else {
@@ -80,12 +74,22 @@ export class ProjectVisualizationComponent implements OnInit {
 
   private getProjectMembers() {
     // TODO buscar no banco
-    const projectMember  = new ProjectMember(this.selectedProjectId, 1);
-    const projectMember2 = new ProjectMember(this.selectedProjectId, 2);
-    const projectMember3 = new ProjectMember(this.selectedProjectId, 3);
-    this.projectMembers.push(projectMember);
-    this.projectMembers.push(projectMember2);
-    this.projectMembers.push(projectMember3);
+
+    this.projectMembers = [];
+    this.http.post<any>(this.servicesUrl + 'GetProjectMembersByProjectId.php', {}).subscribe(
+      sucess => {
+        if (sucess['status'] == 1) {
+          this.projectMembers = sucess['projectMember'];
+        } else {
+          this.toastr.error(sucess['message']);
+        }
+
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar os integrantes do projeto.");
+        console.log(error);
+      }
+    )
   }
 
   public updateProject() {

@@ -16,11 +16,10 @@
             </div>
 
             <div class="row text-center mt-2">
-                <!-- *ngFor="let projectMember of projectMembers" -->
                 <span class="col-12">
                     <div>
-                        <img src="assets/images/user-icon.png" alt="Foto de perfil" class="profile-photo"> <!--// TODO colocar a foto de perfil do dono do projeto-->
-                        <span>Criado por Enzo Gabriel</span> <!--// TODO colocar o nome do dono do projeto-->
+                        <img src="{{project!.person.profile_photo}}" alt="Foto de perfil" class="profile-photo">
+                        <span class="ml-2">Criado por {{project!.person.name}}</span>
                     </div>
                 </span>
             </div>
@@ -46,7 +45,7 @@
             <div class="row my-2">
                 <div class="col-12">
                     <label class="mb-0" for="category">Categoria</label>
-                    <select class="form-control" name="category" id="category" [(ngModel)]="project!.category_id" [disabled]="!isProjectOwner">
+                    <select class="form-control" name="category" id="category" [(ngModel)]="project!.category.id" [disabled]="!isProjectOwner">
                         <option *ngFor="let c of categories" [ngValue]="c.id">{{c.description}}</option>
                     </select>
                 </div>
@@ -61,6 +60,9 @@
                         </button>
                     </div>
                     <table class="table border" [ngClass]="{'bg-disabled': !isProjectOwner}">
+                        <tr *ngIf="projectMembers.length==0">
+                            <td class="py-1">Ainda não há integrantes nesse projeto</td>
+                        </tr>
                         <tr *ngFor="let projectMember of projectMembers">
                             <td class="py-1 w-100">Nome do integrante - {{projectMember.person_id}}</td>
                             <td class="py-1" *ngIf="isProjectOwner">

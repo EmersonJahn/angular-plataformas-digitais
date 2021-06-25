@@ -272,6 +272,12 @@ class Connection {
 		return $this->connSelectToObject($sql);
 	}
 
+	function connGetProjectMembersByProjectId($projectId) {
+		$sql = "SELECT i.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil 
+				FROM integrante i JOIN pessoa pe ON i.pessoa_id = pe.id WHERE i.projeto_id = $projectId AND i.status_integrante_id = 2";
+		return $this->connSelectToObjectList($sql);
+	}
+
 }
 
 ?>
