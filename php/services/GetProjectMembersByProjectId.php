@@ -13,8 +13,8 @@ utilDefinesHeaders();
 $rest_json = file_get_contents("php://input");
 $_POST     = json_decode($rest_json, true);
 
-$projectId = 1;
-// $projectId = intval($_POST["project_id"]);
+// $projectId = 1;
+$projectId = intval($_POST["project_id"]);
 
 $connection     = new Connection();
 $projectMembers = $connection->connGetProjectMembersByProjectId($projectId); 
@@ -25,7 +25,7 @@ if (count($projectMembers) > 0) {
     foreach ($projectMembers as $pm) {
         $projMem = new stdClass();
         $projMem->id         = $pm->id;
-        $projMem->project_id = $pm->projeto_id;
+        $projMem->project_id = intval($pm->projeto_id);
         $projMem->person     = utilFormatJoinPerson($pm);
 
         $projMems[] = $projMem;

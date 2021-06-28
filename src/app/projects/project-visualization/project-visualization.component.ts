@@ -46,8 +46,6 @@ export class ProjectVisualizationComponent implements OnInit {
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
     this.getCategories();
     this.getProject();
-    this.defineIsProjectOwner();
-    this.defineIsProjectMember();
   }
   
   private getProject() {
@@ -58,6 +56,7 @@ export class ProjectVisualizationComponent implements OnInit {
 
           if (this.project) {
             this.getProjectMembers();
+            this.defineIsProjectOwner();
           }
 
         } else {
@@ -73,13 +72,12 @@ export class ProjectVisualizationComponent implements OnInit {
   }
 
   private getProjectMembers() {
-    // TODO buscar no banco
-
     this.projectMembers = [];
-    this.http.post<any>(this.servicesUrl + 'GetProjectMembersByProjectId.php', {}).subscribe(
+    this.http.post<any>(this.servicesUrl + 'GetProjectMembersByProjectId.php', {"project_id": this.selectedProjectId}).subscribe(
       sucess => {
         if (sucess['status'] == 1) {
-          this.projectMembers = sucess['projectMember'];
+          this.projectMembers = sucess['projectMembers'];
+          this.defineIsProjectMember();
         } else {
           this.toastr.error(sucess['message']);
         }
@@ -97,8 +95,13 @@ export class ProjectVisualizationComponent implements OnInit {
     // TODO salvar tbm novo array de membros (caso algum tenha sido deletado)
   }
 
-  public removeProjectMember(personId: any) {
-    // TODO deletar do array de membros
+  public removeProjectMember(personId: Number) {
+    const index = this.projectMembers.findIndex(i => i.person.id == personId);
+    console.log(this.projectMembers);
+    if (index > -1) {
+      this.projectMembers.splice(index, 1);
+    }
+    console.log(this.projectMembers);
   }
 
   public addProjectMember(personId: any) {
@@ -127,14 +130,17 @@ export class ProjectVisualizationComponent implements OnInit {
   }
   
   private defineIsProjectOwner() {
-    if (this.userId == this.selectedProjectId) { // TODO criar função que valide de verdade
+    if (this.userId == this.project?.person.id) {
       this.isProjectOwner = true;
     }
   }
 
   private defineIsProjectMember() {
-    if (this.userId + 1 == this.selectedProjectId) { // TODO criar função que valide de verdade
-      this.isProjectMember = true;
+    for (let index = 0; index < this.projectMembers.length; index++) {
+      if (this.projectMembers[index].person.id == this.userId ) {
+        this.isProjectMember = true;
+        break;
+      }
     }
   }
 
