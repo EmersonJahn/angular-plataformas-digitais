@@ -306,6 +306,26 @@ class Connection {
 		return true;
 	}
 
+	function connCreatePendingProjectMember($pendingProjectMember) {
+		$allCreated = false;
+
+		$projectId    = $pendingProjectMember['project_id'];
+		$personId     = $pendingProjectMember['person_id'];
+		$presentation = $pendingProjectMember['presentation'];
+
+		$sql = "INSERT INTO integrante_aprovacao_pendente (projeto_id, pessoa_id, apresentacao) VALUES ($projectId, $personId, '$presentation')";
+
+		if (pg_affected_rows(pg_query($sql)) > 0) {
+			$sql2 = "INSERT INTO integrante (projeto_id, pessoa_id, status_integrante_id) VALUES ($projectId, $personId, 1)";
+
+			if (pg_affected_rows(pg_query($sql2)) > 0) {
+				$allCreated = true;	
+			}
+		}
+		
+		return $allCreated;
+	}
+
 }
 
 ?>
