@@ -57,8 +57,6 @@ export class DialogLoginComponent implements OnInit {
 
     this.http.post<any>(this.servicesUrl + 'Login.php', body).subscribe(
       success => {
-        console.log(success);
-        
         if (success['status'] == 1) {
           this.toastr.success(success['message']);
 

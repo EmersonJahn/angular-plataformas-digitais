@@ -72,7 +72,7 @@
                                 </div>
                             </td>
                             <td class="py-1" *ngIf="isProjectOwner">
-                                <button class="btn btn-danger btn-sm cursor-pointer" title="Remover integrante" (click)="removeProjectMember(projectMember.person.id)">
+                                <button class="btn btn-danger btn-sm cursor-pointer" title="Remover integrante" (click)="removeProjectMemberFromList(projectMember.person.id, false)">
                                     <fa-icon class="text-light" [icon]="faTrashAlt"></fa-icon>
                                 </button>
                             </td>
@@ -111,7 +111,7 @@
     <div class="row mt-0 mb-4 px-3 justify-content-center">
         <div class="col-12 col-md-5 col-lg-4 col-xl-3 text-center">
             <button *ngIf="isProjectOwner" class="btn btn-primary btn-block" title="Salvar alterações" (click)="updateProject()">Salvar alterações</button>
-            <button *ngIf="!isProjectOwner && isProjectMember" class="btn btn-primary btn-block" title="Sair do projeto" (click)="removeProjectMember(userId)">Sair do projeto</button>
+            <button *ngIf="!isProjectOwner && isProjectMember" class="btn btn-primary btn-block" title="Sair do projeto" (click)="removeProjectMemberFromList(userId, true)">Sair do projeto</button>
         </div>
     </div>
 

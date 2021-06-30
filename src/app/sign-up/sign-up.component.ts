@@ -86,7 +86,6 @@ export class SignUpComponent implements OnInit {
 
     this.http.post<any>(this.servicesUrl + 'SavePerson.php', {'person': person}).subscribe(
       success => {
-        console.log(success);
         if (success['status'] == 1) {
           this.toastr.success(success['message']);
           localStorage.setItem('profilePhoto', this.profilePhoto);

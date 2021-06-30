@@ -10,6 +10,8 @@ import { AppService } from 'src/app/app.service';
 import { Category } from 'src/app/classes/Category';
 import { Project } from 'src/app/classes/Project';
 import { ProjectMember } from 'src/app/classes/ProjectMember';
+import { Person } from 'src/app/classes/Person';
+import { PendingProjectMember } from 'src/app/classes/PendingProjectMember';
 
 @Component({
   selector: 'app-project-visualization',
@@ -30,17 +32,17 @@ export class ProjectVisualizationComponent implements OnInit {
   
   public memberPresentation = "";
   public project?: Project;
-  public pendingMembersCount = 3; // TODO buscar valor correto
+  public pendingMembersCount = 0;
 
   public projectMembers: ProjectMember[] = [];
   public categories: Category[] = [];
+  private projectMembersRemoved: ProjectMember[] = [];
 
   public isProjectOwner       = false;
   public isProjectMember      = false;
   public askToJoinOpened      = false;
   public askToJoinDisabled    = false;
-  public projectMemberRemoved = false;
-
+  
   constructor(private appService: AppService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -92,23 +94,74 @@ export class ProjectVisualizationComponent implements OnInit {
   }
 
   public updateProject() {
-    // TODO salvar informacoes no banco
-    // TODO salvar tbm novo array de membros (caso algum tenha sido deletado)
+    this.http.post<any>(this.servicesUrl + 'UpdateProject.php', {'project':this.project}).subscribe(
+      success => {
+        if (success['status'] == 1) {
+          if (this.projectMembersRemoved.length > 0) {
+            this.removeProjectMembers();
+          }
+          this.toastr.success(success['message']);
+
+        } else {
+          this.toastr.error(success['message']);
+        }
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao salvar as informações do projeto.");
+        console.log(error);
+      }
+    )
   }
 
-  public removeProjectMember(personId: Number) {
-    if (confirm("Você tem certeza que deseja remover esse integrante?")) {
+  private removeProjectMembers() {
+    this.http.post<any>(this.servicesUrl + 'RemoveProjectMembers.php', {'project_members': this.projectMembersRemoved}).subscribe(
+      success => {
+        if (success['status'] == 0) {
+          this.toastr.error(success['message']);
+        }
+      },
+      error => {
+        this.toastr.error('Ocorreu um erro desconhecido ao remover o(s) integrante(s) do projeto.');
+        console.log(error);
+      }
+    )
+  }
+
+  public removeProjectMemberFromList(personId: Number, removeProjectMembers: boolean) {
+    const textConfirm = removeProjectMembers ? "Você tem certeza que deseja sair do projeto?" : "Você tem certeza que deseja remover esse integrante?";
+    if (confirm(textConfirm)) {
       const index = this.projectMembers.findIndex(i => i.person.id == personId);
+
       if (index > -1) {
         this.projectMembers.splice(index, 1);
-        this.projectMemberRemoved = true;
+
+        const projetMemberRemoved = new ProjectMember(this.selectedProjectId, new Person(personId));
+        this.projectMembersRemoved.push(projetMemberRemoved);
+        if (removeProjectMembers) {
+          this.removeProjectMembers();
+          this.projectMembersRemoved.slice();
+          window.location.reload();
+        }
       }
     }
   }
 
   public addProjectMember(personId: any) {
-    // TODO add na lista de aprovações pendentes (new PendingProjectMember)
-    this.toastr.success("Solicitação para participar do projeto enviada com sucesso!");
+    const pendingProjectMember = new PendingProjectMember(this.selectedProjectId, personId, this.memberPresentation);
+    this.http.post<any>(this.servicesUrl + 'CreatePendingProjectMember.php', {'pending_project_member': pendingProjectMember}).subscribe(
+      success => {
+        if (success['status'] == 1) {
+          this.toastr.success(success['message']);
+        } else {
+          this.toastr.error(success['message']);
+        }
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao solicitar participação no projeto.");
+        console.log(error);
+      }
+    )
+
     this.askToJoinDisabled = true;
   }
 
@@ -130,10 +183,28 @@ export class ProjectVisualizationComponent implements OnInit {
   public openApprovalMembers() {
     this.router.navigateByUrl('projects/approval-members/' + this.selectedProjectId);
   }
+
+  private getPendingMembersCount() {
+    this.pendingMembersCount = 0;
+    this.http.post<any>(this.servicesUrl + 'GetPendingMembersCount.php', {"project_id": this.selectedProjectId}).subscribe(
+      success => {
+        if (success['status'] == 1) {
+          this.pendingMembersCount = success['pending_members_count'];
+        } else {
+          this.toastr.error(success['message']);
+        }
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao solicitar participação no projeto.");
+        console.log(error);
+      }
+    )
+  }
   
   private defineIsProjectOwner() {
     if (this.userId == this.project?.person.id) {
       this.isProjectOwner = true;
+      this.getPendingMembersCount();
     }
   }
 
