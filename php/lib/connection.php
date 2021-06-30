@@ -310,7 +310,7 @@ class Connection {
 		$allCreated = false;
 
 		$projectId    = $pendingProjectMember['project_id'];
-		$personId     = $pendingProjectMember['person_id'];
+		$personId     = $pendingProjectMember['person']['id'];
 		$presentation = $pendingProjectMember['presentation'];
 
 		$sql = "INSERT INTO integrante_aprovacao_pendente (projeto_id, pessoa_id, apresentacao) VALUES ($projectId, $personId, '$presentation')";
@@ -330,6 +330,12 @@ class Connection {
 		$sql = "SELECT COUNT(*) FROM integrante WHERE projeto_id = $projectId AND status_integrante_id = 1";
 		$result = pg_fetch_assoc(pg_query($sql));
 		return $result ? intval($result['count']) : 0;
+	}
+
+	function connGetPendingProjectMembers($projectId) {
+		$sql = "SELECT iap.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil 
+				FROM integrante_aprovacao_pendente iap JOIN pessoa pe ON iap.pessoa_id = pe.id WHERE iap.projeto_id = $projectId ORDER BY iap.id";
+		return $this->connSelectToObjectList($sql);
 	}
 
 }

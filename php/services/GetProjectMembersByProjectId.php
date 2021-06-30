@@ -35,6 +35,6 @@ if (count($projectMembers) > 0) {
     
 }
 
-utilEchoReponse('projectMembers', $projectMembers);
+utilEchoReponse('project_members', $projectMembers);
 
 ?>
