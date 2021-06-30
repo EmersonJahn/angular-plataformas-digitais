@@ -293,6 +293,19 @@ class Connection {
 		return $this->connSelectToObjectList($sql);
 	}
 
+	function connRemoveProjectMembers($projectMembers) {
+		foreach ($projectMembers as $pm) {
+			$projectId = intval($pm['project_id']);
+			$personId  = intval($pm['person']['id']);
+
+			$sql = "DELETE FROM integrante WHERE projeto_id = $projectId AND pessoa_id = $personId";
+			if (pg_affected_rows(pg_query($sql)) == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 }
 
 ?>
