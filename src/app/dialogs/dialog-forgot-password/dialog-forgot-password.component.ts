@@ -24,14 +24,14 @@ export class DialogForgotPasswordComponent implements OnInit {
 
   public forgotPassword() {
     this.http.post<any>(this.servicesUrl + 'RecoverPassword.php', {'email': this.email}).subscribe(
-      sucess => {
-        if (sucess['status'] == 1) {
-          this.toastr.success(sucess['message']);
+      success => {
+        if (success['status'] == 1) {
+          this.toastr.success(success['message']);
           this.dialogRef.close();
           this.dialog.open(DialogLoginComponent, {width: '350px'});
 
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
         }
 
       }, 

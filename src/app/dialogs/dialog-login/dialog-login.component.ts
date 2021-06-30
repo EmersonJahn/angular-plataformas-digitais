@@ -56,21 +56,21 @@ export class DialogLoginComponent implements OnInit {
     };
 
     this.http.post<any>(this.servicesUrl + 'Login.php', body).subscribe(
-      sucess => {
-        console.log(sucess);
+      success => {
+        console.log(success);
         
-        if (sucess['status'] == 1) {
-          this.toastr.success(sucess['message']);
+        if (success['status'] == 1) {
+          this.toastr.success(success['message']);
 
-          localStorage.setItem('userId', sucess['person']['id']);
-          localStorage.setItem('profilePhoto', sucess['person']['profile_photo']);
+          localStorage.setItem('userId', success['person']['id']);
+          localStorage.setItem('profilePhoto', success['person']['profile_photo']);
           window.location.reload();
           this.dialogRef.close();
 
           return true;
           
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
           return false;
         }
 

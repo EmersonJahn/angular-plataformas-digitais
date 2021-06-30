@@ -41,11 +41,11 @@ export class ProjectsComponent implements OnInit {
     }
     
     this.http.post<any>(this.servicesUrl + 'GetProjects.php', body).subscribe(
-      sucess => {
-        if (sucess['status'] == 1) {
-          this.projects = sucess['projects'];  
+      success => {
+        if (success['status'] == 1) {
+          this.projects = success['projects'];  
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
         }
       },
       error => {

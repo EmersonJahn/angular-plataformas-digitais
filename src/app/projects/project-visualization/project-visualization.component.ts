@@ -35,10 +35,11 @@ export class ProjectVisualizationComponent implements OnInit {
   public projectMembers: ProjectMember[] = [];
   public categories: Category[] = [];
 
-  public isProjectOwner    = false;
-  public isProjectMember   = false;
-  public askToJoinOpened   = false;
-  public askToJoinDisabled = false;
+  public isProjectOwner       = false;
+  public isProjectMember      = false;
+  public askToJoinOpened      = false;
+  public askToJoinDisabled    = false;
+  public projectMemberRemoved = false;
 
   constructor(private appService: AppService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router, private http: HttpClient) { }
 
@@ -50,9 +51,9 @@ export class ProjectVisualizationComponent implements OnInit {
   
   private getProject() {
     this.http.post<any>(this.servicesUrl + 'GetProjectById.php', {'project_id': this.selectedProjectId}).subscribe(
-      sucess => {
-        if (sucess['status'] == 1) {
-          this.project = sucess['project'];
+      success => {
+        if (success['status'] == 1) {
+          this.project = success['project'];
 
           if (this.project) {
             this.getProjectMembers();
@@ -60,7 +61,7 @@ export class ProjectVisualizationComponent implements OnInit {
           }
 
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
         }
 
       },
@@ -74,12 +75,12 @@ export class ProjectVisualizationComponent implements OnInit {
   private getProjectMembers() {
     this.projectMembers = [];
     this.http.post<any>(this.servicesUrl + 'GetProjectMembersByProjectId.php', {"project_id": this.selectedProjectId}).subscribe(
-      sucess => {
-        if (sucess['status'] == 1) {
-          this.projectMembers = sucess['projectMembers'];
+      success => {
+        if (success['status'] == 1) {
+          this.projectMembers = success['projectMembers'];
           this.defineIsProjectMember();
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
         }
 
       },
@@ -96,12 +97,13 @@ export class ProjectVisualizationComponent implements OnInit {
   }
 
   public removeProjectMember(personId: Number) {
-    const index = this.projectMembers.findIndex(i => i.person.id == personId);
-    console.log(this.projectMembers);
-    if (index > -1) {
-      this.projectMembers.splice(index, 1);
+    if (confirm("Você tem certeza que deseja remover esse integrante?")) {
+      const index = this.projectMembers.findIndex(i => i.person.id == personId);
+      if (index > -1) {
+        this.projectMembers.splice(index, 1);
+        this.projectMemberRemoved = true;
+      }
     }
-    console.log(this.projectMembers);
   }
 
   public addProjectMember(personId: any) {

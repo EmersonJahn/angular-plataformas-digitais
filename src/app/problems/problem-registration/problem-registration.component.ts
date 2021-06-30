@@ -71,12 +71,12 @@ export class ProblemRegistrationComponent implements OnInit {
       const problem    = new Problem(0, person, this.category, this.title, this.description, 1, 0);
 
       this.http.post<any>(this.servicesUrl + 'CreateProblem.php', {'problem': problem}).subscribe(
-        sucess => {
-          if (sucess["status"] == 1) {
-            this.toastr.success(sucess["message"]);     
+        success => {
+          if (success["status"] == 1) {
+            this.toastr.success(success["message"]);     
             this.disabled = true;     
           } else {
-            this.toastr.error(sucess["message"]);          
+            this.toastr.error(success["message"]);          
           }
         }, 
         error => {

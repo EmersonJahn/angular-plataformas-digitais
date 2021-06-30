@@ -69,11 +69,11 @@ export class ProjectRegistrationComponent implements OnInit {
       const project  = new Project(0, person, this.category, this.title, this.description, this.projectPhoto);
       
       this.http.post<any>(this.servicesUrl + 'CreateProject.php', {'project': project}).subscribe(
-        sucess => {
-          if (sucess['status'] == 1) {
-            this.toastr.success(sucess['message']);
+        success => {
+          if (success['status'] == 1) {
+            this.toastr.success(success['message']);
           } else {
-            this.toastr.success(sucess['message']);
+            this.toastr.success(success['message']);
           }
         },
         error => {

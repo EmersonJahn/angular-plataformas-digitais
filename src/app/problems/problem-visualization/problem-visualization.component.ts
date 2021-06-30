@@ -45,12 +45,12 @@ export class ProblemVisualizationComponent implements OnInit {
 
   private getProblem() {
     this.http.post<any>(this.servicesUrl + 'GetProblemById.php', {'problem_id': this.selectedProblemId}).subscribe(
-      sucess => {
-        if (sucess['status'] == 1) {
-          this.problem = sucess['problem'];
+      success => {
+        if (success['status'] == 1) {
+          this.problem = success['problem'];
           this.getAnswers();
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
         }
       },
       error => {
@@ -64,11 +64,11 @@ export class ProblemVisualizationComponent implements OnInit {
     this.answers = [];
 
     this.http.post<any>(this.servicesUrl + 'GetAnswersByProblemId.php', {'problem_id': this.selectedProblemId}).subscribe(
-      sucess => {
-        if (sucess['status'] == 1) {
-          this.answers = sucess['answers'];
+      success => {
+        if (success['status'] == 1) {
+          this.answers = success['answers'];
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
         }
       },
       error => {
@@ -85,12 +85,12 @@ export class ProblemVisualizationComponent implements OnInit {
     const answer  = new Answer(0, problem, person, this.addAnswer, 1, false);
 
     this.http.post<any>(this.servicesUrl + 'CreateAnswer.php', {'answer': answer}).subscribe(
-      sucess => {
-        if (sucess['status'] == 1) {
+      success => {
+        if (success['status'] == 1) {
           this.toastr.success("Agradeçemos a contribuição.", "A sua resposta foi enviada para análise.");
           this.disableAddAnswer = true;
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
         }
       },
       error => {

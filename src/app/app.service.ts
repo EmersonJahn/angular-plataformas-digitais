@@ -25,9 +25,9 @@ export class AppService {
   public getCategories(): Promise<Category[]> {
     return new Promise ((resolve, reject) => {
       this.http.get<any>(this.servicesUrl + 'GetCategories.php').subscribe(
-        sucess => {
-          if (sucess['status'] == 1) {
-            resolve(sucess['categories']);
+        success => {
+          if (success['status'] == 1) {
+            resolve(success['categories']);
           } else {
             this.toastr.error("Ocorreu um erro desconhecido ao buscar as categorias");
           }
@@ -43,9 +43,9 @@ export class AppService {
   public getPersonById(personId: Number): Promise<Person> {
     return new Promise ((resolve, reject) => {
       this.http.post<any>(this.servicesUrl + 'GetPersonById.php', {"person_id": personId}).subscribe(
-        sucess => {
-          if (sucess['status'] == 1) {
-            resolve(sucess['person']);
+        success => {
+          if (success['status'] == 1) {
+            resolve(success['person']);
           }
         }, 
         error => {

@@ -44,11 +44,11 @@ export class ProblemsComponent implements OnInit {
     }
 
     this.http.post<any>(this.servicesUrl + 'GetProblems.php', body).subscribe(
-      sucess => {
-        if (sucess['status'] == 1) {
-          this.problems = sucess['problems'];  
+      success => {
+        if (success['status'] == 1) {
+          this.problems = success['problems'];  
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
         }
       },
       error => {

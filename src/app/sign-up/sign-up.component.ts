@@ -85,13 +85,13 @@ export class SignUpComponent implements OnInit {
     const person   = new Person(personId, this.personType, this.name, this.cpf, this.cnpj, this.email, this.password, this.profilePhoto);
 
     this.http.post<any>(this.servicesUrl + 'SavePerson.php', {'person': person}).subscribe(
-      sucess => {
-        console.log(sucess);
-        if (sucess['status'] == 1) {
-          this.toastr.success(sucess['message']);
+      success => {
+        console.log(success);
+        if (success['status'] == 1) {
+          this.toastr.success(success['message']);
           localStorage.setItem('profilePhoto', this.profilePhoto);
         } else {
-          this.toastr.error(sucess['message']);
+          this.toastr.error(success['message']);
         }
 
       },
