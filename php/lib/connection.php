@@ -85,7 +85,7 @@ class Connection {
 	} 
 
 	function connGetCategories() {
-		$sql = "SELECT * FROM categoria";
+		$sql = "SELECT * FROM categoria ORDER BY categoria.descricao";
 		return $this->connSelectToArrayList($sql);
 	}
 
@@ -196,8 +196,7 @@ class Connection {
 		}
 
 		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
-				FROM problema pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id $condition";
-		// $sql = "SELECT * FROM problema $condition";
+				FROM problema pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id $condition ORDER BY pr.id";
 		return $this->connSelectToObjectList($sql);
 	}
 
@@ -260,15 +259,13 @@ class Connection {
 		}
 
 		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
-				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id $condition";
-		// $sql = "SELECT * FROM projeto $condition";
+				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id $condition ORDER BY pr.id";
 		return $this->connSelectToObjectList($sql);
 	}
 
 	function connGetProjectById($projectId) {
 		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
 				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id WHERE pr.id = $projectId";
-		// $sql = "SELECT * FROM projeto WHERE projeto.id = $projectId";
 		return $this->connSelectToObject($sql);
 	}
 
@@ -327,7 +324,7 @@ class Connection {
 	}
 
 	function connGetPendingMembersCount($projectId) {
-		$sql = "SELECT COUNT(*) FROM integrante WHERE projeto_id = $projectId AND status_integrante_id = 1";
+		$sql = "SELECT COUNT(*) FROM integrante WHERE integrante.projeto_id = $projectId AND integrante.status_integrante_id = 1 ORDER BY integrante.id";
 		$result = pg_fetch_assoc(pg_query($sql));
 		return $result ? intval($result['count']) : 0;
 	}

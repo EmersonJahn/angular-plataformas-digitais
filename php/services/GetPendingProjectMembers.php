@@ -24,9 +24,10 @@ if (count($pendingProjectMembers) > 0) {
 
     foreach ($pendingProjectMembers as $ppm) {
         $pendProjMem = new stdClass();
-        $pendProjMem->id         = $ppm->id;
-        $pendProjMem->project_id = intval($ppm->projeto_id);
-        $pendProjMem->person     = utilFormatJoinPerson($ppm);
+        $pendProjMem->id           = intval($ppm->id);
+        $pendProjMem->project_id   = intval($ppm->projeto_id);
+        $pendProjMem->presentation = trim($ppm->apresentacao);
+        $pendProjMem->person       = utilFormatJoinPerson($ppm);
 
         $pendProjMems[] = $pendProjMem;
     }
