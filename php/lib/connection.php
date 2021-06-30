@@ -272,6 +272,21 @@ class Connection {
 		return $this->connSelectToObject($sql);
 	}
 
+	function connUpdateProject($project) {
+		$projectId    = intval($project['id']);
+		$categoryId   = intval($project['category']['id']);
+		$title        = trim($project['title']);
+		$description  = trim($project['description']);
+		$projectPhoto = trim($project['project_photo']);
+		$sql = "UPDATE projeto SET 
+					categoria_id = $categoryId   ,
+					titulo       = '$title'      ,
+					descricao    = '$description',
+					foto_projeto = '$projectPhoto'
+				WHERE id = $projectId";
+		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
+	}
+
 	function connGetProjectMembersByProjectId($projectId) {
 		$sql = "SELECT i.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil 
 				FROM integrante i JOIN pessoa pe ON i.pessoa_id = pe.id WHERE i.projeto_id = $projectId AND i.status_integrante_id = 2";
