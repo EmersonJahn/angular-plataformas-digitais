@@ -326,6 +326,12 @@ class Connection {
 		return $allCreated;
 	}
 
+	function connGetPendingMembersCount($projectId) {
+		$sql = "SELECT COUNT(*) FROM integrante WHERE projeto_id = $projectId AND status_integrante_id = 1";
+		$result = pg_fetch_assoc(pg_query($sql));
+		return $result ? intval($result['count']) : 0;
+	}
+
 }
 
 ?>
