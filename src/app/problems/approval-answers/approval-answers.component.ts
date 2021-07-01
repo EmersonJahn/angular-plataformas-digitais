@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { PendingAnswer } from './../../classes/PendingAnswer';
 
 @Component({
@@ -11,31 +13,63 @@ import { PendingAnswer } from './../../classes/PendingAnswer';
 })
 export class ApprovalAnswersComponent implements OnInit {
 
+  private servicesUrl = GlobalConstants.servicesUrl;
+
   public faCheck = faCheck;
   public faTimes = faTimes;
 
   public pendingAnswers: PendingAnswer[] = [];
 
-  constructor(private toastr: ToastrService) { }
+  constructor(private toastr: ToastrService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getPendingAnswers();
   }
 
-  public approvalAnswer(pendingAnswer: PendingAnswer, approved: boolean) {
-    const message = approved ? "aprovada" : "rejeitada";
-    this.toastr.success("Resposta " + message + " com sucesso!");
-
-    setTimeout(() => {
-      this.getPendingAnswers();
-    }, 200);
-  }
-
   private getPendingAnswers() {
     this.pendingAnswers = [];
-    for (let index = 1; index < 6; index++) {
-      const pendingAnswer =  new PendingAnswer(index, index, index);
-      this.pendingAnswers.push(pendingAnswer); 
+
+    this.http.get<any>(this.servicesUrl + 'GetPendingAnswers.php').subscribe(
+      success => {
+        if (success['status'] == 1) {
+          this.pendingAnswers = success['pending_answers'];
+        } else {
+          this.toastr.error(success['message']);
+        }
+
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar as solicitações de resposta.");
+        console.log(error);
+      }
+    )
+
+  }
+
+  public approvalAnswer(pendingAnswer: PendingAnswer, approved: boolean) {
+    const textConfirm = approved ? "aprovar" : "rejeitar";
+
+    if (confirm("Você tem certeza que deseja " + textConfirm + " essa reposta?")) {
+      const body = {
+        'pending_answer': pendingAnswer,
+        'approved': approved
+      }
+      
+      this.http.post<any>(this.servicesUrl + 'ApprovalAnswer.php', body).subscribe(
+        success => {
+          if (success['status'] == 1) {
+            this.toastr.success(success['message']);
+            this.getPendingAnswers();
+          } else {
+            this.toastr.error(success['message']);
+          }
+  
+        },
+        error => {
+          this.toastr.error("Ocorreu um erro desconhecido ao " + textConfirm + " a reposta.");
+          console.log(error);
+        }
+      )
     }
   }
 

@@ -13,7 +13,7 @@ export class AppComponent {
 
   actived = "problems";
 
-  userId       = localStorage.getItem("userId");
+  userId       = Number(localStorage.getItem("userId"));
   profilePhoto = localStorage.getItem("profilePhoto");
 
   openOptions = false;
@@ -33,14 +33,14 @@ export class AppComponent {
   public login() {
     const dialogRef = this.dialog.open(DialogLoginComponent, {width: '350px'})
     dialogRef.afterClosed().subscribe(result => {
-      this.userId       = localStorage.getItem("userId");
+      this.userId       = Number(localStorage.getItem("userId"));
       this.profilePhoto = localStorage.getItem("profilePhoto");
     })
   }
 
   public logout() {
     localStorage.clear();
-    this.userId       = localStorage.getItem("userId");
+    this.userId       = Number(localStorage.getItem("userId"));
     this.profilePhoto = localStorage.getItem("profilePhoto");
     window.location.reload();
   }

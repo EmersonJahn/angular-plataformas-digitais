@@ -14,6 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgxLoadingModule } from 'ngx-loading';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,7 +66,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     }),
     ShowHidePasswordModule,
     NgxMaskModule.forRoot(),
-    NgMultiSelectDropDownModule
+    NgMultiSelectDropDownModule,
+    NgxLoadingModule.forRoot({}),
   ],
   providers: [],
   bootstrap: [AppComponent]

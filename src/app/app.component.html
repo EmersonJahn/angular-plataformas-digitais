@@ -36,6 +36,7 @@
 
         <div class="open-profile-options" *ngIf="openOptions">
             <p class="cursor-pointer bold-hover dropdown-item mb-0" routerLink="/sign-up" routerLinkActive="ative">Alterar cadastro</p>
+            <p class="cursor-pointer bold-hover dropdown-item mb-0" routerLink="/problems/aproval-answers" routerLinkActive="ative" *ngIf="userId==1">Aprovar respostas</p>
             <p class="cursor-pointer bold-hover dropdown-item mb-0" (click)="logout()">Sair</p>
         </div>
 

@@ -32,6 +32,7 @@ export class ApprovalProjectMembersComponent implements OnInit {
 
   private getPendingProjectMembers() {
     this.pendingProjectMembers = [];
+    
     this.http.post<any>(this.servicesUrl + 'GetPendingProjectMembers.php', {'project_id':this.selectedProjectId}).subscribe(
       success => {
         if (success['status'] == 1) {
@@ -56,6 +57,7 @@ export class ApprovalProjectMembersComponent implements OnInit {
         'pending_project_member': pendingProjectMember,
         'approved': approved
       }
+
       this.http.post<any>(this.servicesUrl + 'ApprovalProjectMember.php', body).subscribe(
         success => {
           if (success['status'] == 1) {
@@ -67,15 +69,11 @@ export class ApprovalProjectMembersComponent implements OnInit {
   
         },
         error => {
-          this.toastr.error("Ocorreu um erro desconhecido ao " + textConfirm + " o integrante");
+          this.toastr.error("Ocorreu um erro desconhecido ao " + textConfirm + " o integrante.");
           console.log(error);
         }
       )
     }
-
-    // setTimeout(() => {
-    //   this.getPendingProjectMembers();
-    // }, 200);
   }
 
 }
