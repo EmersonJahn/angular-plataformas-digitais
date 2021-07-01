@@ -79,7 +79,7 @@ export class ProjectVisualizationComponent implements OnInit {
     this.http.post<any>(this.servicesUrl + 'GetProjectMembersByProjectId.php', {"project_id": this.selectedProjectId}).subscribe(
       success => {
         if (success['status'] == 1) {
-          this.projectMembers = success['projectMembers'];
+          this.projectMembers = success['project_members'];
           this.defineIsProjectMember();
         } else {
           this.toastr.error(success['message']);
@@ -135,7 +135,7 @@ export class ProjectVisualizationComponent implements OnInit {
       if (index > -1) {
         this.projectMembers.splice(index, 1);
 
-        const projetMemberRemoved = new ProjectMember(this.selectedProjectId, new Person(personId));
+        const projetMemberRemoved = new ProjectMember(0, this.selectedProjectId, new Person(personId));
         this.projectMembersRemoved.push(projetMemberRemoved);
         if (removeProjectMembers) {
           this.removeProjectMembers();
@@ -147,7 +147,7 @@ export class ProjectVisualizationComponent implements OnInit {
   }
 
   public addProjectMember(personId: any) {
-    const pendingProjectMember = new PendingProjectMember(this.selectedProjectId, personId, this.memberPresentation);
+    const pendingProjectMember = new PendingProjectMember(0, this.selectedProjectId, new Person(personId), this.memberPresentation);
     this.http.post<any>(this.servicesUrl + 'CreatePendingProjectMember.php', {'pending_project_member': pendingProjectMember}).subscribe(
       success => {
         if (success['status'] == 1) {
@@ -195,7 +195,7 @@ export class ProjectVisualizationComponent implements OnInit {
         }
       },
       error => {
-        this.toastr.error("Ocorreu um erro desconhecido ao solicitar participação no projeto.");
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar o número de solitações pendente.");
         console.log(error);
       }
     )

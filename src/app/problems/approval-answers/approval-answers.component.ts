@@ -34,7 +34,7 @@ export class ApprovalAnswersComponent implements OnInit {
   private getPendingAnswers() {
     this.pendingAnswers = [];
     for (let index = 1; index < 6; index++) {
-      const pendingAnswer =  new PendingAnswer(index, index);
+      const pendingAnswer =  new PendingAnswer(index, index, index);
       this.pendingAnswers.push(pendingAnswer); 
     }
   }
