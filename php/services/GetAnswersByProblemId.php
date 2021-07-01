@@ -20,23 +20,14 @@ $connection = new Connection();
 $answers    = $connection->connGetAnswersByProblemId($problemId); 
 
 if (count($answers) > 0) {
-    
     $answers2 = [];
 
     foreach ($answers as $a) {
-        $answer = new stdClass();
-        $answer->id               = intval($a->id);
-        $answer->problem_id       = intval($a->problema_id);
-        $answer->person           = utilFormatJoinPerson($a);
-        $answer->answer           = trim($a->resposta);
-        $answer->answer_status_id = intval($a->status_resposta_id);
-        $answer->right_answer     = $a->resposta_correta == "t" ? true : false;
-
+        $answer = utilFormatAnswer($a);
         $answers2[] = $answer;
     }
 
     $answers = $answers2;
-
 }
 
 utilEchoReponse('answers', $answers);

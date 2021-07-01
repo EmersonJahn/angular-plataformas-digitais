@@ -178,6 +178,34 @@ class Connection {
 		return $this->connSelectToObjectList($sql);
 	}
 
+	function connGetAnswerById($answerId) {
+		$sql = "SELECT r.*, p.id pessoa_id, p.tipo_pessoa_id tipo_pessoa_id, p.nome pessoa_nome, p.cpf pessoa_cpf, p.cnpj pessoa_cnpj, p.email pessoa_email, p.foto_perfil pessoa_foto_perfil
+				FROM resposta r JOIN pessoa p ON r.pessoa_id = p.id WHERE r.id = $answerId";
+		return $this->connSelectToObject($sql);
+	}
+
+	function connGetPendingAnswers() {
+		// $sql = "SELECT rap.* , p.id pessoa_id, p.tipo_pessoa_id tipo_pessoa_id, p.nome pessoa_nome, p.cpf pessoa_cpf, p.cnpj pessoa_cnpj, p.email pessoa_email, p.foto_perfil pessoa_foto_perfil, pr.titulo problema_titulo
+		// 		FROM resposta_aprovacao_pendente rap JOIN resposta r ON rap.resposta_id = r.id JOIN pessoa p ON r.pessoa_id = p.id JOIN problema pr ON rap.problema_id = pr.id ORDER BY rap.id";
+		$sql = "SELECT * FROM resposta_aprovacao_pendente";
+		return $this->connSelectToObjectList($sql);
+	}
+
+	function connApprovalAnswer($pendingAnswer, $approved) {
+		$statusAnswer    = $approved ? 2 : 3;
+		$pendingAnswerId = intval($pendingAnswer['id']);
+		$problemId       = intval($pendingAnswer['problem_id']);
+		$answerId        = intval($pendingAnswer['answer_id']);
+
+		$sql = "UPDATE resposta SET status_resposta_id = $statusAnswer WHERE resposta.problema_id = $problemId AND resposta.resposta_id = $answerId";
+		if (pg_affected_rows(pg_query($sql)) == 0) {
+			return false;
+		}
+
+		$sql2 = "DELETE FROM resposta_aprovacao_pendente WHERE resposta_aprovacao_pendente.id = $pendingAnswerId";
+		return pg_affected_rows(pg_query($sql2)) > 0 ? true : false;
+	}
+
 	function connGetProblemById($problemId) {
 		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
 				FROM problema pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id WHERE pr.id = $problemId";

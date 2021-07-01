@@ -146,6 +146,20 @@ function utilFormatProblem($problem) {
     return $problem;
 }
 
+function utilFormatAnswer($answer) {
+    $a = $answer;
+
+    $answer = new stdClass();
+    $answer->id               = intval($a->id);
+    $answer->problem_id       = intval($a->problema_id);
+    $answer->person           = utilFormatJoinPerson($a);
+    $answer->answer           = trim($a->resposta);
+    $answer->answer_status_id = intval($a->status_resposta_id);
+    $answer->right_answer     = $a->resposta_correta == "t" ? true : false;
+
+    return $answer;
+}
+
 function utilFormatProject($project) {
     $p = $project;
 
