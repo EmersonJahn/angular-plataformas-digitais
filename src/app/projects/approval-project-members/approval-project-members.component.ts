@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
+import { GlobalConstants } from 'src/app/common/global-constants';
 import { PendingProjectMember } from 'src/app/classes/PendingProjectMember';
 
 @Component({
@@ -12,6 +14,8 @@ import { PendingProjectMember } from 'src/app/classes/PendingProjectMember';
 })
 export class ApprovalProjectMembersComponent implements OnInit {
 
+  private servicesUrl = GlobalConstants.servicesUrl;
+
   private selectedProjectId = 0;
 
   public faCheck = faCheck;
@@ -19,7 +23,7 @@ export class ApprovalProjectMembersComponent implements OnInit {
 
   public pendingProjectMembers: PendingProjectMember[] = [];
 
-  constructor(private route: ActivatedRoute, private toastr: ToastrService) { }
+  constructor(private route: ActivatedRoute, private toastr: ToastrService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
@@ -28,19 +32,50 @@ export class ApprovalProjectMembersComponent implements OnInit {
 
   private getPendingProjectMembers() {
     this.pendingProjectMembers = [];
-    for (let index = 1; index < 4; index++) {
-      const pendingProjectMember = new PendingProjectMember(this.selectedProjectId, index, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum nisi eligendi officiis labore, nihil qui voluptatum et nulla esse, voluptatem quae delectus debitis non nobis blanditiis obcaecati sapiente. Beatae, recusandae?");
-      this.pendingProjectMembers.push(pendingProjectMember);
-    }
+    this.http.post<any>(this.servicesUrl + 'GetPendingProjectMembers.php', {'project_id':this.selectedProjectId}).subscribe(
+      success => {
+        if (success['status'] == 1) {
+          this.pendingProjectMembers = success['pending_project_members'];
+        } else {
+          this.toastr.error(success['message']);
+        }
+
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar as solicitações para participar do projeto.");
+        console.log(error);
+      }
+    )    
   }
 
   public approvalProjectMember(pendingProjectMember: PendingProjectMember, approved: boolean) {
-    const message = approved ? "aprovado" : "rejeitado";
-    this.toastr.success("Integrante " + message + " com sucesso!");
+    const textConfirm = approved ? "aprovar" : "rejeitar";
 
-    setTimeout(() => {
-      this.getPendingProjectMembers();
-    }, 200);
+    if (confirm("Você tem certeza que deseja " + textConfirm + " essa solicitação?")) {
+      const body = {
+        'pending_project_member': pendingProjectMember,
+        'approved': approved
+      }
+      this.http.post<any>(this.servicesUrl + 'ApprovalProjectMember.php', body).subscribe(
+        success => {
+          if (success['status'] == 1) {
+            this.toastr.success(success['message']);
+            this.getPendingProjectMembers();
+          } else {
+            this.toastr.error(success['message']);
+          }
+  
+        },
+        error => {
+          this.toastr.error("Ocorreu um erro desconhecido ao " + textConfirm + " o integrante");
+          console.log(error);
+        }
+      )
+    }
+
+    // setTimeout(() => {
+    //   this.getPendingProjectMembers();
+    // }, 200);
   }
 
 }

@@ -20,8 +20,10 @@
                 <mat-expansion-panel class="problem-card">
                     <mat-expansion-panel-header class="py-0">
                         <mat-panel-title>
-                            <img class="profile-photo" src="assets/images/user-icon.png" alt="Foto de perfil">
-                            <span class="text-primary my-auto">Nome pessoa - {{pendingProjectMember.person_id}}</span>
+                            <div>
+                                <img src="{{pendingProjectMember.person.profile_photo}}" alt="Foto de perfil" class="profile-photo">
+                                <span class="ml-2 text-primary">{{pendingProjectMember.person.name}}</span>
+                            </div>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="row presentation my-1 pl-2">
