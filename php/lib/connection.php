@@ -324,7 +324,7 @@ class Connection {
 	}
 
 	function connGetPendingMembersCount($projectId) {
-		$sql = "SELECT COUNT(*) FROM integrante WHERE integrante.projeto_id = $projectId AND integrante.status_integrante_id = 1 ORDER BY integrante.id";
+		$sql = "SELECT COUNT(*) FROM integrante WHERE integrante.projeto_id = $projectId AND integrante.status_integrante_id = 1";
 		$result = pg_fetch_assoc(pg_query($sql));
 		return $result ? intval($result['count']) : 0;
 	}
@@ -333,6 +333,21 @@ class Connection {
 		$sql = "SELECT iap.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil 
 				FROM integrante_aprovacao_pendente iap JOIN pessoa pe ON iap.pessoa_id = pe.id WHERE iap.projeto_id = $projectId ORDER BY iap.id";
 		return $this->connSelectToObjectList($sql);
+	}
+
+	function connApprovalProjectMember($pendingProjectMember, $approved) {
+		$statusProjectMember    = $approved ? 2 : 3;
+		$pendingProjectMemberId = intval($pendingProjectMember['id']);
+		$projectId              = intval($pendingProjectMember['project_id']);
+		$personId               = intval($pendingProjectMember['person']['id']);
+
+		$sql = "UPDATE integrante SET status_integrante_id = $statusProjectMember WHERE integrante.projeto_id = $projectId AND integrante.pessoa_id = $personId";
+		if (pg_affected_rows(pg_query($sql)) == 0) {
+			return false;
+		}
+
+		$sql2 = "DELETE FROM integrante_aprovacao_pendente WHERE integrante_aprovacao_pendente.id = $pendingProjectMemberId";
+		return pg_affected_rows(pg_query($sql2)) > 0 ? true : false;
 	}
 
 }
