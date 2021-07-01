@@ -194,10 +194,10 @@ class Connection {
 	function connApprovalAnswer($pendingAnswer, $approved) {
 		$statusAnswer    = $approved ? 2 : 3;
 		$pendingAnswerId = intval($pendingAnswer['id']);
-		$problemId       = intval($pendingAnswer['problem_id']);
-		$answerId        = intval($pendingAnswer['answer_id']);
+		$problemId       = intval($pendingAnswer['problem']['id']);
+		$answerId        = intval($pendingAnswer['answer']['id']);
 
-		$sql = "UPDATE resposta SET status_resposta_id = $statusAnswer WHERE resposta.problema_id = $problemId AND resposta.resposta_id = $answerId";
+		$sql = "UPDATE resposta SET status_resposta_id = $statusAnswer WHERE resposta.problema_id = $problemId AND resposta.id = $answerId";
 		if (pg_affected_rows(pg_query($sql)) == 0) {
 			return false;
 		}
