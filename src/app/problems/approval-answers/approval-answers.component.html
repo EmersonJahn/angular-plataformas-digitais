@@ -1,5 +1,11 @@
 <div class="container mt-2">
 
+    <div class="row mt-4 mb-2 text-center">
+        <div class="col-12">
+            <h4 class="mb-0">APROVAR RESPOSTAS</h4>
+        </div>
+    </div>
+
     <div class="row mt-4">
         <div *ngIf="pendingAnswers.length == 0" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
             Não há respostas para aprovar.
@@ -13,24 +19,21 @@
                 <mat-expansion-panel class="problem-card">
                     <mat-expansion-panel-header class="py-0">
                         <mat-panel-title class="problem-title">
-                            <span>Título problema - {{pendingAnswer.problem.id}}</span>
+                            <span>{{pendingAnswer.problem.title}}</span>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="row mb-1">
                         <div class="col-12">
-                            <img class="profile-photo" src="assets/images/user-icon.png" alt="Foto de perfil">
-                            <span class="text-primary">Nome pessoa - {{pendingAnswer.answer.id}}</span>
+                            <img class="profile-photo" src="{{pendingAnswer.answer.person.profile_photo}}" alt="Foto de perfil">
+                            <span class="text-primary ml-2">{{pendingAnswer.answer.person.name}}</span>
                         </div>
                     </div>
                     <div class="row my-1 problem-description pl-2">
-                        <div class="col-12">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt neque corporis a veniam doloremque odio, repellendus, officia, velit accusantium expedita dignissimos commodi nam debitis dolorem harum. Adipisci cum amet aliquam. - {{pendingAnswer.answer.id}}
+                        <div class="col-12 ml-md-5">
+                            {{pendingAnswer.answer.answer}}
                         </div>
                     </div>
                     <div class="row pr-3">
-                        <!-- <div class="col-7 col-sm-9 pl-sm-5 pr-0">
-                            <input class="form-control" type="text" id="reason-rejection" placeholder="Motivo rejeição">
-                        </div> -->
                         <div class="col-12 approval-icons text-right">
                             <button class="btn btn-reject mr-1" title="Rejeitar resposta" (click)="approvalAnswer(pendingAnswer, false)">
                                 <fa-icon [icon]="faTimes"></fa-icon>

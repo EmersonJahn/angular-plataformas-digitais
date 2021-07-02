@@ -48,7 +48,7 @@ export class ApprovalAnswersComponent implements OnInit {
 
   public approvalAnswer(pendingAnswer: PendingAnswer, approved: boolean) {
     const textConfirm = approved ? "aprovar" : "rejeitar";
-
+    
     if (confirm("Você tem certeza que deseja " + textConfirm + " essa reposta?")) {
       const body = {
         'pending_answer': pendingAnswer,
