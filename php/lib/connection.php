@@ -203,7 +203,23 @@ class Connection {
 		}
 
 		$sql2 = "DELETE FROM resposta_aprovacao_pendente WHERE resposta_aprovacao_pendente.id = $pendingAnswerId";
-		return pg_affected_rows(pg_query($sql2)) > 0 ? true : false;
+		if (pg_affected_rows(pg_query($sql2)) == 0) {
+			return false;
+		}
+
+		$sql3 = "SELECT numero_respostas FROM problema WHERE problema.id = $problemId";
+		$result = pg_fetch_assoc(pg_query($sql3));
+		if (!$result) {
+			return false;
+		}
+
+		$numberAnswers = intval($result['numero_respostas']) + 1;
+		$sql4 = "UPDATE problema SET numero_respostas = $numberAnswers WHERE problema.id = $problemId";
+		if (pg_affected_rows(pg_query($sql4)) == 0) {
+			return false;
+		}
+
+		return true;
 	}
 
 	function connGetProblemById($problemId) {

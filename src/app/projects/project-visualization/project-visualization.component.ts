@@ -48,29 +48,23 @@ export class ProjectVisualizationComponent implements OnInit {
   constructor(private appService: AppService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    console.log("TESTE DO EMERSON 1");
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log("TESTE DO EMERSON 2");
     this.getCategories();
-    console.log("TESTE DO EMERSON 3");
     this.getProject();
-    console.log("TESTE DO EMERSON 4");
   }
   
   private getProject() {
     this.loading = true;
-    console.log("TESTE DO EMERSON 3.01");
 
     this.http.post<any>(this.servicesUrl + 'GetProjectById.php', {'project_id': this.selectedProjectId}).subscribe(
       success => {
         if (success['status'] == 1) {
           this.project = success['project'];
-          console.log("TESTE DO EMERSON 3.1");
 
-          // if (this.project) {
+          if (this.project) {
             this.getProjectMembers();
             this.defineIsProjectOwner();
-          // }
+          }
 
         } else {
           this.toastr.error(success['message']);
