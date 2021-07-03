@@ -15,7 +15,8 @@ import { Person } from 'src/app/classes/Person';
 })
 export class ProjectRegistrationComponent implements OnInit {
 
-  private servicesUrl = GlobalConstants.servicesUrl;
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
 
   public userId = Number(localStorage.getItem("userId"));
 
@@ -29,6 +30,7 @@ export class ProjectRegistrationComponent implements OnInit {
   public isValidTitle       = true;
   public isValidDescription = true;
   public isValidCategory    = true;
+  public loading            = false;
 
   constructor(private appService: AppService, private toastr: ToastrService, private http: HttpClient) { }
 
@@ -65,6 +67,8 @@ export class ProjectRegistrationComponent implements OnInit {
     }
 
     if (this.category) {
+      this.loading = true;
+
       const person   = new Person(this.userId);
       const project  = new Project(0, person, this.category, this.title, this.description, this.projectPhoto);
       
@@ -75,10 +79,13 @@ export class ProjectRegistrationComponent implements OnInit {
           } else {
             this.toastr.success(success['message']);
           }
+
+          this.loading = false;
         },
         error => {
           this.toastr.error("Ocorreu um erro desconhecido ao gravar o projeto.");
           console.log(error);
+          this.loading = false;
         }
       )
     }

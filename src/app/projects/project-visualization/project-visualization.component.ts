@@ -20,13 +20,14 @@ import { PendingProjectMember } from 'src/app/classes/PendingProjectMember';
 })
 export class ProjectVisualizationComponent implements OnInit {
 
-  public faTrashAlt = faTrashAlt;
-  public faUserPlus = faUserPlus;
-
-  private servicesUrl = GlobalConstants.servicesUrl;
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
 
   public selectedProjectId = 0;
   public userId = Number(localStorage.getItem("userId"));
+
+  public faTrashAlt = faTrashAlt;
+  public faUserPlus = faUserPlus;
 
   public newProfilePhoto: File|null = null;
   
@@ -38,44 +39,58 @@ export class ProjectVisualizationComponent implements OnInit {
   public categories: Category[] = [];
   private projectMembersRemoved: ProjectMember[] = [];
 
-  public isProjectOwner       = false;
-  public isProjectMember      = false;
-  public askToJoinOpened      = false;
-  public askToJoinDisabled    = false;
-  
+  public isProjectOwner    = false;
+  public isProjectMember   = false;
+  public askToJoinOpened   = false;
+  public askToJoinDisabled = false;
+  public loading           = false;
+
   constructor(private appService: AppService, private route: ActivatedRoute, private toastr: ToastrService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    console.log("TESTE DO EMERSON 1");
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log("TESTE DO EMERSON 2");
     this.getCategories();
+    console.log("TESTE DO EMERSON 3");
     this.getProject();
+    console.log("TESTE DO EMERSON 4");
   }
   
   private getProject() {
+    this.loading = true;
+    console.log("TESTE DO EMERSON 3.01");
+
     this.http.post<any>(this.servicesUrl + 'GetProjectById.php', {'project_id': this.selectedProjectId}).subscribe(
       success => {
         if (success['status'] == 1) {
           this.project = success['project'];
+          console.log("TESTE DO EMERSON 3.1");
 
-          if (this.project) {
+          // if (this.project) {
             this.getProjectMembers();
             this.defineIsProjectOwner();
-          }
+          // }
 
         } else {
           this.toastr.error(success['message']);
+          this.loading = false;
         }
-
+        
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao buscar os dados do projeto.");
         console.log(error);
+        this.loading = false;
       }
     )
   }
 
   private getProjectMembers() {
+    this.loading = true;
+
     this.projectMembers = [];
+
     this.http.post<any>(this.servicesUrl + 'GetProjectMembersByProjectId.php', {"project_id": this.selectedProjectId}).subscribe(
       success => {
         if (success['status'] == 1) {
@@ -85,15 +100,19 @@ export class ProjectVisualizationComponent implements OnInit {
           this.toastr.error(success['message']);
         }
 
+        this.loading = false;
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao buscar os integrantes do projeto.");
         console.log(error);
+        this.loading = false;
       }
     )
   }
 
   public updateProject() {
+    this.loading = true;
+    
     this.http.post<any>(this.servicesUrl + 'UpdateProject.php', {'project':this.project}).subscribe(
       success => {
         if (success['status'] == 1) {
@@ -105,24 +124,31 @@ export class ProjectVisualizationComponent implements OnInit {
         } else {
           this.toastr.error(success['message']);
         }
+
+        this.loading = false;
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao salvar as informações do projeto.");
         console.log(error);
+        this.loading = false;
       }
     )
   }
 
   private removeProjectMembers() {
+    this.loading = true;
+
     this.http.post<any>(this.servicesUrl + 'RemoveProjectMembers.php', {'project_members': this.projectMembersRemoved}).subscribe(
       success => {
         if (success['status'] == 0) {
           this.toastr.error(success['message']);
         }
+        this.loading = false;
       },
       error => {
         this.toastr.error('Ocorreu um erro desconhecido ao remover o(s) integrante(s) do projeto.');
         console.log(error);
+        this.loading = false;
       }
     )
   }
@@ -147,7 +173,10 @@ export class ProjectVisualizationComponent implements OnInit {
   }
 
   public addProjectMember(personId: any) {
+    this.loading = true;
+    
     const pendingProjectMember = new PendingProjectMember(0, this.selectedProjectId, new Person(personId), this.memberPresentation);
+
     this.http.post<any>(this.servicesUrl + 'CreatePendingProjectMember.php', {'pending_project_member': pendingProjectMember}).subscribe(
       success => {
         if (success['status'] == 1) {
@@ -155,10 +184,13 @@ export class ProjectVisualizationComponent implements OnInit {
         } else {
           this.toastr.error(success['message']);
         }
+
+        this.loading = false;
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao solicitar participação no projeto.");
         console.log(error);
+        this.loading = false;
       }
     )
 
@@ -185,7 +217,10 @@ export class ProjectVisualizationComponent implements OnInit {
   }
 
   private getPendingMembersCount() {
+    this.loading = true;
+
     this.pendingMembersCount = 0;
+
     this.http.post<any>(this.servicesUrl + 'GetPendingMembersCount.php', {"project_id": this.selectedProjectId}).subscribe(
       success => {
         if (success['status'] == 1) {
@@ -193,16 +228,19 @@ export class ProjectVisualizationComponent implements OnInit {
         } else {
           this.toastr.error(success['message']);
         }
+
+        this.loading = false;
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao buscar o número de solitações pendente.");
         console.log(error);
+        this.loading = false;
       }
     )
   }
   
   private defineIsProjectOwner() {
-    if (this.userId == this.project?.person.id) {
+    if (this.userId == this.project?.person.id) {    
       this.isProjectOwner = true;
       this.getPendingMembersCount();
     }

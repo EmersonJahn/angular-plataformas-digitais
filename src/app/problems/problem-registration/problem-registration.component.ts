@@ -16,7 +16,8 @@ import { Person } from 'src/app/classes/Person';
 })
 export class ProblemRegistrationComponent implements OnInit {
 
-  private servicesUrl = GlobalConstants.servicesUrl;
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
 
   public userId = Number(localStorage.getItem("userId"));
 
@@ -30,6 +31,8 @@ export class ProblemRegistrationComponent implements OnInit {
   public isValidDescription = true;
   public isValidCategory    = true;
   public disabled           = false;
+
+  public loading = false;
 
   constructor(private appService: AppService, private toastr: ToastrService, private http: HttpClient) { }
 
@@ -65,6 +68,8 @@ export class ProblemRegistrationComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     // const categoryId = this.category ? this.category.id : 0;
     if (this.category) {
       const person     = new Person(this.userId);
@@ -78,10 +83,13 @@ export class ProblemRegistrationComponent implements OnInit {
           } else {
             this.toastr.error(success["message"]);          
           }
+
+          this.loading = false;
         }, 
         error => {
           this.toastr.error("Ocorreu um erro desconhecido ao tentar cadastrar o problema.");
           console.log(error);
+          this.loading = false;
         }
       )
     }

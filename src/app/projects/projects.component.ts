@@ -15,7 +15,8 @@ import { Project } from '../classes/Project';
 })
 export class ProjectsComponent implements OnInit {
 
-  private servicesUrl = GlobalConstants.servicesUrl;
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
   
   public userId = localStorage.getItem("userId");
 
@@ -24,6 +25,8 @@ export class ProjectsComponent implements OnInit {
 
   public categories: Category[] = [];
   public projects: Project[] = [];
+
+  public loading = false;
 
   constructor(private appService: AppService, private router: Router, private toastr: ToastrService, private http: HttpClient) { }
 
@@ -34,6 +37,8 @@ export class ProjectsComponent implements OnInit {
 
   public getProjects() {
     this.projects = [];
+
+    this.loading = true;
 
     const body = {
       "search_by": this.searchBy.trim(),
@@ -47,10 +52,13 @@ export class ProjectsComponent implements OnInit {
         } else {
           this.toastr.error(success['message']);
         }
+
+        this.loading = false;
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao buscar os projetos.");
         console.log(error);
+        this.loading = false;
       }
     )
   }

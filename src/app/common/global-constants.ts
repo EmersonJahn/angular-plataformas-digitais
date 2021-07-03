@@ -1,12 +1,8 @@
-import { HttpHeaders } from "@angular/common/http";
-
 export class GlobalConstants {
 
-  // public static httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxMC4xLjEuMTAiLCJpYXQiOjIwMjAwMjExfQ==.hPJbm6YIZT+fL6Br20b2KVgbDiJwkeLTlzXz3nGo1TI='
-  //   })
-  // };
+  public static loadingConfig = {
+    fullScreenBackdrop: true
+  };
 
   public static servicesUrl: string = GlobalConstants.getUrlPath();
   

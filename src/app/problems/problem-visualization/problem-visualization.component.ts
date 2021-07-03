@@ -20,7 +20,8 @@ export class ProblemVisualizationComponent implements OnInit {
 
   public faCheck = faCheck;
   
-  private servicesUrl = GlobalConstants.servicesUrl;
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
 
   public userId = Number(localStorage.getItem("userId"));
 
@@ -33,6 +34,8 @@ export class ProblemVisualizationComponent implements OnInit {
   public problem?: Problem;
   public answers: Answer[] = [];
 
+  public loading = false;
+
   constructor(private route: ActivatedRoute, private appService: AppService, private toastr: ToastrService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
@@ -44,6 +47,8 @@ export class ProblemVisualizationComponent implements OnInit {
   }
 
   private getProblem() {
+    this.loading = true;
+
     this.http.post<any>(this.servicesUrl + 'GetProblemById.php', {'problem_id': this.selectedProblemId}).subscribe(
       success => {
         if (success['status'] == 1) {
@@ -51,17 +56,21 @@ export class ProblemVisualizationComponent implements OnInit {
           this.getAnswers();
         } else {
           this.toastr.error(success['message']);
+          this.loading = false;
         }
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao buscar o problema.");
         console.log(error);
+        this.loading = false;
       }
     )
   }
 
   private getAnswers() {
     this.answers = [];
+
+    this.loading = true;
 
     this.http.post<any>(this.servicesUrl + 'GetAnswersByProblemId.php', {'problem_id': this.selectedProblemId}).subscribe(
       success => {
@@ -70,16 +79,21 @@ export class ProblemVisualizationComponent implements OnInit {
         } else {
           this.toastr.error(success['message']);
         }
+
+        this.loading = false;
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao buscar as respostas.");
         console.log(error);
+        this.loading = false;
       }
     )
 
   }
 
   public sendToReview() {
+    this.loading = true;
+
     const person  = new Person(this.userId);
     const problem = new Problem(this.selectedProblemId, person);
     const answer  = new Answer(0, problem, person, this.addAnswer, 1, false);
@@ -92,10 +106,13 @@ export class ProblemVisualizationComponent implements OnInit {
         } else {
           this.toastr.error(success['message']);
         }
+
+        this.loading = false;
       },
       error => {
         console.log(error);
         this.toastr.error("Ocorreu um erro desconhecido ao tentar gravar a resposta.");
+        this.loading = false;
       }
     )
   }

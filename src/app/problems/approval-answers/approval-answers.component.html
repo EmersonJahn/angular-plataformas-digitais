@@ -7,7 +7,7 @@
     </div>
 
     <div class="row mt-4">
-        <div *ngIf="pendingAnswers.length == 0" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
+        <div *ngIf="pendingAnswers.length == 0 && !loading" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
             Não há respostas para aprovar.
         </div>
     </div>
@@ -49,3 +49,6 @@
     </div>
 
 </div>
+
+<ng-template #template></ng-template>
+<ngx-loading [show]="loading" [config]="loadingConfig" [template]="template"></ngx-loading>

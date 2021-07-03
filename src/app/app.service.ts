@@ -57,10 +57,11 @@ export class AppService {
 
   public validLogin(): boolean {
     let userId = localStorage.getItem("userId");
+
     if (!userId) {
       this.toastr.info("Para continuar você deve realizar o login.");
+      const dialogRef = this.dialog.open(DialogLoginComponent, { width: '350px' });
 
-      const dialogRef = this.dialog.open(DialogLoginComponent, { width: '350px' })
       dialogRef.afterClosed().subscribe(result => {
         userId = localStorage.getItem("userId");
         if (userId) {

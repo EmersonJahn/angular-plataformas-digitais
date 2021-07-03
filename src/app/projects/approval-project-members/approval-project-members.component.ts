@@ -14,7 +14,8 @@ import { PendingProjectMember } from 'src/app/classes/PendingProjectMember';
 })
 export class ApprovalProjectMembersComponent implements OnInit {
 
-  private servicesUrl = GlobalConstants.servicesUrl;
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
 
   private selectedProjectId = 0;
 
@@ -22,6 +23,8 @@ export class ApprovalProjectMembersComponent implements OnInit {
   public faTimes = faTimes;
 
   public pendingProjectMembers: PendingProjectMember[] = [];
+
+  public loading = false;
 
   constructor(private route: ActivatedRoute, private toastr: ToastrService, private http: HttpClient) { }
 
@@ -32,6 +35,8 @@ export class ApprovalProjectMembersComponent implements OnInit {
 
   private getPendingProjectMembers() {
     this.pendingProjectMembers = [];
+
+    this.loading = true;
     
     this.http.post<any>(this.servicesUrl + 'GetPendingProjectMembers.php', {'project_id':this.selectedProjectId}).subscribe(
       success => {
@@ -41,10 +46,12 @@ export class ApprovalProjectMembersComponent implements OnInit {
           this.toastr.error(success['message']);
         }
 
+        this.loading = false;
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao buscar as solicitações para participar do projeto.");
         console.log(error);
+        this.loading = false;
       }
     )    
   }
@@ -53,6 +60,8 @@ export class ApprovalProjectMembersComponent implements OnInit {
     const textConfirm = approved ? "aprovar" : "rejeitar";
 
     if (confirm("Você tem certeza que deseja " + textConfirm + " essa solicitação?")) {
+      this.loading = true;
+
       const body = {
         'pending_project_member': pendingProjectMember,
         'approved': approved
@@ -67,10 +76,12 @@ export class ApprovalProjectMembersComponent implements OnInit {
             this.toastr.error(success['message']);
           }
   
+          this.loading = false;
         },
         error => {
           this.toastr.error("Ocorreu um erro desconhecido ao " + textConfirm + " o integrante.");
           console.log(error);
+          this.loading = false;
         }
       )
     }

@@ -13,7 +13,8 @@ import { Person } from '../classes/Person';
 })
 export class SignUpComponent implements OnInit {
 
-  private servicesUrl = GlobalConstants.servicesUrl;
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
 
   public userId = Number(localStorage.getItem("userId"));
 
@@ -31,6 +32,7 @@ export class SignUpComponent implements OnInit {
   public isValidEmail          = true;
   public isValidPassword       = true;
   public isValidPasswordConfim = true;
+  public loading               = false;
 
   constructor(private appService: AppService, private toastr: ToastrService, private http: HttpClient) { }
 
@@ -119,6 +121,7 @@ export class SignUpComponent implements OnInit {
 
   private getPerson() {
     if (this.userId) {
+      this.loading = true;
       this.appService.getPersonById(this.userId).then(person => {
         this.personType   = person['person_type_id']!;
         this.name         = person['name']!;
@@ -126,6 +129,7 @@ export class SignUpComponent implements OnInit {
         this.cnpj         = person['cnpj']!;
         this.email        = person['email']!;
         this.profilePhoto = person['profile_photo']!;
+        this.loading = false;
       })
     }
   }

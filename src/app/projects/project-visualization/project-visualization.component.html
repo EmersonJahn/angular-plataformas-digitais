@@ -65,7 +65,6 @@
                         </tr>
                         <tr *ngFor="let projectMember of projectMembers">
                             <td class="py-1 w-100">
-                                <!-- {{projectMember.person.name}} -->
                                 <div>
                                     <img src="{{projectMember.person.profile_photo}}" alt="Foto de perfil" class="profile-photo-sm">
                                     <span class="ml-2">{{projectMember.person.name}}</span>
@@ -116,3 +115,6 @@
     </div>
 
 </div>
+
+<ng-template #template></ng-template>
+<ngx-loading [show]="loading" [config]="loadingConfig" [template]="template"></ngx-loading>

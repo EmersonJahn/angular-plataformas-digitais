@@ -16,7 +16,8 @@ import { Problem } from '../classes/Problem';
 })
 export class ProblemsComponent implements OnInit {
 
-  private servicesUrl = GlobalConstants.servicesUrl;
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
 
   public userId = localStorage.getItem("userId");
 
@@ -26,17 +27,19 @@ export class ProblemsComponent implements OnInit {
   public categories: Category[] = [];
   public problems: Problem[]    = [];
 
+  public loading = false;
+
   constructor(private appService: AppService, private toastr: ToastrService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getCategories();
     this.getProblems();
-
-    // localStorage.setItem("selectedProblemId", "0");
   }
 
   public getProblems() {
     this.problems = [];
+
+    this.loading = true;
 
     const body = {
       "search_by": this.searchBy.trim(),
@@ -50,10 +53,12 @@ export class ProblemsComponent implements OnInit {
         } else {
           this.toastr.error(success['message']);
         }
+        this.loading = false;
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao buscar os problemas.");
         console.log(error);
+        this.loading = false;
       }
     )
   }

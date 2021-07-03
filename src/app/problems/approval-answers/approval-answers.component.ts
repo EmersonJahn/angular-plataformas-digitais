@@ -13,12 +13,15 @@ import { PendingAnswer } from './../../classes/PendingAnswer';
 })
 export class ApprovalAnswersComponent implements OnInit {
 
-  private servicesUrl = GlobalConstants.servicesUrl;
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
 
   public faCheck = faCheck;
   public faTimes = faTimes;
 
   public pendingAnswers: PendingAnswer[] = [];
+
+  public loading = false;
 
   constructor(private toastr: ToastrService, private http: HttpClient) { }
 
@@ -29,6 +32,8 @@ export class ApprovalAnswersComponent implements OnInit {
   private getPendingAnswers() {
     this.pendingAnswers = [];
 
+    this.loading = true;
+
     this.http.get<any>(this.servicesUrl + 'GetPendingAnswers.php').subscribe(
       success => {
         if (success['status'] == 1) {
@@ -37,10 +42,12 @@ export class ApprovalAnswersComponent implements OnInit {
           this.toastr.error(success['message']);
         }
 
+        this.loading = false;
       },
       error => {
         this.toastr.error("Ocorreu um erro desconhecido ao buscar as solicitações de resposta.");
         console.log(error);
+        this.loading = false;
       }
     )
 
@@ -50,6 +57,8 @@ export class ApprovalAnswersComponent implements OnInit {
     const textConfirm = approved ? "aprovar" : "rejeitar";
     
     if (confirm("Você tem certeza que deseja " + textConfirm + " essa reposta?")) {
+      this.loading = true;
+
       const body = {
         'pending_answer': pendingAnswer,
         'approved': approved
@@ -62,12 +71,13 @@ export class ApprovalAnswersComponent implements OnInit {
             this.getPendingAnswers();
           } else {
             this.toastr.error(success['message']);
+            this.loading = false;
           }
-  
         },
         error => {
           this.toastr.error("Ocorreu um erro desconhecido ao " + textConfirm + " a reposta.");
           console.log(error);
+          this.loading = false;
         }
       )
     }
