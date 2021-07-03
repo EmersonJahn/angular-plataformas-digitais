@@ -164,12 +164,13 @@ function utilFormatProject($project) {
     $p = $project;
 
     $project = new stdClass();
-    $project->id            = intval($p->id);
-    $project->person        = utilFormatJoinPerson($p);
-    $project->category      = utilFormatJoinCategory($p);
-    $project->title         = trim($p->titulo);
-    $project->description   = trim($p->descricao);
-    $project->project_photo = trim($p->foto_projeto);
+    $project->id             = intval($p->id);
+    $project->person         = utilFormatJoinPerson($p);
+    $project->category       = utilFormatJoinCategory($p);
+    $project->title          = trim($p->titulo);
+    $project->description    = trim($p->descricao);
+    $project->project_photo  = trim($p->foto_projeto);
+    $project->project_status = utilFormatProjectStatus($p);
 
     return $project;
 }
@@ -193,6 +194,14 @@ function utilFormatJoinCategory($join) {
     $category->description = trim($join->categoria_descricao);
 
     return $category;
+}
+
+function utilFormatProjectStatus($project) {
+    $projectStatus = new stdClass();
+    $projectStatus->id          = intval($project->status_projeto_id);
+    $projectStatus->description = trim($project->status_projeto_descricao);
+
+    return $projectStatus;
 }
 
 ?>

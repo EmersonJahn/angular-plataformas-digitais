@@ -53,6 +53,15 @@
 
             <div class="row my-2">
                 <div class="col-12">
+                    <label class="mb-0" for="projectStatus">Situação</label>
+                    <select class="form-control" name="projectStatus" id="projectStatus" [(ngModel)]="project!.project_status.id" [disabled]="!isProjectOwner">
+                        <option *ngFor="let ps of projectStatus" [ngValue]="ps.id">{{ps.description}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-12">
                     <div class="d-flex justify-content-between">
                         <label class="my-auto" for="members">Integrantes</label>
                         <button *ngIf="isProjectOwner" class="btn btn-primary mr-1 mb-1" mat-raised-button matBadge="{{pendingMembersCount}}" matBadgeColor="accent" title="Solicitações para participar" (click)="openApprovalMembers()">

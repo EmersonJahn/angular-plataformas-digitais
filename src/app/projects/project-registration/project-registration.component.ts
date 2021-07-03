@@ -7,6 +7,7 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 import { Category } from 'src/app/classes/Category';
 import { Project } from 'src/app/classes/Project';
 import { Person } from 'src/app/classes/Person';
+import { ProjectStatus } from 'src/app/classes/ProjectStatus';
 
 @Component({
   selector: 'app-project-registration',
@@ -21,21 +22,25 @@ export class ProjectRegistrationComponent implements OnInit {
   public userId = Number(localStorage.getItem("userId"));
 
   public categories: Category[] = [];
+  public projectStatus: ProjectStatus[] = [];
 
   public title        = "";
   public description  = "";
   public projectPhoto = this.getDefaultProjectPhotoBase64();
   public category?: Category;
+  public projStatus?: ProjectStatus;
   
-  public isValidTitle       = true;
-  public isValidDescription = true;
-  public isValidCategory    = true;
-  public loading            = false;
+  public isValidTitle         = true;
+  public isValidDescription   = true;
+  public isValidCategory      = true;
+  public isValidProjectStatus = true;
+  public loading              = false;
 
   constructor(private appService: AppService, private toastr: ToastrService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getCategories();
+    this.getProjectStatus();
   }
 
   public projectRegistration() {
@@ -61,16 +66,22 @@ export class ProjectRegistrationComponent implements OnInit {
       this.isValidCategory = false;
     }
 
-    if (!this.isValidTitle || !this.isValidDescription || !this.isValidCategory) {
+    if (this.projStatus && this.projStatus.id > 0) {
+      this.isValidProjectStatus = true;
+    } else {
+      this.isValidProjectStatus = false;
+    }
+
+    if (!this.isValidTitle || !this.isValidDescription || !this.isValidCategory || !this.isValidProjectStatus) {
       this.toastr.error("Todos os campos devem ser preenchidos.");
       return;
     }
 
-    if (this.category) {
+    if (this.category && this.projStatus) {
       this.loading = true;
 
       const person   = new Person(this.userId);
-      const project  = new Project(0, person, this.category, this.title, this.description, this.projectPhoto);
+      const project  = new Project(0, person, this.category, this.title, this.description, this.projectPhoto, this.projStatus);
       
       this.http.post<any>(this.servicesUrl + 'CreateProject.php', {'project': project}).subscribe(
         success => {
@@ -110,6 +121,12 @@ export class ProjectRegistrationComponent implements OnInit {
   private getCategories() {
     this.appService.getCategories().then(categories => {
       this.categories = categories;
+    });
+  }
+  
+  private getProjectStatus() {
+    this.appService.getProjectStatus().then(projectStatus => {
+      this.projectStatus = projectStatus;
     });
   }
 

@@ -88,6 +88,11 @@ class Connection {
 		$sql = "SELECT * FROM categoria ORDER BY categoria.descricao";
 		return $this->connSelectToArrayList($sql);
 	}
+	
+	function connGetProjectStatus() {
+		$sql = "SELECT * FROM status_projeto ORDER BY status_projeto.id";
+		return $this->connSelectToArrayList($sql);
+	}
 
 	function connGetCategoryById($categoryId) {
 		$sql = "SELECT * FROM categoria WHERE categoria.id = $categoryId";
@@ -282,13 +287,14 @@ class Connection {
 	}
 
 	function connCreateProject($project) {
-		$personId     = intval($project['person']['id']);
-		$categoryId   = intval($project['category']['id']);
-		$title        = trim($project['title']);
-		$description  = trim($project['description']);
-		$projectPhoto = trim($project['project_photo']);
+		$personId        = intval($project['person']['id']);
+		$categoryId      = intval($project['category']['id']);
+		$title           = trim($project['title']);
+		$description     = trim($project['description']);
+		$projectPhoto    = trim($project['project_photo']);
+		$projectStatusId = intval($project['project_status']['id']);
 
-		$sql = "INSERT INTO projeto (pessoa_id, categoria_id, titulo, descricao, foto_projeto) VALUES ($personId, $categoryId, '$title', '$description', '$projectPhoto')";
+		$sql = "INSERT INTO projeto (pessoa_id, categoria_id, titulo, descricao, foto_projeto, status_projeto_id) VALUES ($personId, $categoryId, '$title', '$description', '$projectPhoto', $projectStatusId)";
 		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
 	}
 
@@ -302,28 +308,32 @@ class Connection {
 			$condition .= " pr.categoria_id = $categoryId";
 		}
 
-		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
-				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id $condition ORDER BY pr.id";
+		// $sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
+		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao, ps.descricao status_projeto_descricao 
+				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id JOIN status_projeto ps ON pr.status_projeto_id = ps.id $condition ORDER BY pr.id";
 		return $this->connSelectToObjectList($sql);
 	}
 
 	function connGetProjectById($projectId) {
-		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
-				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id WHERE pr.id = $projectId";
+		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao, ps.descricao status_projeto_descricao 
+				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id JOIN status_projeto ps ON pr.status_projeto_id = ps.id WHERE pr.id = $projectId";
 		return $this->connSelectToObject($sql);
 	}
 
 	function connUpdateProject($project) {
-		$projectId    = intval($project['id']);
-		$categoryId   = intval($project['category']['id']);
-		$title        = trim($project['title']);
-		$description  = trim($project['description']);
-		$projectPhoto = trim($project['project_photo']);
+		$projectId       = intval($project['id']);
+		$categoryId      = intval($project['category']['id']);
+		$title           = trim($project['title']);
+		$description     = trim($project['description']);
+		$projectPhoto    = trim($project['project_photo']);
+		$projectStatusId = intval($project['project_status']['id']);
+		
 		$sql = "UPDATE projeto SET 
-					categoria_id = $categoryId   ,
-					titulo       = '$title'      ,
-					descricao    = '$description',
-					foto_projeto = '$projectPhoto'
+					categoria_id      = $categoryId    ,
+					titulo            = '$title'       ,
+					descricao         = '$description' ,
+					foto_projeto      = '$projectPhoto',
+					status_projeto_id = $projectStatusId
 				WHERE id = $projectId";
 		return pg_affected_rows(pg_query($sql)) > 0 ? true : false;
 	}

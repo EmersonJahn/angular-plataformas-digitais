@@ -12,6 +12,7 @@ import { Project } from 'src/app/classes/Project';
 import { ProjectMember } from 'src/app/classes/ProjectMember';
 import { Person } from 'src/app/classes/Person';
 import { PendingProjectMember } from 'src/app/classes/PendingProjectMember';
+import { ProjectStatus } from 'src/app/classes/ProjectStatus';
 
 @Component({
   selector: 'app-project-visualization',
@@ -37,6 +38,7 @@ export class ProjectVisualizationComponent implements OnInit {
 
   public projectMembers: ProjectMember[] = [];
   public categories: Category[] = [];
+  public projectStatus: ProjectStatus[] = [];
   private projectMembersRemoved: ProjectMember[] = [];
 
   public isProjectOwner    = false;
@@ -50,6 +52,7 @@ export class ProjectVisualizationComponent implements OnInit {
   ngOnInit(): void {
     this.selectedProjectId = Number(this.route.snapshot.paramMap.get('id'));
     this.getCategories();
+    this.getProjectStatus();
     this.getProject();
   }
   
@@ -252,6 +255,12 @@ export class ProjectVisualizationComponent implements OnInit {
   private getCategories() {
     this.appService.getCategories().then(categories => {
       this.categories = categories;
+    });
+  }
+
+  private getProjectStatus() {
+    this.appService.getProjectStatus().then(projectStatus => {
+      this.projectStatus = projectStatus;
     });
   }
 
