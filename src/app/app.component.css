@@ -46,16 +46,8 @@
     top: 100%;
     right: 0;
     z-index: 100;
-    width: 160px;
-    /* padding-top: 4px; */
-    /* padding-bottom: 4px; */
-    /* margin-top: 2px; */
-    /* list-style: none; */
-    /* background-color: var(--color-bg-overlay); */
-    /* background-clip: padding-box; */
-    border: 1px solid var(--color-border-overlay);
+    width: 175px;
     border-radius: 6px;
-    /* box-shadow: var(--color-dropdown-shadow); */
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
 }
 

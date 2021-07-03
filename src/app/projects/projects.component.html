@@ -40,8 +40,9 @@
                     <img src="{{project.project_photo}}" alt="Imagem do projeto">
                 </div>
                 <div class="card-project-body text-light">
-                    <p class="card-project-text mt-0 mb-2">{{project.title}}</p>
-                    <p class="card-project-description">{{ project.description.length > 135 ? project.description.substr(0,135) + '...' : project.description}}</p>
+                    <p class="card-project-text mt-0 mb-1">{{project.title}}</p>
+                    <p class="card-project-description mt-0 mb-1"> <b>Categoria: </b> {{project.category.description}}</p>
+                    <p class="card-project-description">{{ project.description.length > 95 ? project.description.substr(0,95) + '...' : project.description}}</p>
                 </div>
             </div>
 
