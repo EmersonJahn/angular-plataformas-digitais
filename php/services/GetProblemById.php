@@ -13,7 +13,6 @@ utilDefinesHeaders();
 $rest_json = file_get_contents("php://input");
 $_POST     = json_decode($rest_json, true);
 
-// $problemId = 1;
 $problemId = intval($_POST["problem_id"]);
 
 $connection = new Connection();

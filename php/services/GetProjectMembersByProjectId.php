@@ -13,7 +13,6 @@ utilDefinesHeaders();
 $rest_json = file_get_contents("php://input");
 $_POST     = json_decode($rest_json, true);
 
-// $projectId = 1;
 $projectId = intval($_POST["project_id"]);
 
 $connection     = new Connection();

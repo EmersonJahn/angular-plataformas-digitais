@@ -179,7 +179,6 @@ class Connection {
 	function connGetAnswersByProblemId($problemId) {
 		$sql = "SELECT r.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil 
 				FROM resposta r JOIN pessoa pe ON r.pessoa_id = pe.id WHERE r.problema_id = $problemId AND r.status_resposta_id = 2";
-		// $sql = "SELECT * FROM resposta WHERE resposta.problema_id = $problemId AND resposta.status_resposta_id = 2";
 		return $this->connSelectToObjectList($sql);
 	}
 
@@ -190,8 +189,6 @@ class Connection {
 	}
 
 	function connGetPendingAnswers() {
-		// $sql = "SELECT rap.* , p.id pessoa_id, p.tipo_pessoa_id tipo_pessoa_id, p.nome pessoa_nome, p.cpf pessoa_cpf, p.cnpj pessoa_cnpj, p.email pessoa_email, p.foto_perfil pessoa_foto_perfil, pr.titulo problema_titulo
-		// 		FROM resposta_aprovacao_pendente rap JOIN resposta r ON rap.resposta_id = r.id JOIN pessoa p ON r.pessoa_id = p.id JOIN problema pr ON rap.problema_id = pr.id ORDER BY rap.id";
 		$sql = "SELECT * FROM resposta_aprovacao_pendente";
 		return $this->connSelectToObjectList($sql);
 	}
@@ -230,7 +227,6 @@ class Connection {
 	function connGetProblemById($problemId) {
 		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
 				FROM problema pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id WHERE pr.id = $problemId";
-		// $sql = "SELECT * FROM problema WHERE problema.id = $problemId";
 		return $this->connSelectToObject($sql);
 	}
 
@@ -308,7 +304,6 @@ class Connection {
 			$condition .= " pr.categoria_id = $categoryId";
 		}
 
-		// $sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao 
 		$sql = "SELECT pr.*, pe.tipo_pessoa_id tipo_pessoa_id, pe.nome pessoa_nome, pe.cpf pessoa_cpf, pe.cnpj pessoa_cnpj, pe.email pessoa_email, pe.foto_perfil pessoa_foto_perfil, c.descricao categoria_descricao, ps.descricao status_projeto_descricao 
 				FROM projeto pr JOIN pessoa pe ON pr.pessoa_id = pe.id JOIN categoria c ON pr.categoria_id = c.id JOIN status_projeto ps ON pr.status_projeto_id = ps.id $condition ORDER BY pr.id";
 		return $this->connSelectToObjectList($sql);

@@ -13,9 +13,6 @@ utilDefinesHeaders();
 $rest_json = file_get_contents("php://input");
 $_POST     = json_decode($rest_json, true);
 
-// $searchBy   = "EMER";
-// $categoryId = 0;
-
 $searchBy   = strtoupper(trim($_POST["search_by"]));
 $categoryId = intval($_POST["category_id"]);
 

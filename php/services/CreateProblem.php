@@ -7,7 +7,6 @@ ini_set("error_log", "./php-error.log");
 
 require('../lib/util.php');
 require('../lib/connection.php');
-// require('../lib/token.php');
 
 utilDefinesHeaders();
 

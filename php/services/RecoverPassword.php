@@ -7,14 +7,11 @@ ini_set("error_log", "./php-error.log");
 
 require('../lib/util.php');
 require('../lib/connection.php');
-// require('../lib/token.php');
 
 utilDefinesHeaders();
 
 $rest_json = file_get_contents("php://input");
 $_POST     = json_decode($rest_json, true);
-
-// $email = "eajahn@ucs.br";
 
 $email = trim($_POST["email"]);
 

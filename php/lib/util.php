@@ -34,32 +34,6 @@ function utilVerifyResquestNotNull($request) {
 }
 
 
-// function utilValidToken($token) {
-//     list($header, $payload, $signature) = explode(".", $token);
-
-//     $valid = hash_hmac('sha256', "$header.$payload", CHAVE, true);
-//     $valid = base64_encode($valid);
-
-//     if ($signature != $valid) {
-
-//         header('HTTP/1.0 401 Unauthorized');
-
-//         if (!class_exists('Response')) {
-//             class Response{}
-//         }
-
-//         $response = new Response();
-//         $response->status  = 0;
-//         $response->message = 'Token inválido.';
-        
-//         echo json_encode($response);
-
-//         return false;
-//     }
-
-//     return true;
-// }
-
 function utilEchoDbConnectionError() {
     if (!class_exists('Response')) {
 		class Response{}
@@ -90,10 +64,6 @@ function utilEchoReponse($field = null, $value = null, $status = 1, $message = "
 }
 
 function utilSendEmail($destination, $subject, $message, $title = "") {
-    // ini_set('SMTP', "smtp.gmail.com");
-    // ini_set('smtp_port', "80");
-    // ini_set('sendmail_from', "ucsinova@gmail.com");
-
 	$headers  = 'Content-Type: text/html; charset=utf-8'."\r\n";
 	$headers .= 'MIME-Version: 1.0' . "\r\n";
 	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";

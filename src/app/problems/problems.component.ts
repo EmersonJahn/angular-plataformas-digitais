@@ -77,15 +77,6 @@ export class ProblemsComponent implements OnInit {
     this.router.navigateByUrl('problems/visualization/' + problem.id);
   }
 
-  // public getCategoryDescription(categoryId: Number) {
-  //   let categoryDescription = "";
-  //   const index = this.categories.findIndex(i => i.id == categoryId);
-  //   if (index > -1) {
-  //     categoryDescription = this.categories[index].description;
-  //   }
-  //   return categoryDescription;
-  // }
-
   private getCategories() {
     this.appService.getCategories().then(categories => {
       this.categories = categories;

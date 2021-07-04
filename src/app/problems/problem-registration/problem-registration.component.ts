@@ -70,7 +70,6 @@ export class ProblemRegistrationComponent implements OnInit {
 
     this.loading = true;
 
-    // const categoryId = this.category ? this.category.id : 0;
     if (this.category) {
       const person     = new Person(this.userId);
       const problem    = new Problem(0, person, this.category, this.title, this.description, 1, 0);

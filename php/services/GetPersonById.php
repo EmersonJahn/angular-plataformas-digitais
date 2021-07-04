@@ -7,24 +7,11 @@ ini_set("error_log", "./php-error.log");
 
 require('../lib/util.php');
 require('../lib/connection.php');
-// require('../lib/token.php');
 
 utilDefinesHeaders();
 
 $rest_json = file_get_contents("php://input");
 $_POST     = json_decode($rest_json, true);
-
-// foreach (getallheaders() as $name => $value) {
-//     if ($name == 'token') {
-//         $token = $value;
-//     }
-// }    
-
-// if (!utilValidToken($token)) {
-//     exit;
-// }
-
-// $personId = 1;
 
 $personId = intval($_POST["person_id"]);
 
