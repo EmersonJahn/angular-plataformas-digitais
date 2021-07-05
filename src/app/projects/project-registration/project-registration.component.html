@@ -37,7 +37,7 @@
             <div class="row my-2">
                 <div class="col-12">
                     <label class="mb-0" for="category">Situação</label>
-                    <select class="form-control" [ngClass]="{'is-invalid': !isValidCategory}" name="category" id="category" [(ngModel)]="projStatus">
+                    <select class="form-control" [ngClass]="{'is-invalid': !isValidProjectStatus}" name="category" id="category" [(ngModel)]="projStatus">
                         <option *ngFor="let ps of projectStatus" [ngValue]="ps">{{ps.description}}</option>
                     </select>
                 </div>
