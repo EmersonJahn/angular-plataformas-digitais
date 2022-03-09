@@ -1,4 +1,4 @@
-# PlataformasDigitais
+# PlataformasDigitais - UCSiNOVA
 
 ## Project developed for the discipline of "Laboratório de Software", from Universidade de Caxias do Sul (UCS), in the semester 01/2021.
 
@@ -26,7 +26,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 <br>
 
 ## Main screens (All website is responsive :fire:): 
-<table border=0>
+<table style="border:0">
 <tr>
 <th colspan=4>
 - Login / Sign Up
@@ -81,7 +81,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Developed by
 
-<table border=0>
+<table style="border:0">
 <tr>
 <td>
 <a href="https://github.com/EmersonJahn">
@@ -101,7 +101,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Colaborators
 
-<table border=0>
+<table style="border:0">
 <tr>
 <td>
 <a href="https://github.com/vbcomin">
