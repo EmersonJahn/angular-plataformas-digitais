@@ -11,6 +11,8 @@
 - PHP
 - CSS
 - Bootstrap
+- PostgreSQL
+- AWS
 
 <br>
 
