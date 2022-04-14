@@ -7,17 +7,17 @@
     font-weight: bold;
 }
 
-.card-problem {
+.problem-card {
     background-color: #e8e8e8;
     border-radius: 5%;
 }
 
-.title-problem {
+.problem-title {
     font-weight: bold;
     font-size: 1.2rem;
 }
 
-.description-problem {
+.problem-description {
     font-size: .9rem;
     color: rgb(97, 95, 95);
 }

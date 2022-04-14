@@ -19,9 +19,9 @@ const routes: Routes = [
   { path: 'problems/registration', component: ProblemRegistrationComponent },
   { path: 'problems/visualization/:id', component: ProblemVisualizationComponent },
   { path: 'projects', component: ProjectsComponent },
-  { path: 'projects/approval-members', component: ApprovalProjectMembersComponent },
+  { path: 'projects/approval-members/:id', component: ApprovalProjectMembersComponent },
   { path: 'projects/registration', component: ProjectRegistrationComponent },
-  { path: 'projects/visualization', component: ProjectVisualizationComponent },
+  { path: 'projects/visualization/:id', component: ProjectVisualizationComponent },
 ];
 
 @NgModule({

@@ -1,3 +1,22 @@
+.app-nav {
+    background-color: #2543b0;
+}
+
+.btn-login {
+    border: 1;
+    border-color: white;
+    color: white;
+    /* border-color: #da3540;
+    color: #da3540; */
+}
+
+.btn-login:hover {
+    background-color: white;
+    color: #2543b0;
+    /* background-color: #da3540;
+    color: white; */
+}
+
 .div-profile-photo {
     cursor: pointer;
 }
@@ -27,19 +46,56 @@
     top: 100%;
     right: 0;
     z-index: 100;
-    width: 160px;
-    /* padding-top: 4px; */
-    /* padding-bottom: 4px; */
-    /* margin-top: 2px; */
-    /* list-style: none; */
-    /* background-color: var(--color-bg-overlay); */
-    /* background-clip: padding-box; */
-    border: 1px solid var(--color-border-overlay);
+    width: 175px;
     border-radius: 6px;
-    /* box-shadow: var(--color-dropdown-shadow); */
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
 }
 
 .password-visibility {
     cursor: pointer;
 }
+
+.bg-disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+footer img {
+    height: 200px;
+}
+
+.approval-icons button {
+    min-width: 42px;
+}
+
+.btn-reject {
+    border-color: #da3540;
+    color: #da3540;
+}
+
+.btn-reject:hover {
+    background-color: #da3540;
+    color: white;
+}
+
+.btn-approve {
+    border-color: green;
+    color: green;
+}
+
+.btn-approve:hover {
+    background-color: green;
+    color: white;
+}
+
+@media screen and (max-width: 991px) {
+
+    footer img {
+        height: 100px;
+    }
+
+}
+
+
+
+

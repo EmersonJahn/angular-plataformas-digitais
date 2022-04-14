@@ -1,6 +1,10 @@
-<header>
+<header id="header">
 
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-primary">
+
+        <div class="d-block d-md-none w-100 text-light text-center">
+            <h2>UCSiNOVA</h2>
+        </div>
 
         <div class="d-flex">
             <ul class="navbar-nav mr-2 mr-md-5">
@@ -16,43 +20,42 @@
             </ul>
         </div>
 
-        <!-- <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-        aria-controls="dropdown-basic">
-    Button dropdown <span class="caret"></span>
-    </button> -->
-
-        <!-- <div>
-            <button *ngIf="!userId" class="btn btn-primary" (click)="login()">Login</button>
-            <div *ngIf="userId" class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="false">
-                <div *ngIf="userId" class="div-profile-photo" (click)="openOptions=!openOptions" dropdownToggle>
-                    <img src="{{profilePhoto}}" alt="Foto de perfil"> 
-                    <mat-icon class="text-light" aria-hidden="false" aria-label="Seta para baixo">arrow_drop_down</mat-icon>
-                </div>
-                <ul *dropdownMenu class="dropdown-menu" role="menu">
-                    <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-                    <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-                    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
-        </div> -->
-
+        <div class="d-none d-md-block text-light">
+            <h2>UCSiNOVA</h2>
+        </div>
 
         <div>
-            <button *ngIf="!userId" class="btn btn-primary" (click)="login()">Login</button>
+            <button *ngIf="!userId" class="btn btn-login" (click)="login()">Entrar</button>
             <div *ngIf="userId" class="div-profile-photo" (click)="openOptions=!openOptions">
                 <img src="{{profilePhoto}}" alt="Foto de perfil"> 
                 <mat-icon class="text-light" aria-hidden="false" aria-label="Seta para baixo">arrow_drop_down</mat-icon>
             </div>
         </div>
 
-        <div class="open-profile-options" *ngIf="openOptions">
-            <p class="cursor-pointer bold-hover dropdown-item mb-0" routerLink="/sign-up" routerLinkActive="ative">Alterar cadastro</p>
-            <p class="cursor-pointer bold-hover dropdown-item mb-0" (click)="logout()">Sair</p>
+        <div class="open-profile-options bg-primary" *ngIf="openOptions">
+            <p class="cursor-pointer bold-hover text-light mx-3 mb-1 mt-2" routerLink="/sign-up" routerLinkActive="ative">Alterar cadastro</p>
+            <p class="cursor-pointer bold-hover text-light mx-3 mb-1" routerLink="/problems/aproval-answers" routerLinkActive="ative" *ngIf="userId==1">Aprovar respostas</p>
+            <p class="cursor-pointer bold-hover text-light mx-3 mb-2" (click)="logout()">Sair</p>
         </div>
 
     </nav>
 
 </header>
 
+<div [ngStyle]="{'min-height.px': clientHeight}">
+    <router-outlet></router-outlet>
+</div>
 
-<router-outlet></router-outlet>
+<div class="container-fluid pt-5" id="footer">
+    <footer class="text-light bg-dark row py-3">
+        <div class="col-6 col-lg-4 text-center">
+            <img src="assets/images/logo-ucs.png" alt="Logo UCS">
+        </div>
+        <div class="d-none d-lg-block col-lg-4">
+        </div>
+        <div class="col-6 col-lg-4 text-center">
+            <img src="assets/images/logo-fucs.png" alt="Logo FUCS">
+        </div>
+    </footer>
+</div>
+

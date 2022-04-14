@@ -1,1 +1,129 @@
-<p>project-visualization works!</p>
+<div class="container-fluid">
+
+    <div class="row mt-4 px-3">
+        
+        <div class="col-12 col-md-4 col-lg-3">
+
+            <div class="row text-center">
+                <div class="col-12">
+                    <label for="file-input" [ngClass]="{'cursor-pointer': isProjectOwner}" title="Alterar foto do projeto">
+                        <img src="{{project!.project_photo}}" alt="Foto do projeto" class="project-photo"> 
+                    </label>
+                    <div *ngIf="isProjectOwner">
+                        <input class="d-none" id="file-input" type="file" accept="image/*" (change)="onFileChanged($event)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center mt-2">
+                <span class="col-12">
+                    <div>
+                        <img src="{{project!.person.profile_photo}}" alt="Foto de perfil" class="profile-photo">
+                        <span class="ml-2">Criado por {{project!.person.name}}</span>
+                    </div>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="col-12 col-md-8 col-lg-9">
+            
+            <div class="row my-2">
+                <div class="col-12">
+                    <label class="mb-0" for="title">Título</label>
+                    <input class="form-control" type="text" id="title" [(ngModel)]="project!.title" [disabled]="!isProjectOwner">
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-12">
+                    <label class="mb-0" for="description">Descrição</label>
+                    <textarea class="form-control" id="description" rows="5" [(ngModel)]="project!.description" [disabled]="!isProjectOwner"></textarea>
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-12">
+                    <label class="mb-0" for="category">Categoria</label>
+                    <select class="form-control" name="category" id="category" [(ngModel)]="project!.category.id" [disabled]="!isProjectOwner">
+                        <option *ngFor="let c of categories" [ngValue]="c.id">{{c.description}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-12">
+                    <label class="mb-0" for="projectStatus">Situação</label>
+                    <select class="form-control" name="projectStatus" id="projectStatus" [(ngModel)]="project!.project_status.id" [disabled]="!isProjectOwner">
+                        <option *ngFor="let ps of projectStatus" [ngValue]="ps.id">{{ps.description}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between">
+                        <label class="my-auto" for="members">Integrantes</label>
+                        <button *ngIf="isProjectOwner" class="btn btn-primary mr-1 mb-1" mat-raised-button matBadge="{{pendingMembersCount}}" matBadgeColor="accent" title="Solicitações para participar" (click)="openApprovalMembers()">
+                            <fa-icon [icon]="faUserPlus"></fa-icon>
+                        </button>
+                    </div>
+                    <table class="table border" [ngClass]="{'bg-disabled': !isProjectOwner}">
+                        <tr *ngIf="projectMembers.length==0">
+                            <td class="py-1">Ainda não há integrantes nesse projeto</td>
+                        </tr>
+                        <tr *ngFor="let projectMember of projectMembers">
+                            <td class="py-1 w-100">
+                                <div>
+                                    <img src="{{projectMember.person.profile_photo}}" alt="Foto de perfil" class="profile-photo-sm">
+                                    <span class="ml-2">{{projectMember.person.name}}</span>
+                                </div>
+                            </td>
+                            <td class="py-1" *ngIf="isProjectOwner">
+                                <button class="btn btn-danger btn-sm cursor-pointer" title="Remover integrante" (click)="removeProjectMemberFromList(projectMember.person.id, false)">
+                                    <fa-icon class="text-light" [icon]="faTrashAlt"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <span *ngIf="!isProjectOwner && !isProjectMember">
+                <div  class="row text-right justify-content-end">
+                    <div class="col-12 col-md-7 col-lg-5 col-xl-4">
+                        <span class="text-dark ask-to-join" (click)="askToJoinOpened = !askToJoinOpened">Pedir para participar do projeto</span>
+                    </div>
+                </div>
+    
+                <span *ngIf="askToJoinOpened">
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <label class="mb-0" for="member-presentation">Apresentação</label>
+                            <textarea class="form-control" id="member-presentation" rows="5" [(ngModel)]="memberPresentation" [disabled]="askToJoinDisabled"></textarea>
+                            <small *ngIf="!askToJoinDisabled" class="text-danger m-0">*Mínimo 20 caracteres</small>
+                        </div>
+                    </div>
+                    <div *ngIf="!askToJoinDisabled" class="row mb-2 justify-content-center">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                            <button *ngIf="!isProjectOwner && !isProjectMember" class="btn btn-primary btn-block" [disabled]="memberPresentation.trim().length < 20" title="Pedir para participar do projeto" (click)="addProjectMember(userId)">Enviar solicitação</button>
+                        </div>
+                    </div>
+                </span>
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="row mt-0 mb-4 px-3 justify-content-center">
+        <div class="col-12 col-md-5 col-lg-4 col-xl-3 text-center">
+            <button *ngIf="isProjectOwner" class="btn btn-primary btn-block" title="Salvar alterações" (click)="updateProject()">Salvar alterações</button>
+            <button *ngIf="!isProjectOwner && isProjectMember" class="btn btn-primary btn-block" title="Sair do projeto" (click)="removeProjectMemberFromList(userId, true)">Sair do projeto</button>
+        </div>
+    </div>
+
+</div>
+
+<ng-template #template></ng-template>
+<ngx-loading [show]="loading" [config]="loadingConfig" [template]="template"></ngx-loading>

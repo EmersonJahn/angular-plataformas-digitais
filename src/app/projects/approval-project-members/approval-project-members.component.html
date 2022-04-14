@@ -1,1 +1,52 @@
-<p>approval-project-members works!</p>
+<div class="container mt-2">
+
+    <div class="row mt-4 mb-2 text-center">
+        <div class="col-12">
+            <h4 class="mb-0">APROVAR NOVOS INTEGRANTES</h4>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div *ngIf="pendingProjectMembers.length == 0 && !loading" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
+            Não há integrantes para aprovar.
+        </div>
+    </div>
+
+    <div class="row mt-2">
+
+        <div class="col-12 my-1" *ngFor="let pendingProjectMember of pendingProjectMembers">
+
+            <mat-accordion>
+                <mat-expansion-panel class="problem-card">
+                    <mat-expansion-panel-header class="py-0">
+                        <mat-panel-title>
+                            <div>
+                                <img src="{{pendingProjectMember.person.profile_photo}}" alt="Foto de perfil" class="profile-photo">
+                                <span class="ml-2 text-primary">{{pendingProjectMember.person.name}}</span>
+                            </div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row presentation my-1 pl-2">
+                        <div class="col-12">
+                            <span>{{pendingProjectMember.presentation}}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 approval-icons text-right">
+                        <button class="btn btn-reject mr-1" title="Rejeitar resposta" (click)="approvalProjectMember(pendingProjectMember, false)">
+                            <fa-icon [icon]="faTimes"></fa-icon>
+                        </button>
+                        <button class="btn btn-approve" title="Aprovar resposta" (click)="approvalProjectMember(pendingProjectMember, true)">
+                            <fa-icon [icon]="faCheck"></fa-icon>
+                        </button>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </div>
+        
+    </div>
+
+</div>
+
+<ng-template #template></ng-template>
+<ngx-loading [show]="loading" [config]="loadingConfig" [template]="template"></ngx-loading>
