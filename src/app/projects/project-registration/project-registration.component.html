@@ -34,26 +34,16 @@
                 </div>
             </div>
 
-            <div class="row my-2">
-                <div class="col-12">
-                    <label class="mb-0" for="category">Situação</label>
-                    <select class="form-control" [ngClass]="{'is-invalid': !isValidProjectStatus}" name="category" id="category" [(ngModel)]="projStatus">
-                        <option *ngFor="let ps of projectStatus" [ngValue]="ps">{{ps.description}}</option>
-                    </select>
-                </div>
-            </div>
-
         </div>
 
         <div class="col-12 col-md-4 mt-md-4">
-            <div class="row text-center">
-                <div class="col-12">
-                    <label for="file-input" class="project-photo" title="Alterar foto do projeto">
-                        <img src="{{projectPhoto}}" alt="Foto do projeto"> 
-                    </label>
-                    <div>
-                        <input id="file-input" type="file" accept="image/*" (change)="onFileChanged($event)" style="display: none;"/>
-                    </div>
+            <div class="row justify-content-center">
+                <label for="file-input" class="project-photo" title="Alterar foto do projeto">
+                    <!-- <img [src]="newProfilePhoto" *ngIf="newProfilePhoto" alt="Foto do projeto"> --> <!-- // TODO mostrar foto que foi feito o upload -->
+                    <img src="assets/images/project-icon.png" alt="Foto do projeto"> 
+                </label>
+                <div>
+                    <input id="file-input" type="file" accept="image/*" [(ngModel)]="newProfilePhoto" (change)="onFileChanged($event)" style="display: none;"/>
                 </div>
             </div>
         </div>
@@ -61,7 +51,7 @@
     </div>
 
     <div class="row mt-5 mb-2">
-        <div class="col-12">
+        <div class="col-12 col-md-12">
             <div class="row justify-content-center">
                 <div class="col-6 col-md-5 col-lg-4 col-xl-3 text-center">
                     <button class="btn btn-primary btn-block" (click)="projectRegistration()">Confirmar</button>
@@ -71,6 +61,3 @@
     </div>
 
 </div>
-
-<ng-template #template></ng-template>
-<ngx-loading [show]="loading" [config]="loadingConfig" [template]="template"></ngx-loading>

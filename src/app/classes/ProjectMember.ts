@@ -1,15 +1,13 @@
-import { Person } from "./Person";
-
 export class ProjectMember {
 
-    public id: Number;
     public project_id: Number;
-    public person: Person;
+    public person_id: Number;
+    public project_owner: boolean;
 
-    constructor(id: Number, projectId: Number, person: Person) {
-        this.id         = id;
-        this.project_id = projectId;
-        this.person     = person;
+    constructor(projectId: Number, personId: Number, projectOwner: boolean) {
+        this.project_id    = projectId;
+        this.person_id     = personId;
+        this.project_owner = projectOwner;
     }
 
 }

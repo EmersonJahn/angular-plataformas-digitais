@@ -1,16 +1,12 @@
-import { Person } from 'src/app/classes/Person';
-
 export class PendingProjectMember {
 
-    public id: Number;
     public project_id: Number;
-    public person: Person;
+    public person_id: Number;
     public presentation: string;
 
-    constructor (id: Number, projectId: Number, person: Person, presentation: string) {
-        this.id           = id;
-        this.project_id   = projectId;
-        this.person       = person;
+    constructor (projectId: Number, personId: Number, presentation: string) {
+        this.project_id = projectId;
+        this.person_id = personId;
         this.presentation = presentation;
     }
 

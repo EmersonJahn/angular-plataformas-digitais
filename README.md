@@ -1,123 +1,27 @@
-# PlataformasDigitais - UCSiNOVA
+# PlataformasDigitais
 
-## Project developed for the discipline of "Laboratório de Software", from Universidade de Caxias do Sul (UCS), in the semester 01/2021.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6.
 
-<br>
+## Development server
 
-## Technologies used:
-- Angular
-- Typescript
-- HTML
-- PHP
-- CSS
-- Bootstrap
-- PostgreSQL
-- AWS
-
-<br>
-
-## To run this project you must:
-### - Install and configure:
-- [Angular] (https://angular.io/)
-- [PHP] (https://www.php.net/)
-- HTTP Server to run the PHP, like [Apache] (https://httpd.apache.org/)
-
-### Run the project:
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-<br>
+## Code scaffolding
 
-## Main screens (All website is responsive :fire:): 
-<table style="border:0">
-<tr>
-<th colspan=4>
-- Login / Sign Up
-</th>
-</tr>
-<td>
-<img src="./src/assets/images/screens/profile-login/login.png" alt="Login" height="300"/>
-</td>
-<td>
-<img src="./src/assets/images/screens/profile-login/sign-up.png" alt="Sign up" height="300"/>
-</td>
-</tr>
-<tr>
-<th colspan=4>
-- Problems
-</th>
-</tr>
-<tr>
-<td>
-<img src="./src/assets/images/screens/problems/problems.png" alt="Problems" height="300"/>
-</td>
-<td>
-<img src="./src/assets/images/screens/problems/inside-problem.png" alt="Inside Problem" height="300"/>
-</td>
-<td>
-<img src="./src/assets/images/screens/problems/new-problem.png" alt="New Problem" height="300"/>
-</td>
-</tr>
-<tr>
-<th colspan=4>
-- Projects
-</th>
-</tr>
-<tr>
-<td>
-<img src="./src/assets/images/screens/projects/projects-1.png" alt="Projects 1" height="300"/>
-</td>
-<td>
-<img src="./src/assets/images/screens/projects/projects-2.png" alt="Projects 2" height="300"/>
-</td>
-<td>
-<img src="./src/assets/images/screens/projects/inside-project.png" alt="Inside Project" height="300"/>
-</td>
-<td>
-<img src="./src/assets/images/screens/projects/new-project.png" alt="New Project" height="300"/>
-</td>
-</tr>
-</table>
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-<br>
-<br>
+## Build
 
-## Developed by
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-<table style="border:0">
-<tr>
-<td>
-<a href="https://github.com/EmersonJahn">
-<img style="border-radius: 50%;" src="https://avatars3.githubusercontent.com/u/68763696?s=400&u=c823bbab5b472417b5d7883037989fd503be07c2&v=4" width="100px">
-<br>
-<sub><b>Emerson Jahn</b></sub></a> <a href="https://github.com/EmersonJahn" title="GitHub"></a>
+## Running unit tests
 
-[![GitHub Badge](https://img.shields.io/badge/-black?style=flat-square&logo=GitHub&logoColor=white&link=https://github.com/EmersonJahn//)](https://github.com/EmersonJahn/) 
-[![Linkedin Badge](https://img.shields.io/badge/-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/emerson-jahn-76285a180//)](https://www.linkedin.com/in/emerson-jahn/) 
-[![Instagram Badge](https://img.shields.io/badge/-blueviolet?style=flat-square&logo=Instagram&logoColor=white&link=https://www.instagram.com/emerson_jahn//)](https://www.instagram.com/emerson_jahn) 
-[![Gmail Badge](https://img.shields.io/badge/-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:emersonajahn.com)](mailto:emersonajahn@gmail.com)
-</td>
-</tr>
-</table>
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-<br>
+## Running end-to-end tests
 
-## Colaborators
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-<table style="border:0">
-<tr>
-<td>
-<a href="https://github.com/vbcomin">
-<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/81934697?v=4" width="100px">
-<br>
-<sub><b>Victor Comin</b></sub></a> <a href="https://github.com/vbcomin" title="GitHub"></a>
-</td>
-<td>
-<a href="https://github.com/gugagobbato">
-<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/52713981?v=4" width="100px">
-<br>
-<sub><b>Gustavo Gobbato</b></sub></a> <a href="https://github.com/gugagobbato" title="GitHub"></a>
-</td>
-</tr>
+## Further help
 
-</table>
-
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

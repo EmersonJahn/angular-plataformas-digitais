@@ -1,20 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatBadgeModule } from '@angular/material/badge';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { NgxLoadingModule } from 'ngx-loading';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,14 +46,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
     MatIconModule,
     MatInputModule,
     MatDialogModule,
-    MatExpansionModule,
-    MatBadgeModule,
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 5000,
@@ -66,8 +59,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     }),
     ShowHidePasswordModule,
     NgxMaskModule.forRoot(),
-    NgMultiSelectDropDownModule,
-    NgxLoadingModule.forRoot({}),
+    NgMultiSelectDropDownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

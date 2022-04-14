@@ -1,19 +1,16 @@
-import { Problem } from "./Problem";
-import { Person } from "./Person";
-
 export class Answer {
 
     public id: Number;
-    public problem: Problem;
-    public person  : Person;
+    public problem_id: Number;
+    public person_id: Number;
     public answer: string;
     public answer_status_id: Number;
     public right_answer: boolean;
 
-    constructor (id: Number, problem: Problem, person: Person, answer: string, answerStatusId: Number, rightAnswer: boolean) {
+    constructor (id: Number, problemId: Number, personId: Number, answer: string, answerStatusId: Number, rightAnswer: boolean) {
         this.id               = id;
-        this.problem          = problem;
-        this.person           = person;
+        this.problem_id       = problemId;
+        this.person_id        = personId;
         this.answer           = answer;
         this.answer_status_id = answerStatusId;
         this.right_answer     = rightAnswer;

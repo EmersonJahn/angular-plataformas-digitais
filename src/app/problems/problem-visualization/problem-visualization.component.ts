@@ -1,15 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { ToastrService } from 'ngx-toastr';
-
-import { AppService } from 'src/app/app.service';
 import { Answer } from 'src/app/classes/Answer';
 import { Person } from 'src/app/classes/Person';
 import { Problem } from 'src/app/classes/Problem';
-import { GlobalConstants } from 'src/app/common/global-constants';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-problem-visualization',
@@ -19,103 +15,60 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 export class ProblemVisualizationComponent implements OnInit {
 
   public faCheck = faCheck;
-  
-  private servicesUrl   = GlobalConstants.servicesUrl;
-  public  loadingConfig = GlobalConstants.loadingConfig;
 
-  public userId = Number(localStorage.getItem("userId"));
-
+  // public selectedProblemId = Number(localStorage.getItem("selectedProblemId"));
   public selectedProblemId = 0;
   public answerOpened = false;
 
   public addAnswer = "";
   public disableAddAnswer = false;
 
-  public problem?: Problem;
+  public problem: any;
   public answers: Answer[] = [];
+  public persons: Person[] = [];
 
-  public loading = false;
-
-  constructor(private route: ActivatedRoute, private appService: AppService, private toastr: ToastrService, private http: HttpClient, private router: Router) { }
+  constructor(private route: ActivatedRoute, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if (!this.appService.validLogin()) {
-      this.router.navigateByUrl('problems');
-    }
     this.selectedProblemId = Number(this.route.snapshot.paramMap.get('id'));
     this.getProblem();
   }
 
   private getProblem() {
-    this.loading = true;
+    // TODO buscar problema do selectedProblemId
 
-    this.http.post<any>(this.servicesUrl + 'GetProblemById.php', {'problem_id': this.selectedProblemId}).subscribe(
-      success => {
-        if (success['status'] == 1) {
-          this.problem = success['problem'];
-          this.getAnswers();
-        } else {
-          this.toastr.error(success['message']);
-          this.loading = false;
-        }
-      },
-      error => {
-        this.toastr.error("Ocorreu um erro desconhecido ao buscar o problema.");
-        console.log(error);
-        this.loading = false;
-      }
-    )
+    this.problem = new Problem(this.selectedProblemId, this.selectedProblemId, this.selectedProblemId, "Título problema - " + this.selectedProblemId, "Descrição problema - " + this.selectedProblemId + ": Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tenetur ratione vero laudantium quidem alias officiis recusandae! Error, assumenda soluta. Velit labore blanditiis necessitatibus voluptas, fugiat ex aspernatur vel architecto.", this.selectedProblemId, this.selectedProblemId);
+    this.getPersonById(this.problem.person_id);
+    this.getAnswers();
   }
 
   private getAnswers() {
-    this.answers = [];
+    // TODO buscar respostas do selectedProblemId
 
-    this.loading = true;
+    const answer = new Answer(1, this.selectedProblemId, 2, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut voluptatum corporis itaque tempora adipisci accusantium pariatur quidem reprehenderit! Perferendis blanditiis cum asperiores accusantium necessitatibus earum voluptatibus, reiciendis voluptate veritatis nulla!", 2, false);
+    this.answers.push(answer);
 
-    this.http.post<any>(this.servicesUrl + 'GetAnswersByProblemId.php', {'problem_id': this.selectedProblemId}).subscribe(
-      success => {
-        if (success['status'] == 1) {
-          this.answers = success['answers'];
-        } else {
-          this.toastr.error(success['message']);
-        }
+    this.getPersonById(answer.person_id);
+  }
 
-        this.loading = false;
-      },
-      error => {
-        this.toastr.error("Ocorreu um erro desconhecido ao buscar as respostas.");
-        console.log(error);
-        this.loading = false;
-      }
-    )
+  private getPersonById(personId: Number) {
+    // TODO buscar pessoas do personId
 
+    if (personId == 1) {
+      const person = new Person(1, 1, "Enzo Gabriel", "99999999999", "", "enzo@gmail.com", "123456", "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png");
+      this.persons.push(person);
+    }
+    if (personId == 2) {
+      const person2 = new Person(2, 1, "Ana Valentina", "88888888888", "", "valentina@gmail.com", "654321", "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png");
+      this.persons.push(person2);
+    }
   }
 
   public sendToReview() {
-    this.loading = true;
 
-    const person  = new Person(this.userId);
-    const problem = new Problem(this.selectedProblemId, person);
-    const answer  = new Answer(0, problem, person, this.addAnswer, 1, false);
-
-    this.http.post<any>(this.servicesUrl + 'CreateAnswer.php', {'answer': answer}).subscribe(
-      success => {
-        if (success['status'] == 1) {
-          this.toastr.success("Agradeçemos a contribuição.", "A sua resposta foi enviada para análise.");
-          this.disableAddAnswer = true;
-        } else {
-          this.toastr.error(success['message']);
-        }
-
-        this.loading = false;
-      },
-      error => {
-        console.log(error);
-        this.toastr.error("Ocorreu um erro desconhecido ao tentar gravar a resposta.");
-        this.loading = false;
-      }
-    )
+    // TODO new PendingAnswer e gravar no banco
+    this.toastr.success("Agradeçemos a contribuição.", "Resposta enviada para análise.")
+    this.disableAddAnswer = true;
   }
-
 
 }
