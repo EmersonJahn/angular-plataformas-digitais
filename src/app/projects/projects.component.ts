@@ -1,5 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
+import { GlobalConstants } from '../common/global-constants';
 import { AppService } from '../app.service';
 import { Category } from '../classes/Category';
 import { Project } from '../classes/Project';
@@ -11,15 +15,20 @@ import { Project } from '../classes/Project';
 })
 export class ProjectsComponent implements OnInit {
 
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
+  
   public userId = localStorage.getItem("userId");
 
-  public searchBy = "";
-  public category = 0; 
+  public searchBy   = "";
+  public categoryId = 0; 
 
   public categories: Category[] = [];
   public projects: Project[] = [];
 
-  constructor(private appService: AppService, private router: Router) { }
+  public loading = false;
+
+  constructor(private appService: AppService, private router: Router, private toastr: ToastrService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -28,12 +37,30 @@ export class ProjectsComponent implements OnInit {
 
   public getProjects() {
     this.projects = [];
-    for (let index = 0; index < 6; index++) {
-      const project = new Project(index, "Projeto - " + index, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis exercitationem velit earum voluptates nobis, nam aut voluptatibus. Tempore pariatur repellat sit ipsam, ducimus est nemo obcaecati vel voluptatem aspernatur. Iusto!", "assets/images/project-icon.png"); 
-      this.projects.push(project);
+
+    this.loading = true;
+
+    const body = {
+      "search_by": this.searchBy.trim(),
+      "category_id": this.categoryId
     }
-    // TODO validar filtros
-    // TODO buscar no banco
+    
+    this.http.post<any>(this.servicesUrl + 'GetProjects.php', body).subscribe(
+      success => {
+        if (success['status'] == 1) {
+          this.projects = success['projects'];  
+        } else {
+          this.toastr.error(success['message']);
+        }
+
+        this.loading = false;
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar os projetos.");
+        console.log(error);
+        this.loading = false;
+      }
+    )
   }
 
   public openNewProject() {
@@ -43,8 +70,18 @@ export class ProjectsComponent implements OnInit {
     this.router.navigateByUrl('projects/registration');
   }
 
+  public selectProject(project: Project) {
+    if (!this.appService.validLogin()) {
+      return;
+    }
+    this.router.navigateByUrl('projects/visualization/' + project.id);
+  }
+
   private getCategories() {
-    this.categories = this.appService.getCategories();
+    this.appService.getCategories().then(categories => {
+      this.categories = categories;
+      this.categories.push(new Category(0, "Todas"));
+    });
   }
 
 }

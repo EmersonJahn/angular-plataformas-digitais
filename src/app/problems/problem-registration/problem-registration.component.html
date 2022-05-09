@@ -10,35 +10,21 @@
     <div class="row my-2">
         <div class="col-12">
             <label class="mb-0" for="title">Título</label>
-            <input class="form-control" [ngClass]="{'is-invalid': !isValidTitle}" type="text" id="title" [(ngModel)]="title">
+            <input class="form-control" [ngClass]="{'is-invalid': !isValidTitle}" type="text" id="title" [(ngModel)]="title" [disabled]="disabled">
         </div>
     </div>
 
     <div class="row my-2">
         <div class="col-12">
             <label class="mb-0" for="description">Descrição</label>
-            <textarea class="form-control" [ngClass]="{'is-invalid': !isValidDescription}" id="description" rows="5" [(ngModel)]="description"></textarea>
+            <textarea class="form-control" [ngClass]="{'is-invalid': !isValidDescription}" id="description" rows="5" [(ngModel)]="description" [disabled]="disabled"></textarea>
         </div>
     </div>
-
-    <!-- <div class="my-2">
-        <div class="form-group select-block">
-            <label class="mb-0" for="category">Categoria</label>
-            <ng-multiselect-dropdown 
-            [ngClass]="{'is-invalid': !isValidCategory}"
-            name="category"
-            [placeholder]="'Selecione'"
-            [settings]="dropdownSettings"
-            [data]="categories"
-            [(ngModel)] ="category"
-            >
-        </ng-multiselect-dropdown>
-    </div> -->
 
     <div class="row my-2">
         <div class="col-12">
             <label class="mb-0" for="category">Categoria</label>
-            <select class="form-control" [ngClass]="{'is-invalid': !isValidCategory}" name="category" id="category" [(ngModel)]="category">
+            <select class="form-control" [ngClass]="{'is-invalid': !isValidCategory}" name="category" id="category" [(ngModel)]="category" [disabled]="disabled">
                 <option *ngFor="let c of categories" [ngValue]="c">{{c.description}}</option>
             </select>
         </div>
@@ -46,9 +32,11 @@
 
     <div class="row mt-4 justify-content-center">
         <div class="col-6 col-md-5 col-lg-4 col-xl-3 text-center">
-            <button class="btn btn-primary btn-block" (click)="problemRegistration()">Confirmar</button>
+            <button class="btn btn-primary btn-block" (click)="problemRegistration()" [disabled]="disabled">Confirmar</button>
         </div>
     </div>
 
-
 </div>
+
+<ng-template #template></ng-template>
+<ngx-loading [show]="loading" [config]="loadingConfig" [template]="template"></ngx-loading>

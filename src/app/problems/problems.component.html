@@ -8,20 +8,9 @@
         </div>
     
         <div class="col-12 col-md-5">
-            <!-- <div class="form-group select-block">
-                <label class="mb-0" for="category">Categoria</label>
-                <ng-multiselect-dropdown 
-                [ngClass]="{'is-invalid': !isValidCategory}"
-                name="category"
-                [placeholder]="'Selecione'"
-                [settings]="dropdownSettings"
-                [data]="categories"
-                [(ngModel)] ="category"
-                >
-            </ng-multiselect-dropdown> -->
             <label class="mb-0" for="category">Categoria</label>
-            <select class="form-control" name="category" id="category" [(ngModel)]="category">
-                <option *ngFor="let c of categories" [ngValue]="c">{{c.description}}</option>
+            <select class="form-control" name="category" id="category" [(ngModel)]="categoryId">
+                <option *ngFor="let c of categories" [ngValue]="c.id">{{c.description}}</option>
             </select>
         </div>
     
@@ -34,27 +23,29 @@
     <div class="row text-right justify-content-end mr-1">
         <div class="col-8 col-md-3 col-xl-2">
             <span class="text-dark new-problem" (click)="openNewProblem()">+ Novo problema</span>
-            <!-- <a class="nav-link text-dark new-problem" routerLink="./registration" routerLinkActive="ative"> + Novo problema</a> -->
         </div>
     </div>
 
     <div class="container">
         <div class="row justify-content-center mt-3">
     
-            <div *ngIf="problems.length == 0" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
+            <div *ngIf="problems.length == 0 && !loading" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
                 Nenhum problema encontrado para os filtros selecionados.
             </div>
            
             <div class="col-12" *ngFor="let problem of problems">
     
-                <!-- routerLink="./visualization" routerLinkActive="ative"  -->
-                <div class="card-problem cursor-pointer jump-hover border my-2 px-2" (click)="selectProblem(problem)">
-                    <div class="title-problem my-1">
+                <div class="problem-card cursor-pointer jump-hover border my-2 px-2" (click)="selectProblem(problem)">
+                    <div class="problem-title my-1">
                         {{problem.title}}
                     </div>
     
-                    <div class="description-problem my-1">
+                    <div class="problem-description my-1">
                         {{problem.description}}
+                    </div>
+
+                    <div class="problem-description my-1">
+                        <span class="font-weight-bold">Categoria: {{problem.category!.description}}</span>
                     </div>
     
                     <div class="number-answers-problem text-primary my-1">
@@ -69,5 +60,5 @@
 
 </div>
 
-
-
+<ng-template #template></ng-template>
+<ngx-loading [show]="loading" [config]="loadingConfig" [template]="template"></ngx-loading>

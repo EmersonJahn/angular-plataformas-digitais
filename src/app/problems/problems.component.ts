@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
+import { GlobalConstants } from '../common/global-constants';
 import { AppService } from '../app.service';
 import { Category } from '../classes/Category';
 import { Problem } from '../classes/Problem';
@@ -14,35 +16,51 @@ import { Problem } from '../classes/Problem';
 })
 export class ProblemsComponent implements OnInit {
 
+  private servicesUrl   = GlobalConstants.servicesUrl;
+  public  loadingConfig = GlobalConstants.loadingConfig;
+
   public userId = localStorage.getItem("userId");
 
   public searchBy = "";
-  public category = 0; 
+  public categoryId = 0; 
 
   public categories: Category[] = [];
   public problems: Problem[]    = [];
 
-  // public dropdownSettings = {};
+  public loading = false;
 
-  constructor(private appService: AppService, private toastr: ToastrService, private router: Router) { }
+  constructor(private appService: AppService, private toastr: ToastrService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
-    // this.setDropdownSettings();
     this.getCategories();
     this.getProblems();
-
-    localStorage.setItem("selectedProblemId", "0");
   }
 
   public getProblems() {
     this.problems = [];
-    for (let index = 1; index < 6; index++) {
-      const problem = new Problem(index, index, index, "Título problema - " + index, "Descrição problema - " + index + ": Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tenetur ratione vero laudantium quidem alias officiis recusandae! Error, assumenda soluta. Velit labore blanditiis necessitatibus voluptas, fugiat ex aspernatur vel architecto.", index, index);
-      this.problems.push(problem);
+
+    this.loading = true;
+
+    const body = {
+      "search_by": this.searchBy.trim(),
+      "category_id": this.categoryId
     }
 
-    // TODO validar filtros
-    // TODO buscar no banco
+    this.http.post<any>(this.servicesUrl + 'GetProblems.php', body).subscribe(
+      success => {
+        if (success['status'] == 1) {
+          this.problems = success['problems'];  
+        } else {
+          this.toastr.error(success['message']);
+        }
+        this.loading = false;
+      },
+      error => {
+        this.toastr.error("Ocorreu um erro desconhecido ao buscar os problemas.");
+        console.log(error);
+        this.loading = false;
+      }
+    )
   }
 
   public openNewProblem() {
@@ -59,19 +77,11 @@ export class ProblemsComponent implements OnInit {
     this.router.navigateByUrl('problems/visualization/' + problem.id);
   }
 
-  // private setDropdownSettings() {
-  //   this.dropdownSettings = {
-  //     singleSelection: true,
-  //     idField: 'id',
-  //     textField: 'description',
-  //     allowSearchFilter: true,
-  //     searchPlaceholderText: 'BUSCAR',
-  //     noDataAvailablePlaceholderText: "ERRO AO CARREGAR AS CATEGORIAS",
-  //   };
-  // }
-
   private getCategories() {
-    this.categories = this.appService.getCategories();
+    this.appService.getCategories().then(categories => {
+      this.categories = categories;
+      this.categories.push(new Category(0, "Todas"));
+    });
   }
 
 }

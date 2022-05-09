@@ -1,1 +1,54 @@
-<p>approval-answers works!</p>
+<div class="container mt-2">
+
+    <div class="row mt-4 mb-2 text-center">
+        <div class="col-12">
+            <h4 class="mb-0">APROVAR RESPOSTAS</h4>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div *ngIf="pendingAnswers.length == 0 && !loading" class="col-12 col-md-6 mx-auto alert alert-danger" role="alert">
+            Não há respostas para aprovar.
+        </div>
+    </div>
+
+    <div class="row my-2" *ngFor="let pendingAnswer of pendingAnswers">
+        <div class="col-12 p-0">
+
+            <mat-accordion>
+                <mat-expansion-panel class="problem-card">
+                    <mat-expansion-panel-header class="py-0">
+                        <mat-panel-title class="problem-title">
+                            <span>{{pendingAnswer.problem.title}}</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="row mb-1">
+                        <div class="col-12">
+                            <img class="profile-photo" src="{{pendingAnswer.answer.person.profile_photo}}" alt="Foto de perfil">
+                            <span class="text-primary ml-2">{{pendingAnswer.answer.person.name}}</span>
+                        </div>
+                    </div>
+                    <div class="row my-1 problem-description pl-2">
+                        <div class="col-12 ml-md-5">
+                            {{pendingAnswer.answer.answer}}
+                        </div>
+                    </div>
+                    <div class="row pr-3">
+                        <div class="col-12 approval-icons text-right">
+                            <button class="btn btn-reject mr-1" title="Rejeitar resposta" (click)="approvalAnswer(pendingAnswer, false)">
+                                <fa-icon [icon]="faTimes"></fa-icon>
+                            </button>
+                            <button class="btn btn-approve" title="Aprovar resposta" (click)="approvalAnswer(pendingAnswer, true)">
+                                <fa-icon [icon]="faCheck"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+
+</div>
+
+<ng-template #template></ng-template>
+<ngx-loading [show]="loading" [config]="loadingConfig" [template]="template"></ngx-loading>

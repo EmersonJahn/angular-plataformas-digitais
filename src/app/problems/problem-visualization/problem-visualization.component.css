@@ -1,8 +1,9 @@
 .profile-photo {
     height: 50px;
+    border-radius: 50%;
 }
 
 .card-title-visualization {
-    background-color: rgb(206, 245, 255);
+    background-color: #fcfadb;
     border-radius: 5%;
 }
